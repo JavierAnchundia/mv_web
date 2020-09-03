@@ -1,0 +1,8 @@
+
+.inner-content {
+  margin-top: 75px;
+  padding: 25px;
+  background: #fff;
+  min-height: 1000px;
+  /* overflow-y: scroll; */
+}

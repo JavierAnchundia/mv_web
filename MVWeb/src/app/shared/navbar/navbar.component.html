@@ -1,0 +1,39 @@
+<header id="header" class="fixed-top">
+  <!-- <h1 class="logo mr-auto"><a href="index.html">Camposanto</a></h1> -->
+  <nav class="navbar navbar-expand-lg navbar-light" >
+    <a class="navbar-brand" href="#">{{this.camposanto.nombre}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active ml-5">
+          <a class="nav-link" routerLink="/home/">Inicio <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item ml-5">
+          <a class="nav-link" routerLink= '/404/'>Nosotros</a>
+        </li>
+        <li class="nav-item ml-5">
+          <a class="nav-link" routerLink= '/404/'>Servicios</a>
+        </li>
+        <li class="nav-item ml-5">
+          <a class="nav-link" routerLink= '/404/'>Contacto</a>
+        </li>
+        <li class="nav-item ml-5">
+          <a class="nav-link" routerLink="/home/busqueda">Buscar</a>
+        </li>
+        <li class="nav-item ml-5">
+          <a class="nav-link" routerLink="/home/login" *ngIf="this.loggeduser == false">Login</a>
+        </li>
+        
+        <li class="nav-item ml-5 mr-4">
+          <a class="nav-link" routerLink="/home/register" *ngIf="this.loggeduser == false">Registrarse</a>
+        </li>
+        <li class="nav-item ml-5">
+          <a class="nav-link" routerLink="/home/inicio" (click)="logout()" *ngIf="this.getStatus() == true">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>

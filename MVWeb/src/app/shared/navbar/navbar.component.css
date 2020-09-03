@@ -1,0 +1,39 @@
+#header {
+    background: #fff;
+    transition: all 0.5s;
+    z-index: 999;
+    padding: 25px 15px 15px 15px;
+}
+  
+#header.header-scrolled {
+    top: 0;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+  
+#header .logo {
+    font-size: 30px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+  
+#header .logo a {
+    color: #5cb874;
+}
+  
+#header .logo img {
+    max-height: 40px;
+}
+  
+@media (max-width: 992px) {
+    #header {
+      top: 0;
+      padding: 15px 0;
+    }
+    #header .logo {
+      font-size: 28px;
+    }
+}

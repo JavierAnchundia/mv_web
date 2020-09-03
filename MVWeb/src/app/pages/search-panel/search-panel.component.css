@@ -1,0 +1,33 @@
+input{
+    border-radius: 5px;
+    height: 40px;
+}
+
+button{
+    float: right;
+    padding-top: 10px;  
+}
+
+.row{
+    padding-top: 10px;
+}
+h5{
+    font-size: 20px;
+}
+
+table {
+    width: 100%;
+  }
+  
+th.mat-sort-header-sorted {
+    color: black;
+}
+
+mat-header-cell{
+    font-size: 18px;
+}
+
+mat-cell{
+    font-size: 14px;
+}
+

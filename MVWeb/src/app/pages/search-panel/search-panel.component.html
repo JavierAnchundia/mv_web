@@ -1,0 +1,120 @@
+<div class="row">
+  <div class="col-12 pt-20">
+    <h1>Encuentra a tus seres queridos </h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-2 pt-20">
+    <h5>Nombre:</h5>
+  </div>
+  <div class="col-2 pt-20">
+    <h5>Apellidos:</h5>
+  </div>
+  <div class="col-3 pt-20">
+    <h5>Fecha de defunción desde:</h5>
+  </div>
+  <div class="col-3 pt-20">
+    <h5>Fecha de defunción hasta:</h5>
+  </div>
+  <div class="col-2 pt-20">
+    <h5>No. de lápida:</h5>
+  </div>
+  
+</div>
+
+<form [formGroup]="searchFG" (ngSubmit)="onSubmit(this.searchFG.value)">
+<div class="row pb-10">
+  <div class="col-2">
+    <input type="text" class="form-control" formControlName="nombres">
+  </div>
+  <div class="col-2">
+    <input type="text" class="form-control" formControlName="apellidos">
+  </div>
+  <div class="col-3">
+    <input type="text" matInput [matDatepicker]="picker" formControlName="fechaDefuncionStart">
+    <mat-datepicker-toggle matSuffix [for]="picker">
+      <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+    </mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </div>
+  <div class="col-3">
+    <input type="text" matInput [matDatepicker]="picker2" formControlName="fechaDefuncionEnd">
+    <mat-datepicker-toggle matSuffix [for]="picker2">
+      <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+    </mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </div>
+  
+  <div class="col-2">
+    <input type="text" class="form-control" formControlName="noLapida">
+  </div>
+</div>
+<div class="row">
+  <div class="col-2 pt-20">
+    <h5>Sector:</h5>
+  </div>
+  <div class="col-2 pt-20">
+    <h5>Tipo de sepultura:</h5>
+  </div>
+</div>
+<div class="row">
+  <div class="col-2">
+    <select class=" custom-select" formControlName="sector" (change)="onChangeSector($event.target.value)">
+      <option selected value=""> Seleccione un sector</option> 
+      <option *ngFor="let sec of this.lista_sector" value={{sec.id_sector}}> {{sec.nombre}} </option>
+    </select>
+  </div>
+  <div class="col-2">
+    <select class=" custom-select" formControlName="tipoSepultura" (change)="onChangeSepultura($event.target.value)">
+      <option selected value=""> Seleccione un tipo</option> 
+      <option *ngFor="let sep of this.lista_sepultura" value={{sep.id_tip_sepultura}}> {{sep.nombre}} </option>
+    </select>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary btn-lg">Buscar</button>
+  </div>
+</div>
+</form >
+<div class="row">
+  <div class="col-12">
+    <h2>Resultados de la búsqueda</h2>
+  </div>
+</div>
+<div class="container-fluid">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="cedula">
+      <mat-header-cell *matHeaderCellDef> Cédula </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.cedula}} </mat-cell>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="nombre">
+      <mat-header-cell *matHeaderCellDef> Nombres </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="apellidos">
+      <mat-header-cell *matHeaderCellDef> Apellidos </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.apellido}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaNacimiento">
+      <mat-header-cell *matHeaderCellDef> Fecha de nacimiento </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.fecha_nacimiento}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaDefuncion">
+      <mat-header-cell *matHeaderCellDef> Fecha de defuncion </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.fecha_difuncion}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lapida">
+        <mat-header-cell *matHeaderCellDef> No. Lápida </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.no_lapida}} </mat-cell>
+      </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row (click)="getRecord(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
