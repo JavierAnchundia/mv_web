@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistrationValidator } from './registration_validator';
 import { UsuarioService } from '../services/usuario/usuario.service';
 import { Usuario } from '../models/usuario.model';
 import Swal from 'sweetalert2'
+import 'src/assets/smtp.js';
+
+declare let Email: any;
 
 @Component({
   selector: 'app-register',
@@ -16,11 +19,21 @@ export class RegisterComponent implements OnInit {
   faFacebookF = faFacebookF;
   registrationFormGroup: FormGroup;
   passwordFormGroup: FormGroup;
-  id:any;
-  constructor(public formBuilder: FormBuilder,private  router:  Router,
-              public _usuarioService: UsuarioService, ) {
+  id: any;
+  f: NgForm;
+
+  model = {
+    titulo: '',
+    email: '',
+    nombre: '',
+    apellido: '',
+    cementerio: '',
+  }
+
+  constructor(public formBuilder: FormBuilder, private router: Router,
+    public _usuarioService: UsuarioService,) {
     this.formValidator();
-    
+
   }
 
   ngOnInit(): void {
@@ -53,7 +66,7 @@ export class RegisterComponent implements OnInit {
   }
 
   registrarUsuario() {
-    if(this.registrationFormGroup.invalid){
+    if (this.registrationFormGroup.invalid) {
       Swal.fire('No se pudo completar el registro')
       return;
     }
@@ -69,48 +82,69 @@ export class RegisterComponent implements OnInit {
     formData.append('direccion', '');
     formData.append('estado', 'True');
     formData.append('id_camposanto', this.id.camposanto);
-    formData.append('tipo_usuario','uf');
+    formData.append('tipo_usuario', 'uf');
 
-    let usuario = new Usuario(
-      this.registrationFormGroup.value.nombre,
-      this.registrationFormGroup.value.apellidos,
-      this.registrationFormGroup.value.email,
-      this.registrationFormGroup.value.username,
-      this.passwordFormGroup.value.password,
-      true,
-      '1'
-    );
-    
     let registroSatisfactorio = this._usuarioService.crearUsuario(formData)
-                        .subscribe(
-                          resp=>{
-                            console.log(resp);
-                            Swal.close();
-                            Swal.fire('¡Registro Exitoso!')
-                            this.router.navigate(['/home/login']);
+      .subscribe(
+        resp => {
+          console.log(resp);
+          Swal.close();
+          Swal.fire('¡Registro Exitoso!')
+          this.router.navigate(['/home/login']);
 
-                            return true;
-                          }, error=>{
-                              Swal.fire("Hubo un error en el registro.","Intenta nuevamente");
-                              this.registrationFormGroup.reset()
-                          }
-                        );
-    if(registroSatisfactorio){
-        this.loadStorageCID(formData.get('username'));
-    } else{
-      Swal.fire('¡Error!','No se pudo completar tu registro. Intenta nuevamente.')
+        },error => {
+          Swal.fire("Hubo un error en el registro.", "Intenta nuevamente");
+          this.registrationFormGroup.reset()
+        },() => this.sendEmail(this.f)
+      )
+
+    if (registroSatisfactorio) {
+      this.loadStorageCID(formData.get('username'));
+    } else {
+      Swal.fire('¡Error!', 'No se pudo completar tu registro. Intenta nuevamente.')
     }
-   
+
     console.log('Forma valida', this.registrationFormGroup.valid)
     console.log(this.registrationFormGroup.value)
-    
-   
+
+
   }
 
-  loadStorageCID(username){
+  loadStorageCID(username) {
     localStorage.setItem('username', username);
 
   }
 
-  
+  sendEmail(f: NgForm) {
+
+    this.model.nombre = this.registrationFormGroup.value.nombre
+    this.model.apellido = this.registrationFormGroup.value.apellidos
+    this.model.email = this.registrationFormGroup.value.email;
+    this.model.cementerio = this.id.nombre
+    Email.send({
+      SecureToken: `c489e9d9-b427-4506-9950-f941b20871a2`,
+      /* Host: `smtp.elasticemail.com`,
+      Username: `mapavirtual2020@gmail.com`,
+      Password: `8506B45413AA45CAD21FABB2A388CF089B04`, */
+      To: `${this.model.email}`,
+      From: `fireba`,
+      Subject: `¡Bienvenido a Mapa Virtual!`,
+      Body: `
+        <i>¡Te damos la bienvenida a mapa virtual!</i> <br/> 
+        <b>Hola ${this.model.nombre} ${this.model.apellido} <br /> 
+        <b>Gracias por unirte a </b>${this.model.cementerio} <br /> 
+        <b>Explora nuestra página y conoce más novedades.</b><br /> `,
+
+    }).then(message => {
+      console.log(message);
+    });
+
+
+
+
+
+
+
+  }
+
 }

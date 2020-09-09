@@ -32,7 +32,7 @@ export class AppComponent implements OnInit{
   cargarEmpresa(id){
     this._servicio.getEmpresa(id).subscribe((resp: any) => {
       this.empresa = resp;
-      localStorage.setItem('info', JSON.stringify({camposanto: this.camposanto['id_camposanto'], empresa: this.empresa['id_empresa']}));
+      localStorage.setItem('info', JSON.stringify({camposanto: this.camposanto['id_camposanto'],nombre:this.camposanto['nombre'], empresa: this.empresa['id_empresa']}));
     })
   }
 }
