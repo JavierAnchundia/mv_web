@@ -5,8 +5,9 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { DifuntoService } from 'src/app/services/difunto/difunto.service';
 import { SectorService } from 'src/app/services/sector/sector.service';
 import { TiposepulturaService } from '../../services/tiposepultura/tiposepultura.service';
-import { Camposanto } from '../../../../../../ADMIN/MVAdmin/src/app/models/camposanto.model';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2'
+import { Difunto } from 'src/app/models/difunto.model';
 
 export interface difunto {
   nombre: string;
@@ -19,27 +20,16 @@ export interface difunto {
 
 }
 
-const ELEMENT_DATA: difunto[] = [
-  { position: 1, nombre: 'Hydrogen', lapida: 1.0079, apellidos: 'H', sector: 'Tierra', tipoSepultura: 'Bóveda', fechaDefuncion: '12/12/1999' },
-  { position: 2, nombre: 'Helium', lapida: 4.0026, apellidos: 'He', sector: 'Tierra', tipoSepultura: 'Bóveda', fechaDefuncion: '12/12/1999' },
-  { position: 3, nombre: 'Lithium', lapida: 6.941, apellidos: 'Li', sector: 'Tierra', tipoSepultura: 'Bóveda', fechaDefuncion: '12/12/1999' },
-  { position: 4, nombre: 'Beryllium', lapida: 9.0122, apellidos: 'Be', sector: 'Tierra', tipoSepultura: 'Bóveda', fechaDefuncion: '12/12/1999' },
-  { position: 5, nombre: 'Boron', lapida: 10.811, apellidos: 'B', sector: 'Tierra', tipoSepultura: 'Bóveda', fechaDefuncion: '12/12/1999' },
-  { position: 6, nombre: 'Carbon', lapida: 12.0107, apellidos: 'C', sector: 'Tierra', tipoSepultura: 'Bóveda', fechaDefuncion: '12/12/1999' },
-  { position: 7, nombre: 'Nitrogen', lapida: 14.0067, apellidos: 'N', sector: 'Tierra', tipoSepultura: 'Bóveda', fechaDefuncion: '12/12/1999' },
-  { position: 8, nombre: 'Oxygen', lapida: 15.9994, apellidos: 'O', sector: 'Tierra', tipoSepultura: 'Bóveda', fechaDefuncion: '12/12/1999' },
-  { position: 9, nombre: 'Fluorine', lapida: 18.9984, apellidos: 'F', sector: 'Tierra', tipoSepultura: 'Bóveda', fechaDefuncion: '12/12/1999' },
-  { position: 10, nombre: 'Neon', lapida: 20.1797, apellidos: 'Ne', sector: 'Tierra', tipoSepultura: 'Bóveda', fechaDefuncion: '12/12/1999' },
-];
+
 
 @Component({
   selector: 'app-search-panel',
   templateUrl: './search-panel.component.html',
   styleUrls: ['./search-panel.component.css']
 })
-export class SearchPanelComponent implements OnInit {
+export class SearchPanelComponent implements OnInit,AfterViewInit {
 
-  displayedColumns: string[] = ['cedula','nombre', 'apellidos','fechaNacimiento' ,'fechaDefuncion', 'lapida'];
+  displayedColumns: string[] = ['cedula','nombre', 'apellidos','fechaNacimiento' ,'fecha_difuncion', 'lapida'];
   searchFG: FormGroup;
   lista_resultados:any;
   lista_sector: any;
@@ -48,7 +38,7 @@ export class SearchPanelComponent implements OnInit {
   sectorOption: string;
   id:any;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  public dataSource = new MatTableDataSource();
+  public dataSource = new MatTableDataSource<Difunto>();
 
   constructor(public formBuilder: FormBuilder, 
     public _difunto: DifuntoService, 
@@ -79,15 +69,18 @@ export class SearchPanelComponent implements OnInit {
   }
 
   onSubmit(value) {
-    console.log("FORM VALUE: ", value);
+    Swal.showLoading();
     this.lista_resultados = [];
     this._difunto.getDifuntos(this.id.camposanto, value.nombres, value.apellidos)
       .subscribe((resp: any) =>{
+
         console.log(resp);
         this.lista_resultados = resp;
-        this.dataSource = new MatTableDataSource(this.lista_resultados);
-        if(this.lista_resultados == 0){
-          alert("No se encontraron coincidencias.")
+        this.dataSource.data = resp as Difunto[];
+        console.log(this.dataSource.data.length)
+        Swal.close()
+        if(this.dataSource.data.length == 0){
+          Swal.fire('No se encontraron coincidencias.','Intente nuevamente.')
         }
       }
     )
@@ -97,6 +90,7 @@ export class SearchPanelComponent implements OnInit {
     this._sector.getSector(this.id.camposanto)
       .subscribe((resp: any) => {
         this.lista_sector = resp;
+
       })
   }
 
