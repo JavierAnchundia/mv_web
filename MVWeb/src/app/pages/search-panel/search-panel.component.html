@@ -83,7 +83,7 @@
   </div>
 </div>
 <div class="container-fluid">
-  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" (matSortChange)="sortData($event)">
     <ng-container matColumnDef="cedula">
       <mat-header-cell *matHeaderCellDef> Cédula </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.cedula}} </mat-cell>
@@ -105,9 +105,10 @@
     </ng-container>
 
     <ng-container matColumnDef="fechaDefuncion">
-      <mat-header-cell *matHeaderCellDef> Fecha de defuncion </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.fecha_difuncion}} </mat-cell>
-    </ng-container>
+      <mat-header-cell *matHeaderCellDef mat-sort-header="date"> Fecha de defuncion </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.fecha_difuncion| date: 'dd MMM., yyyy'}} </mat-cell>
+    </ng-container> 
+
 
     <ng-container matColumnDef="lapida">
         <mat-header-cell *matHeaderCellDef> No. Lápida </mat-header-cell>
@@ -116,5 +117,5 @@
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row (click)="getRecord(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
+  </table>
 </div>

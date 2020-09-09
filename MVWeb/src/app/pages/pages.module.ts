@@ -33,7 +33,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         SearchPanelComponent,
         HomeComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        MatSortModule,
+        MatTableModule
     ],
     imports: [
         CommonModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
@@ -40,7 +40,6 @@ const ELEMENT_DATA: difunto[] = [
 export class SearchPanelComponent implements OnInit {
 
   displayedColumns: string[] = ['cedula','nombre', 'apellidos','fechaNacimiento' ,'fechaDefuncion', 'lapida'];
-  dataSource;
   searchFG: FormGroup;
   lista_resultados:any;
   lista_sector: any;
@@ -49,6 +48,7 @@ export class SearchPanelComponent implements OnInit {
   sectorOption: string;
   id:any;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  public dataSource = new MatTableDataSource();
 
   constructor(public formBuilder: FormBuilder, 
     public _difunto: DifuntoService, 
@@ -61,7 +61,8 @@ export class SearchPanelComponent implements OnInit {
       apellidos: new FormControl(''),
       tipoSepultura: new FormControl(''),
       sector: new FormControl(''),
-      fechaDefuncion: new FormControl(''),
+      fechaDefuncionStart: new FormControl(''),
+      fechaDefuncionEnd: new FormControl(''),
       noLapida: new FormControl('')
 
     });
@@ -71,6 +72,10 @@ export class SearchPanelComponent implements OnInit {
     this.id = JSON.parse(localStorage.getItem('info'));
     this.cargarSector();
     this.cargarSepultura();
+  }
+
+  ngAfterViewInit (){
+    this.dataSource.sort = this.sort;
   }
 
   onSubmit(value) {
@@ -116,6 +121,27 @@ export class SearchPanelComponent implements OnInit {
     this.router.navigate(['/404']);
     console.log(row);
 
+  }
+
+  sortData(event) {
+    const data = this.lista_resultados.slice();
+    if (!this.sort.active || this.sort.direction === '') {
+      this.dataSource = data;
+      return;
+    }
+
+    this.dataSource = this.lista_resultados.sort((a, b) => {
+      const isAsc = this.sort.direction === 'asc';
+      switch (this.sort.active) {
+        
+        case 'date': return this.compare(a.date, b.date, isAsc);
+        default: return 0;
+      }
+    });
+    
+  }
+  compare(a: number | string | Date, b: number | string | Date, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
     
 }
