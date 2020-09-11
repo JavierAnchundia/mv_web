@@ -7,6 +7,8 @@ import { UsuarioService } from '../services/usuario/usuario.service';
 import { Usuario } from '../models/usuario.model';
 import Swal from 'sweetalert2'
 import 'src/assets/smtp.js';
+import { map,catchError } from 'rxjs/operators';
+import { of,throwError } from 'rxjs';
 
 declare let Email: any;
 
@@ -85,6 +87,14 @@ export class RegisterComponent implements OnInit {
     formData.append('tipo_usuario', 'uf');
 
     let registroSatisfactorio = this._usuarioService.crearUsuario(formData)
+      .pipe(
+        catchError(err => {
+          
+          Swal.close()
+          Swal.fire(this.errorTranslateHandler(err.error[Object.keys(err.error)[0]][0]) );
+          console.log(err.error[Object.keys(err.error)[0]][0]);
+          return throwError(err);
+      }))
       .subscribe(
         resp => {
           console.log(resp);
@@ -93,15 +103,15 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/home/login']);
 
         },error => {
-          Swal.fire("Hubo un error en el registro.", "Intenta nuevamente");
-          this.registrationFormGroup.reset()
+         // Swal.fire("Hubo un error en el registro.", "Intenta nuevamente");
+         // this.registrationFormGroup.reset()
         },() => this.sendEmail(this.f)
       )
 
     if (registroSatisfactorio) {
       this.loadStorageCID(formData.get('username'));
     } else {
-      Swal.fire('¡Error!', 'No se pudo completar tu registro. Intenta nuevamente.')
+      //Swal.fire('¡Error!', 'No se pudo completar tu registro. Intenta nuevamente.')
     }
 
     console.log('Forma valida', this.registrationFormGroup.valid)
@@ -109,6 +119,21 @@ export class RegisterComponent implements OnInit {
 
 
   }
+
+  errorTranslateHandler(error:String){
+    switch(error) { 
+      case "user with this email address already exists.": { 
+         return "Hubo un error al guardar los datos: Ya existe este correo, intente con otro";
+      } 
+      case   "user with this username already exists."      : { 
+         return "Hubo un error al guardar los datos: Ya existe este nombre de usuario, intente con otro"      
+      } 
+      default: { 
+         return "Hubo un error al guardar los datos"
+      } 
+   } 
+  }
+
 
   loadStorageCID(username) {
     localStorage.setItem('username', username);
