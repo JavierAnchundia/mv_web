@@ -1,3 +1,5 @@
+// const URL_ROOT = 'http://localhost:8000/api'
+// const URL_ROOT_AUTH = 'http://localhost:8000'
 const URL_ROOT = 'https://carmsanc.pythonanywhere.com/api'
 const URL_ROOT_AUTH = 'https://carmsanc.pythonanywhere.com'
 
@@ -21,6 +23,7 @@ const URL_SERVICIOS = {
     login: URL_ROOT + '/token/',
     refreshlogin: URL_ROOT_AUTH +'api/token/refresh/ ',
     fblogin: URL_ROOT_AUTH+'/auth/convert-token/',
+    obtener_usuarios: URL_ROOT + '/obtener_usuarios/',
 }
 
 export default URL_SERVICIOS

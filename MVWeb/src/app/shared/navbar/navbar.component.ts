@@ -3,6 +3,10 @@ import { CamposantoService } from 'src/app/services/camposanto/camposanto.servic
 import { UsuarioService } from '../../services/usuario/usuario.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
+import { faIdCard } from '@fortawesome/free-solid-svg-icons';
+import { faDizzy} from '@fortawesome/free-solid-svg-icons';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navbar',
@@ -10,11 +14,14 @@ import Swal from 'sweetalert2'
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  camposanto:any;
+  camposanto:any = {nombre: ""}
   empresa:any;
   id:any;
   loggeduser=false;
-
+  faIdCard = faIdCard;
+  faDizzy = faDizzy;
+  faSignOutAlt = faSignOutAlt;
+  faBell = faBell;
   constructor(
     public _servicio: CamposantoService,
     public _usuario: UsuarioService,
@@ -44,7 +51,8 @@ export class NavbarComponent implements OnInit {
   }
 
   getStatus(){
-    this.loggeduser = this._usuario.isLoggedin;
+    // this.loggeduser = this._usuario.isLoggedin;
+    this.loggeduser = this._usuario.statusLogin()
     return this.loggeduser;
   }
 

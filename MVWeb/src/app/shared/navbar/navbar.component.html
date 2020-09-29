@@ -23,15 +23,28 @@
         <li class="nav-item ml-5">
           <a class="nav-link" routerLink="/home/busqueda">Buscar</a>
         </li>
-        <li class="nav-item ml-5">
-          <a class="nav-link" routerLink="/home/login" *ngIf="this.loggeduser == false">Login</a>
+        <li class="nav-item ml-5" *ngIf="!getStatus()">
+          <a class="nav-link" routerLink="/home/login" >Login</a>
         </li>
         
-        <li class="nav-item ml-5 mr-4">
-          <a class="nav-link" routerLink="/home/register" *ngIf="this.loggeduser == false">Registrarse</a>
+        <li class="nav-item ml-5 mr-4" *ngIf="!getStatus()">
+          <a class="nav-link" routerLink="/home/register">Registrarse</a>
         </li>
-        <li class="nav-item ml-5">
-          <a class="nav-link" routerLink="/home/inicio" (click)="logout()" *ngIf="this.getStatus() == true">Logout</a>
+        <!-- <li class="nav-item ml-5" *ngIf="getStatus()">
+          <a class="nav-link" routerLink="/home/inicio" (click)="logout()">Logout</a>
+        </li> -->
+        <li class="nav-item ml-5 dropdown" *ngIf="getStatus()">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            nombre usuario
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#"><fa-icon [icon]="faIdCard"></fa-icon> Perfil</a>
+            <a class="dropdown-item" href="#"><fa-icon [icon]="faDizzy"></fa-icon> Favoritos</a>
+            <a class="dropdown-item" href="#"><fa-icon [icon]="faBell"></fa-icon> Notificaciones</a>
+            <a class="dropdown-item" routerLink="/home/inicio" (click)="logout()">
+              <fa-icon [icon]="faSignOutAlt"></fa-icon>
+              Logout</a>
+          </div>
         </li>
       </ul>
     </div>

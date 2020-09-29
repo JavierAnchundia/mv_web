@@ -20,8 +20,11 @@ export class RegisterComponent implements OnInit {
   registrationFormGroup: FormGroup;
   passwordFormGroup: FormGroup;
   id: any;
+  submitted = false;
   f: NgForm;
-
+  usernameLista: any = [];
+  emailLista: any = [];
+  lista_usuarios: any = [];
   model = {
     titulo: '',
     email: '',
@@ -29,7 +32,7 @@ export class RegisterComponent implements OnInit {
     apellido: '',
     cementerio: '',
   }
-
+  paternEmail = '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$';
   constructor(public formBuilder: FormBuilder, private router: Router,
     public _usuarioService: UsuarioService,) {
     this.formValidator();
@@ -38,7 +41,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = JSON.parse(localStorage.getItem('info'));
-
+    this.obtenerUsuarios();
   }
 
   formValidator() {
@@ -47,18 +50,31 @@ export class RegisterComponent implements OnInit {
       repeatPassword: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(30)])],
     }, { validator: RegistrationValidator.validate.bind(this) })
 
-    this.registrationFormGroup = new FormGroup({
+    this.registrationFormGroup = this.formBuilder.group({
       nombre: new FormControl('', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])),
       apellidos: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
-      email: new FormControl('', Validators.compose([
+      email: new FormControl(null, Validators.compose([
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ])),
       username: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
       passwordFormGroup: this.passwordFormGroup
-    });
+    },
+    {
+      validator:[ 
+        this.match_username(),
+        this.match_email()
+      ],
+    }
+    );
   }
+
+  get email(){
+    return this.registrationFormGroup.get('email');
+  }
+
   onSubmitRegisterDetails(value) {
+    this.submitted = true;
     console.log("FORM VALUE: ", value);
     Swal.showLoading();
 
@@ -138,13 +154,58 @@ export class RegisterComponent implements OnInit {
     }).then(message => {
       console.log(message);
     });
+  }
 
+  async obtenerUsuarios() {
+    await this. _usuarioService
+      .getUsersAll()
+      .toPromise()
+      .then((data: any[]) => {
+        this.lista_usuarios = data;
+      });
+    for (let i = 0; i < this.lista_usuarios.length; i++) {
+      console.log(this.lista_usuarios[i]['username'])
+      this.usernameLista.push(this.lista_usuarios[i]['username']);
+      if (this.lista_usuarios[i]['id_camposanto'] == this.id.camposanto) {
+        this.emailLista.push(this.lista_usuarios[i]['email']);
+      }
+    }
+  }
 
+  match_username() {
+    // let username = this.adminForm.value.usuario;
+    // username = String(username);
+    return (formGroup: FormGroup) =>{
+      let list_username = this.usernameLista;
+      const usernameControl = formGroup.controls['username'];
+      if (usernameControl.errors && ! usernameControl.errors.match_username) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
+      if (list_username.includes(usernameControl.value)) {
+        usernameControl.setErrors({ usernameMatch: true });
+      } else {
+        usernameControl.setErrors(null);
+      }
+    }
+  }
 
-
-
-
-
+  match_email() {
+    // let correo_u = this.adminForm.value.correo;
+    // correo_u = String(correo_u);
+    return (formGroup: FormGroup) =>{
+      let list_correo = this.emailLista;
+      const correoControl = formGroup.controls['email'];
+      if (correoControl.errors && ! correoControl.errors.match_email) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
+      if (list_correo.includes(correoControl.value)) {
+        correoControl.setErrors({ correoMatch: true });
+      } else {
+        correoControl.setErrors(null);
+      }
+    }
   }
 
 }

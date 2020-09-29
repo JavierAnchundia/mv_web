@@ -27,21 +27,30 @@
           </div>
           <div class="form-group">
             <label for="username">Username:</label>
-            <input type="text" class="form-control" formControlName="username" />
-            <p style="color: red;"
-              *ngIf="(registrationFormGroup.controls.username.errors?.required)&& registrationFormGroup.controls.username.touched">
-              Este campo es obligatorio.</p>
-              
+            <input type="text" class="form-control" formControlName="username"required [ngClass]="{ 'is-invalid': submitted && registrationFormGroup.controls.username.errors }"/>
+            <div *ngIf=" registrationFormGroup.controls.username.invalid && (registrationFormGroup.controls.username.dirty || registrationFormGroup.controls.username.touched)" class="">
+              <div *ngIf="registrationFormGroup.controls.username.errors.required " class="text-danger"><small>Ingresar un nombre de usuario</small></div>
+              <div *ngIf="registrationFormGroup.controls.username.errors.usernameMatch" class="text-danger"><small> Nombre de usuario ya registrado</small></div>
+            </div>
           </div>
           <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" class="form-control" formControlName="email" />
-            <p style="color: red;"
-              *ngIf="(registrationFormGroup.controls.email.errors?.required)&& registrationFormGroup.controls.email.touched">
-              Ingrese una dirección de correo.</p>
-              <p style="color: red;"
-              *ngIf="(registrationFormGroup.controls.email.errors?.pattern)&& registrationFormGroup.controls.email.touched">
-              Ingrese una dirección de correo válida.</p>
+            <input id="email" type="text" class="form-control" formControlName="email" 
+              [ngClass]="{ 'is-invalid': submitted && registrationFormGroup.controls.email.errors }" required (input)="match_email()" />
+              <!-- <div *ngIf="email.errors?.pattern && (registrationFormGroup.controls.email.dirty || registrationFormGroup.controls.email.touched )" class="text-danger"><small>Ingresar un correo electrónico válido</small></div> -->
+              <div *ngIf=" registrationFormGroup.controls.email.invalid && (registrationFormGroup.controls.email.dirty || registrationFormGroup.controls.email.touched ) " class="">
+                <div *ngIf="registrationFormGroup.controls.email.errors.required" class="text-danger"><small>Ingresar un correo electrónico</small></div>
+                <div *ngIf="registrationFormGroup.controls.email.errors?.pattern" class="text-danger"><small>Ingresar un correo electrónico válido</small></div>
+                <div *ngIf="registrationFormGroup.controls.email.errors.correoMatch" class="text-danger"> <small>Este correo ya ha sido registrado</small></div> 
+              </div>
+              
+            <!-- <p style="color: red;"
+              *ngIf="(registrationFormGroup.controls.email.errors?.required) && registrationFormGroup.controls.email.touched">
+              Ingrese una dirección de correo.</p> -->
+            <!-- <p style="color: red;"
+              *ngIf="(registrationFormGroup.controls.email.errors?.pattern) && registrationFormGroup.controls.email.touched">
+              Ingrese una dirección de correo válida.</p> -->
+              <!-- <div *ngIf="registrationFormGroup.controls.email.errors.correoMatch && registrationFormGroup.controls.email.touched" class="text-danger"> <small>Este correo ya ha sido registrado</small></div> -->
           </div>
           <div>
             <form [formGroup]="passwordFormGroup">
