@@ -32,7 +32,7 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "src/assets/smtp.js" 
+              "src/assets/smtp.js"
             ]
           },
           "configurations": {
@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "MVWeb"
+  "defaultProject": "MVWeb",
+  "cli": {
+    "analytics": false
+  }
 }
