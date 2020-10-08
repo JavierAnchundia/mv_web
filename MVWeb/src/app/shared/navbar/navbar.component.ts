@@ -77,10 +77,7 @@ export class NavbarComponent implements OnInit {
         this.getStatus();
         this.router.navigate(['/home/inicio'])
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'error'
-        )
+        
       }
     })
   }

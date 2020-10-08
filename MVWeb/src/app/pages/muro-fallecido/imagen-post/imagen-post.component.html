@@ -1,0 +1,24 @@
+<div>
+
+<mat-card class="example-card mat-elevation-z2">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{this.author_first_name}} {{this.author_last_name}} </mat-card-title>
+      <mat-card-subtitle>{{this.dateCreated}}</mat-card-subtitle>
+    </mat-card-header>
+    <div class="row">
+      <mat-card-content class="col-md-3 col-xs-3">
+        <img mat-card-image src={{url_backend}}{{this.imagen}} alt="{{this.imagen}}">
+      </mat-card-content>
+      <mat-card-content class="col-md-9 col-xs-9">
+        <p>
+          {{this.message}}
+        </p>
+      </mat-card-content>
+    </div>
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>A {{this.likes}} le gusta esto</button>
+    </mat-card-actions>
+  </mat-card>
+  </div>

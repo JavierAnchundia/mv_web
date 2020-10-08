@@ -8,6 +8,7 @@ import { TiposepulturaService } from '../../services/tiposepultura/tiposepultura
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import { Difunto } from 'src/app/models/difunto.model';
+import { NavigationExtras } from '@angular/router';
 
 export interface difunto {
   nombre: string;
@@ -29,7 +30,7 @@ export interface difunto {
 })
 export class SearchPanelComponent implements OnInit,AfterViewInit {
 
-  displayedColumns: string[] = ['cedula','nombre', 'apellidos','fechaNacimiento' ,'fecha_difuncion', 'lapida'];
+  displayedColumns: string[] = ['cedula','nombre', 'apellidos','fechaNacimiento' ,'fecha_difuncion', 'lapida','detalle'];
   searchFG: FormGroup;
   lista_resultados:any;
   lista_sector: any;
@@ -112,9 +113,21 @@ export class SearchPanelComponent implements OnInit,AfterViewInit {
   }
 
   getRecord(row){
-    this.router.navigate(['/404']);
     console.log(row);
 
+  }
+
+  redirectDifuntoProfile(value){
+    let difuntoId = value.difuntoID;
+    console.log(difuntoId)
+    let data = {'difuntoID':difuntoId}
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          "difuntoID": JSON.stringify(data.difuntoID)
+          
+      }
+    };
+    this.router.navigate(["home/muro"],  navigationExtras);
   }
 
   sortData(event) {

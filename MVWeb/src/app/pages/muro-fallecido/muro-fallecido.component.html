@@ -1,0 +1,168 @@
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+<div  class="ui-bg-cover ui-bg-overlay-container text-white ">
+  <div class="ui-bg-overlay bg-dark">
+    <div class="row">
+      <div class="col-md-8 col-xs-12 text-center">
+        <h2>{{this.difunto.nombre | titlecase}} {{this.difunto.apellido | titlecase}} </h2>
+        <p class="dates">{{this.difunto.fecha_nacimiento | date: 'dd MMM., yyyy'}} | {{this.difunto.fecha_difuncion | date: 'dd MMM., yyyy'}} </p>
+        <p>{{this.difunto.genero}} </p>
+      </div>
+      <div class="col-md-offset-0 col-md-4 col-xs-offset-3 col-xs-10 text-center">
+        <img *ngIf="this.difunto.genero == 'Masculino'"
+          src="../../../assets/male.png"
+          alt class="d-block ui-w-100 rounded-circle mx-auto">
+          <img *ngIf="this.difunto.genero == 'Femenino'"
+          src="../../../assets/female.png"
+          alt class="d-block ui-w-100 rounded-circle mx-auto">
+      </div>
+      
+    </div>
+    <div class="row ml-5 divider mr-5 text-center">
+      <div class="col-xs-12 col-sm-4 col-md-4 emphasis">
+        <img src="https://www.iconfinder.com/data/icons/general-office/91/General_Office_17-512.png" alt="pin"
+          class="save">
+        <button class="btn btn-sm btn-success btn-block"><span class="fa fa-plus-circle"></span> Guardar </button>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-4 emphasis">
+        <img src="https://www.iconfinder.com/data/icons/spring-2-1/30/Rose-64.png" alt="rosa" class="rose">
+        <button class="btn btn-sm btn-info btn-block" (click)="saveLogRosa()"><span class="fa fa-heart"></span> Dejar rosa </button>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-4 emphasis">
+        <h1>{{this.numRosas}}<small> Rosas</small></h1>
+        <button class="btn btn-sm btn-secondary btn-block" (click)="openModal()"><span class="fa fa-eye"></span> Ver rosas </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container ">
+  <div class="row">
+    <h2>Publica un homenaje</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+
+      <form [formGroup]="myForm" (ngSubmit)="submit()" >
+        <div class="form-group widget-area no-padding blank text-center" *ngIf="this.textPost == true">
+        </div>
+        <div class="form-group widget-area no-padding blank text-center" *ngIf="this.imagePost == true">
+          <img [src]="imageSrc" *ngIf="imageSrc" style="height: 142px; width:auto;">
+
+          <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)">
+          <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+            <div *ngIf="f.file.errors.required">File is required.</div>
+          </div>
+        </div>
+        <div class="form-group widget-area no-padding blank " *ngIf="this.videoPost == true">
+          <video id="my_video_1" class="video-js vjs-default-skin" width="240px" height="167px" controls autoplay
+            preload="none" poster='' data-setup='{ "aspectRatio":"240:167", "playbackRates": [1, 1.5, 2] }'>
+            <source [src]="imageSrc" *ngIf="imageSrc" type='video/mp4' />
+            <source [src]="imageSrc" *ngIf="imageSrc" type="video/ogg">
+          </video>
+          <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)">
+          <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+            <div *ngIf="f.file.errors.required">File is required.</div>
+          </div>
+        </div>
+    
+        <div class="form-group widget-area no-padding blank" *ngIf="this.audioPost == true">
+          <div style="width: 100px">
+            <audio controls autoplay preload="metadata" >
+              <source [src]="audioSrc" type="audio/mpeg">
+              <source [src]="audioSrc" type="audio/ogg">
+            </audio>
+           
+          </div>
+          <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)">
+          <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+            <div *ngIf="f.file.errors.required">File is required.</div>
+          </div>
+        </div>
+       
+      </form>
+
+    </div>
+
+    <div class="col-md-8 col-sm-12 col-xs-12 col-lg-8">
+      <div class="widget-area no-padding blank">
+        <div class="status-upload">
+          <form [formGroup]="myForm" (ngSubmit)="submit()">
+            <textarea formControlName="message" placeholder="Escribe un mensaje para tu ser querido..."></textarea>
+            <ul class="btn-group btn-toolbar">
+              <li> <button type="button" class="btn btn-sm btn-outline-primary">Texto</button>
+              </li>
+              <li> <button type="button" class="btn btn-sm btn-outline-secondary" (click)="selectImg()">Imagen</button>
+              </li>
+              <li> <button type="button" class="btn btn-sm btn-outline-secondary" (click)="selectVideo()">Video</button>
+              </li>
+              <li> <button type="button" class="btn btn-sm btn-outline-secondary" (click)="selectAudio()">Audio</button>
+              </li>
+            </ul>
+            <button type="submit" class="btn btn-success green">Publicar</button>
+          </form>
+        </div><!-- Status Upload  -->
+      </div><!-- Widget Area -->
+    </div>
+
+  </div>
+</div>
+<div *ngIf="currentFile" class="progress">
+  <div
+    class="progress-bar progress-bar-info progress-bar-striped"
+    role="progressbar"
+    attr.aria-valuenow="{{ progress }}"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    [ngStyle]="{ width: progress + '%' }"
+  >
+    {{ progress }}%
+  </div>
+</div>
+
+
+
+<div class="alert alert-light" role="alert">{{ message }}</div>
+<div class="container">
+  <div class="row">
+    <h2>Homenajes Recientes</h2>
+  </div>
+  <div *ngIf="this.homenajes.length == 0" class="ui-bg-cover ">
+    <p>No hay publicaciones en este perfil</p>
+  </div>
+  <div *ngFor="let post of this.homenajes">
+    <app-text-post
+    [author_first_name] = "post.id_usuario.first_name"
+    [author_last_name] = "post.id_usuario.last_name"
+    [dateCreated] = "post.fecha_publicacion"
+    *ngIf="post.id_textcontent != null" [message] = "post.id_textcontent.mensaje"
+    [likes] = "post.likes"
+  ></app-text-post>
+  <app-imagen-post
+    [author_first_name] = "post.id_usuario.first_name"
+    [author_last_name] = "post.id_usuario.last_name"
+    [dateCreated] = "post.fecha_publicacion"
+    *ngIf="post.id_imagecontent != null" [message] = "post.id_imagecontent.mensaje"
+    [imagen] = "post.id_imagecontent.imagen"
+    [likes] = "post.likes"
+  ></app-imagen-post>
+  <app-video-post
+    [author_first_name] = "post.id_usuario.first_name"
+    [author_last_name] = "post.id_usuario.last_name"
+    [dateCreated] = "post.fecha_publicacion"
+    *ngIf="post.id_videocontent != null" [message] = "post.id_videocontent.mensaje"
+    [video] = "post.id_videocontent.video"
+    [likes] = "post.likes"
+  ></app-video-post>
+  <app-audio-post
+    [author_first_name] = "post.id_usuario.first_name"
+    [author_last_name] = "post.id_usuario.last_name"
+    [dateCreated] = "post.fecha_publicacion"
+    *ngIf="post.id_audiocontent != null" [message] = "post.id_audiocontent.mensaje"
+    [audio] = "post.id_audiocontent.audio"
+    [likes] = "post.likes"
+  ></app-audio-post>
+  </div>
+  
+
+<div>
+

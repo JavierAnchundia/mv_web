@@ -1,0 +1,19 @@
+<div id="modal-content-wrapper">
+    <header id="modal-header">
+        <h1 id="modal-title">Historial de rosas</h1>
+    </header>
+    <section id="modal-body">
+        <mat-list>
+            <mat-list-item *ngFor="let row of this.historial">
+              <mat-icon mat-list-icon [inline]="true">person</mat-icon>
+              <div mat-line>{{row.id_usuario.first_name}} {{row.id_usuario.last_name}}</div>
+              <div mat-line> {{row.fecha_publicacion | date}} </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            
+          </mat-list>
+    </section>
+    <footer id="modal-footer">
+        <button mat-button id="modal-cancel-button" (click)="closeModal()">Cerrar</button>
+    </footer>
+</div>

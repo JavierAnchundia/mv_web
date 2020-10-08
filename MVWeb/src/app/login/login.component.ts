@@ -8,6 +8,7 @@ import { FacebookService, InitParams, LoginResponse, AuthResponse, LoginOptions 
 import Swal from 'sweetalert2'
 import { throwError } from 'rxjs';
 import { environment } from '../../environments/environment'
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -86,7 +87,7 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.form_login.value);
+    //console.log(this.form_login.value);
     this.loginUser(this.form_login);
     Swal.showLoading();
   }
@@ -119,19 +120,23 @@ export class LoginComponent implements OnInit {
   async crearFBuser(authresp: any, user:any) {
     const formData = new FormData();
 
-    formData.append('grant_type', 'convert_token');
-    formData.append('client_id', environment.client_id);
-    formData.append('backend', 'facebook');
-    formData.append('token', this.authresp.accessToken);
-    formData.append('first_name', this.user.first_name);
-    // formData.append('username', this.user.first_name);
-    formData.append('email', this.user+'@facebook.com');
-    formData.append('id_camposanto', this.id.camposanto);
+    //formData.append('grant_type', 'convert_token');
+    //formData.append('client_id', environment.client_id);
+    //formData.append('backend', 'facebook');
+    formData.append('access_token', this.authresp.accessToken);
+    //formData.append('first_name', this.user.first_name);
+    /* formData.append('username', this.user.name);
+    formData.append('email', this.user.email);
+    formData.append('id_camposanto', this.id.camposanto); */
     // formData.append('tipo_usuario', 'uf');
-    console.log(formData)
-    this._usuarioService.crearUsuarioFB(formData)
+    console.log(formData.get('access_token'));
+    this._usuarioService.loginUsuarioFB(formData)
     .subscribe((resp:any)=>{
       console.log(resp)
+      let token = JSON.stringify(resp['access']).slice(1,-1);
+      let refresh = JSON.stringify(resp['refresh']).slice(1,-1);
+      localStorage.setItem('token', token);
+      localStorage.setItem('refresh', refresh);
       console.log('success');
     })
 

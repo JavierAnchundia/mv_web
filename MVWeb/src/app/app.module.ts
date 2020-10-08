@@ -15,6 +15,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FacebookModule } from 'ngx-facebook';
 import { ErrorpageComponent } from './errorpage/errorpage.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { DatePipe } from '@angular/common'
+
+
 
 @NgModule({
   declarations: [
@@ -22,7 +28,7 @@ import { ErrorpageComponent } from './errorpage/errorpage.component';
     //RegisterComponent,
     //LoginComponent,
     PagesComponent,
-    ErrorpageComponent
+    ErrorpageComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,10 +40,13 @@ import { ErrorpageComponent } from './errorpage/errorpage.component';
     BrowserAnimationsModule,
     SharedModule,
     HttpClientModule,
+    MatCardModule,
+        MatButtonModule,
+        MatDividerModule,
     FacebookModule.forRoot(),
 
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

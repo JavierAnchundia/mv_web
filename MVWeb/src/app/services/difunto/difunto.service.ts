@@ -15,4 +15,10 @@ getDifuntos(id,nombre,apellido) {
 
   return this.http.get(url);
 }
+
+getDifuntoByID(id){
+  let url = URL_SERVICIOS.difunto+id+'/';
+
+  return this.http.get(url);
+}
 }

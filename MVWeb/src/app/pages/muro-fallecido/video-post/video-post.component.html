@@ -1,0 +1,27 @@
+<div>
+
+  <mat-card class="example-card mat-elevation-z2">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{this.author_first_name}} {{this.author_last_name}} </mat-card-title>
+      <mat-card-subtitle>{{this.dateCreated}}</mat-card-subtitle>
+    </mat-card-header>
+    <div class="row">
+      <div class="col-md-4 col-sm-12 col-xs-12">
+        <video id="my_video_1" class="video-js vjs-default-skin" width="240px" height="167px" controls
+          preload="none" poster='' data-setup='{ "aspectRatio":"240:167", "playbackRates": [1, 1.5, 2] }'>
+          <source src={{url_backend}}{{this.video}} type='video/mp4' />
+        </video>
+      </div>
+      <mat-card-content class="col-md-8 col-sm-12 col-xs-12">
+        <p>
+          {{this.message}}
+        </p>
+      </mat-card-content>
+    </div>
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>A {{this.likes}} le gusta esto</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

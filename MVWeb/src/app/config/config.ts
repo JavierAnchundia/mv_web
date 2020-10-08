@@ -1,9 +1,10 @@
-// const URL_ROOT = 'http://localhost:8000/api'
-// const URL_ROOT_AUTH = 'http://localhost:8000'
+//const URL_ROOT = 'http://localhost:8000/api'
+//const URL_ROOT_AUTH = 'http://localhost:8000'
 const URL_ROOT = 'https://carmsanc.pythonanywhere.com/api'
 const URL_ROOT_AUTH = 'https://carmsanc.pythonanywhere.com'
 
 const URL_SERVICIOS = {
+    url_backend: URL_ROOT_AUTH,
     camposantos : URL_ROOT + '/camposantos/',
     camposanto : URL_ROOT + '/camposanto/',
     difunto : URL_ROOT + '/difunto/',
@@ -24,6 +25,17 @@ const URL_SERVICIOS = {
     refreshlogin: URL_ROOT_AUTH +'api/token/refresh/ ',
     fblogin: URL_ROOT_AUTH+'/auth/convert-token/',
     obtener_usuarios: URL_ROOT + '/obtener_usuarios/',
+    FBauth: URL_ROOT+ '/get_token_facebook/',
+    homenajes: URL_ROOT + '/homenajes/',
+    homenaje_post: URL_ROOT + '/homenajes_post/',
+    hmensaje_post: URL_ROOT + '/hmensaje_post/',
+    himagen_post: URL_ROOT +'/himagen_post/',
+    hvideo_post: URL_ROOT + '/hvideo_post/',
+    haudio_post: URL_ROOT +'/haudio_post/',
+    addRoses: URL_ROOT + '/difunto/update-partial/',
+    registroRosa: URL_ROOT +'/historial_rosas_post/',
+    logRosas: URL_ROOT + '/historial_rosas/',
+
 }
 
 export default URL_SERVICIOS

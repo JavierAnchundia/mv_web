@@ -1,4 +1,5 @@
 export interface Difunto{
+    id: any,
     nombre:string,
     apellido:string,
     genero: string,

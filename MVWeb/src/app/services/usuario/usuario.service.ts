@@ -144,6 +144,25 @@ export class UsuarioService {
     return this.http.post(url, usuario);
   }
 
+  loginUsuarioFB(userToken){
+    let url = URL_SERVICIOS.FBauth;
+    this.isLoggedin = true;
+    return this.http.post(url, userToken).pipe(
+      map((resp: any) => {
+        console.log(resp);
+        this.isLoggedin = true;
+        this.token = JSON.stringify(resp['access']);
+        this.refresh = JSON.stringify(resp['refresh']).slice(1,-1);
+        this.updateData(resp['access']);
+        localStorage.setItem('token', this.token);
+        localStorage.setItem('refresh', this.refresh);
+        localStorage.setItem('id', JSON.stringify(this.tokenGestion(resp['access'])));
+        return true;
+      })
+    );;
+
+  }
+
   isAuthenticated(){
     return this.getToken();
   };

@@ -7,7 +7,7 @@ import { CamposantoService } from './services/camposanto/camposanto.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'Mapa Virtual';
+  title = 'Mapa Virtual Usuario Final';
   camposanto: any;
   empresa: any;
   data = '1'; //ESTE NUMERO SE CAMBIA DE ACUERDO AL CEMENTERIO DEL QUE SE QUIERA CARGAR LA PAGINA WEB
