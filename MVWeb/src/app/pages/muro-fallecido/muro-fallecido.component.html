@@ -1,7 +1,7 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 <p>
   <mat-toolbar>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <button (click)="goBack()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
     <span>Regresar a la búsqueda</span>
@@ -14,7 +14,7 @@
     <div class="row">
       <div class="col-md-8 col-xs-12 text-center">
         <h2>{{this.difunto.nombre | titlecase}} {{this.difunto.apellido | titlecase}} </h2>
-        <p class="dates">{{this.difunto.fecha_nacimiento | date: 'dd MMM., yyyy'}} | {{this.difunto.fecha_difuncion | date: 'dd MMM., yyyy'}} </p>
+        <p class="dates">{{this.difunto.fecha_nacimiento| date: 'dd MMM., yyyy'}} | {{this.difunto.fecha_difuncion | date: 'dd MMM., yyyy'}} </p>
         <p>{{this.difunto.genero}} </p>
       </div>
 

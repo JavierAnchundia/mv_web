@@ -19,7 +19,6 @@ export class VideoPostComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.video);
   }
 
   onEnded(event){

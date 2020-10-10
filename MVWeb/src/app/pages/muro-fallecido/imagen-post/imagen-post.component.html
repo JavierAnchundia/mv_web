@@ -4,7 +4,7 @@
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>{{this.author_first_name}} {{this.author_last_name}} </mat-card-title>
-      <mat-card-subtitle>{{this.dateCreated}}</mat-card-subtitle>
+      <mat-card-subtitle>{{this.dateCreated| date:'MMM d, y HH:mm:ss a':'+0:00' }}</mat-card-subtitle>
     </mat-card-header>
     <div class="row">
       <mat-card-content class="col-md-3 col-xs-3">

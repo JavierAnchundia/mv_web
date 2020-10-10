@@ -30,6 +30,7 @@
     "bootstrap": "^4.5.2",
     "jquery": "^3.5.1",
     "ngx-facebook": "^3.0.0-0",
+    "ngx-skeleton-loader": "^2.4.4",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",
     "sweetalert2": "^9.17.1",

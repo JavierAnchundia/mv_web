@@ -7,12 +7,13 @@ import { DomSanitizer } from '@angular/platform-browser'
 import { HomenajeService } from '../../services/homenaje/homenaje.service';
 import { DatePipe } from '@angular/common'
 import { catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalComponent } from './modal/modal/modal.component';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-muro-fallecido',
@@ -62,7 +63,8 @@ export class MuroFallecidoComponent implements OnInit {
     protected sanitizer: DomSanitizer,
     private homenaje: HomenajeService,
     public datepipe: DatePipe,
-    public matDialog: MatDialog
+    public matDialog: MatDialog,
+    private location: Location
   ) { }
 
 
@@ -71,7 +73,7 @@ export class MuroFallecidoComponent implements OnInit {
     this.getDifuntoInfo();
     this.getHomenajes();
     this.logrosas();
-    this.getFechaPublicacion();
+   // this.getFechaPublicacion();
   }
 
   getRouteParams(): void {
@@ -81,7 +83,7 @@ export class MuroFallecidoComponent implements OnInit {
 
     this.difuntoID = this.params.difuntoID;
 
-    console.log("this.difuntoID", this.difuntoID);
+    //console.log("this.difuntoID", this.difuntoID);
   }
 
   get f() {
@@ -191,14 +193,14 @@ export class MuroFallecidoComponent implements OnInit {
         cancelButtonAriaLabel: 'Thumbs down'
       })
     } else {
-      if (this.checksize()) {
+      if (this.textPost) {
+        this.postMensaje();
+      }
+      else if (this.checksize()) {
         Swal.fire("Archivo muy pesado", "El archivo excede el tamaño permitido de "+ this.maxFileSize +' MB.', "error");
       } else {
         await this.upload();
-        if (this.textPost) {
-          this.postMensaje();
-        }
-        else if (this.imagePost) {
+        if (this.imagePost) {
           this.postImagen();
         }
         else if (this.videoPost) {
@@ -253,7 +255,7 @@ export class MuroFallecidoComponent implements OnInit {
     const Himagen = new FormData();
     Himagen.append('mensaje', this.myForm.value.message as string);
     Himagen.append('imagen', this.archivo);
-
+    Himagen.append('img_base64','none');
     await this.homenaje.postImagen(Himagen)
       .pipe(
         catchError(err => {
@@ -280,8 +282,6 @@ export class MuroFallecidoComponent implements OnInit {
           homenajePost.append('estado', 'True');
           homenajePost.append('likes', '0');
           homenajePost.append('id_imagecontent', data['id_imagen']);
-
-          console.log(homenajePost);
 
           this.postHomenaje(homenajePost);
 
@@ -435,7 +435,8 @@ export class MuroFallecidoComponent implements OnInit {
 
   getFechaPublicacion() {
     this.date = new Date();
-    let latest_date = this.datepipe.transform(this.date, 'yyyy-MM-dd h:mm');
+
+    let latest_date = this.datepipe.transform(this.date, 'yyyy-MM-dd HH:mm');
     console.log(latest_date);
     return latest_date;
   }
@@ -541,5 +542,9 @@ export class MuroFallecidoComponent implements OnInit {
         this.currentFile = undefined;
 
       });
+  }
+
+  goBack() {
+     
   }
 }
