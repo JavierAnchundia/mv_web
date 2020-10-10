@@ -1,6 +1,15 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-
-<div  class="ui-bg-cover ui-bg-overlay-container text-white ">
+<p>
+  <mat-toolbar>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+    <span>Regresar a la búsqueda</span>
+    <span class="example-spacer"></span>
+  </mat-toolbar>
+</p>
+<ngx-skeleton-loader count="5" animation="progress" appearance="line" *ngIf="skeletonloader"> </ngx-skeleton-loader>
+<div  class="ui-bg-cover ui-bg-overlay-container text-white " *ngIf="!skeletonloader">
   <div class="ui-bg-overlay bg-dark">
     <div class="row">
       <div class="col-md-8 col-xs-12 text-center">
@@ -8,6 +17,7 @@
         <p class="dates">{{this.difunto.fecha_nacimiento | date: 'dd MMM., yyyy'}} | {{this.difunto.fecha_difuncion | date: 'dd MMM., yyyy'}} </p>
         <p>{{this.difunto.genero}} </p>
       </div>
+
       <div class="col-md-offset-0 col-md-4 col-xs-offset-3 col-xs-10 text-center">
         <img *ngIf="this.difunto.genero == 'Masculino'"
           src="../../../assets/male.png"
@@ -44,6 +54,9 @@
 
       <form [formGroup]="myForm" (ngSubmit)="submit()" >
         <div class="form-group widget-area no-padding blank text-center" *ngIf="this.textPost == true">
+          <img src="https://cdn0.iconfinder.com/data/icons/christmas-free-icon-pack/128/list-512.png" 
+          style="height: 142px; width:auto;">
+
         </div>
         <div class="form-group widget-area no-padding blank text-center" *ngIf="this.imagePost == true">
           <img [src]="imageSrc" *ngIf="imageSrc" style="height: 142px; width:auto;">
@@ -57,7 +70,7 @@
           <video id="my_video_1" class="video-js vjs-default-skin" width="240px" height="167px" controls autoplay
             preload="none" poster='' data-setup='{ "aspectRatio":"240:167", "playbackRates": [1, 1.5, 2] }'>
             <source [src]="imageSrc" *ngIf="imageSrc" type='video/mp4' />
-            <source [src]="imageSrc" *ngIf="imageSrc" type="video/ogg">
+            <source [src]="imageSrc" *ngIf="imageSrc" type="video/*"/>
           </video>
           <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)">
           <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
@@ -89,7 +102,7 @@
           <form [formGroup]="myForm" (ngSubmit)="submit()">
             <textarea formControlName="message" placeholder="Escribe un mensaje para tu ser querido..."></textarea>
             <ul class="btn-group btn-toolbar">
-              <li> <button type="button" class="btn btn-sm btn-outline-primary">Texto</button>
+              <li> <button type="button" class="btn btn-sm btn-outline-primary" (click)="selectText()">Texto</button>
               </li>
               <li> <button type="button" class="btn btn-sm btn-outline-secondary" (click)="selectImg()">Imagen</button>
               </li>

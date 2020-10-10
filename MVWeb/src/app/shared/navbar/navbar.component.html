@@ -35,10 +35,10 @@
         </li> -->
         <li class="nav-item ml-5 dropdown" *ngIf="getStatus()">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            nombre usuario
+            {{this.displayName | titlecase}}
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#"><fa-icon [icon]="faIdCard"></fa-icon> Perfil</a>
+            <a class="dropdown-item" (click)="redirectToProfile()"><fa-icon [icon]="faIdCard"></fa-icon> Perfil</a>
             <a class="dropdown-item" href="#"><fa-icon [icon]="faDizzy"></fa-icon> Favoritos</a>
             <a class="dropdown-item" href="#"><fa-icon [icon]="faBell"></fa-icon> Notificaciones</a>
             <a class="dropdown-item" routerLink="/home/inicio" (click)="logout()">

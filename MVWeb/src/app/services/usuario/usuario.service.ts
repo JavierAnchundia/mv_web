@@ -20,6 +20,7 @@ export class UsuarioService {
   public errors: any = [];
   public isLoggedin = false;
 
+  
   constructor(public http: HttpClient, public router: Router) {
     this.loadStorage();
     this.httpOptions = {
@@ -170,6 +171,28 @@ export class UsuarioService {
   getUsersAll(){
     let url = URL_SERVICIOS.obtener_usuarios;
     return this.http.get(url);
+  }
+
+  getUserInfo(id){
+    let url = URL_SERVICIOS.usuario+id+'/'
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer '+this.getToken(),
+      })
+    }
+    return this.http.get(url, httpOptions);
+
+  }
+
+  updateUserProfile(username, info){
+    let url = URL_SERVICIOS.updateUser + username +'/'
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer '+this.getToken(),
+      })
+    }
+
+    return this.http.patch(url,info,httpOptions);
   }
   
 }

@@ -26,13 +26,13 @@ export class MuroFallecidoComponent implements OnInit {
   audioPost: boolean = false;
   rosePost: boolean = false;
   audioSrc;
-
+  skeletonloader = true;
+  maxFileSize = 10 ;
   //Atributos para progress bar
   selectedFiles: FileList;
   currentFile: File;
   progress = 0;
   message = '';
-  fileInfos: Observable<any>;
 
   loggeduser = false;
 
@@ -71,6 +71,7 @@ export class MuroFallecidoComponent implements OnInit {
     this.getDifuntoInfo();
     this.getHomenajes();
     this.logrosas();
+    this.getFechaPublicacion();
   }
 
   getRouteParams(): void {
@@ -90,9 +91,10 @@ export class MuroFallecidoComponent implements OnInit {
   getDifuntoInfo() {
     this._difunto.getDifuntoByID(this.difuntoID).subscribe(
       (resp: any) => {
-        console.log(resp);
+        //console.log(resp);
         this.difunto = resp;
         this.numRosas = resp['num_rosas'];
+        this.skeletonloader = false;
       }
     ), (error) => {
       console.log(error);
@@ -108,7 +110,8 @@ export class MuroFallecidoComponent implements OnInit {
 
       this.archivo = event.target.files[0];
       this.nameImagen = event.target.files[0].name;
-      
+      this.checkFileType();
+
       reader.onload = () => {
 
         this.imageSrc = reader.result as string;
@@ -122,6 +125,47 @@ export class MuroFallecidoComponent implements OnInit {
 
     }
 
+  }
+
+  checksize() {
+    let file_size = this.archivo.size * 0.000001;
+
+    if (file_size > this.maxFileSize) {
+      return true;
+    }
+    return false;
+  }
+
+  checkFileType() {
+    var ext = this.nameImagen.substring(this.nameImagen.lastIndexOf('.') + 1);
+
+    if (!this.validateFile(ext)) {
+      Swal.fire("Formato no válido", "El formato del archivo no está permitido", "error");
+    }
+  }
+
+  validateFile(ext: String) {
+    if (this.imagePost) {
+      if (ext.toLowerCase() == 'png' || ext.toLowerCase() == 'jpg' || ext.toLowerCase() == 'jpeg') {
+        console.log('valid')
+        return true;
+      }
+    }else if(this.videoPost){
+        if (ext.toLowerCase() == 'mp4' || ext.toLowerCase() == 'mov') {
+          console.log('valid');
+          return true;
+        
+      }
+    }else if(this.audioPost){
+        if (ext.toLowerCase() == 'mp3' || ext.toLowerCase() == 'ogg') {
+          console.log('valid')
+          return true;
+        }
+      
+    }
+    else {
+      return false;
+    }
   }
 
   getStatus() {
@@ -147,18 +191,22 @@ export class MuroFallecidoComponent implements OnInit {
         cancelButtonAriaLabel: 'Thumbs down'
       })
     } else {
-      await this.upload();
-      if (this.textPost) {
-        this.postMensaje();
-      }
-      else if (this.imagePost) {
-        this.postImagen();
-      }
-      else if (this.videoPost) {
-        this.postVideo();
-      }
-      else if (this.audioPost) {
-        this.postAudio();
+      if (this.checksize()) {
+        Swal.fire("Archivo muy pesado", "El archivo excede el tamaño permitido de "+ this.maxFileSize +' MB.', "error");
+      } else {
+        await this.upload();
+        if (this.textPost) {
+          this.postMensaje();
+        }
+        else if (this.imagePost) {
+          this.postImagen();
+        }
+        else if (this.videoPost) {
+          this.postVideo();
+        }
+        else if (this.audioPost) {
+          this.postAudio();
+        }
       }
     }
   }
@@ -214,12 +262,12 @@ export class MuroFallecidoComponent implements OnInit {
         }))
       .subscribe(
         (data) => {
-            /* if (data.type === HttpEventType.UploadProgress) {
-              console.log("total archivo",data.total)
-              this.progress = Math.round(100 * data.loaded / (data.total));
-            } else if (data instanceof HttpResponse) {
-              this.message = data.body.message;
-            } */
+          /* if (data.type === HttpEventType.UploadProgress) {
+            console.log("total archivo",data.total)
+            this.progress = Math.round(100 * data.loaded / (data.total));
+          } else if (data instanceof HttpResponse) {
+            this.message = data.body.message;
+          } */
 
           console.log(data);
           let fecha = this.getFechaPublicacion();
@@ -286,7 +334,7 @@ export class MuroFallecidoComponent implements OnInit {
   }
 
   async postAudio() {
-  //this.upload();
+    //this.upload();
 
     const Haudio = new FormData();
     Haudio.append('mensaje', this.myForm.value.message as string);
@@ -302,7 +350,7 @@ export class MuroFallecidoComponent implements OnInit {
       .subscribe(
         (data) => {
           if (data.type === HttpEventType.UploadProgress) {
-            console.log("total archivo",data.total)
+            console.log("total archivo", data.total)
             this.progress = Math.round(100 * data.loaded / (data.total));
           } else if (data instanceof HttpResponse) {
             this.message = data.body.message;
@@ -337,10 +385,16 @@ export class MuroFallecidoComponent implements OnInit {
       this.myForm.reset();
       this.getHomenajes();
       console.log("success");
-      this.imageSrc='';
+      this.imageSrc = '';
       this.audioSrc = "";
-      
+
     })
+  }
+  selectText() {
+    this.imagePost = false;
+    this.textPost = true;
+    this.videoPost = false;
+    this.audioPost = false;
   }
 
   selectImg() {
@@ -348,7 +402,6 @@ export class MuroFallecidoComponent implements OnInit {
     this.textPost = false;
     this.videoPost = false;
     this.audioPost = false;
-    this.rosePost = false;
   }
 
   selectVideo() {
@@ -356,15 +409,6 @@ export class MuroFallecidoComponent implements OnInit {
     this.textPost = false;
     this.videoPost = true;
     this.audioPost = false;
-    this.rosePost = false;
-  }
-
-  selectRosa() {
-    this.imagePost = false;
-    this.textPost = false;
-    this.videoPost = false;
-    this.audioPost = false;
-    this.rosePost = true;
   }
 
   selectAudio() {
@@ -382,7 +426,7 @@ export class MuroFallecidoComponent implements OnInit {
   getHomenajes() {
     this.homenaje.getHomenajesByID(this.difuntoID).subscribe(
       (resp: any) => {
-        console.log(resp);
+        //console.log(resp);
         this.homenajes = resp;
         this.homenajes.reverse();
 
@@ -391,14 +435,15 @@ export class MuroFallecidoComponent implements OnInit {
 
   getFechaPublicacion() {
     this.date = new Date();
-    let latest_date = this.datepipe.transform(this.date, 'yyyy-MM-dd');
+    let latest_date = this.datepipe.transform(this.date, 'yyyy-MM-dd h:mm');
+    console.log(latest_date);
     return latest_date;
   }
 
   postRosa() {
     this.homenaje.dejarRosa(this.difuntoID).subscribe((resp: any) => {
       this.getDifuntoInfo();
-      console.log(resp);
+      //console.log(resp);
 
     })
   }
@@ -424,7 +469,7 @@ export class MuroFallecidoComponent implements OnInit {
       const log = new FormData();
       let fecha = this.getFechaPublicacion();
       let id_usuario = JSON.parse(localStorage.getItem('id'))['user_id'];
-      console.log(id_usuario)
+      //console.log(id_usuario)
       log.append('id_difunto', this.difuntoID as string);
       log.append('id_usuario', id_usuario as string);
       log.append('fecha_publicacion', fecha as string);
@@ -438,7 +483,7 @@ export class MuroFallecidoComponent implements OnInit {
           }))
         .subscribe(
           (data) => {
-            console.log("rosa")
+            //console.log("rosa")
 
             this.postRosa();
             this.logrosas();
@@ -453,7 +498,7 @@ export class MuroFallecidoComponent implements OnInit {
 
   logrosas() {
     this.homenaje.getLogRosas(this.difuntoID).subscribe((resp: any) => {
-      console.log(resp);
+      //console.log(resp);
       this.historial = resp.reverse();
     })
   }
@@ -479,12 +524,12 @@ export class MuroFallecidoComponent implements OnInit {
 
   upload(): void {
     this.progress = 0;
-  
+
     this.currentFile = this.archivo;
     this.homenaje.uploadVideo(this.currentFile).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
-          console.log("total archivo",event.total)
+          console.log("total archivo", event.total)
           this.progress = Math.round(100 * event.loaded / (event.total));
         } else if (event instanceof HttpResponse) {
           this.message = event.body.message;
@@ -494,8 +539,7 @@ export class MuroFallecidoComponent implements OnInit {
         Swal.showLoading();
         this.progress = 0;
         this.currentFile = undefined;
-        
+
       });
-    this.selectedFiles = undefined;
   }
 }

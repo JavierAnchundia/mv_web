@@ -22,6 +22,8 @@ export class NavbarComponent implements OnInit {
   faDizzy = faDizzy;
   faSignOutAlt = faSignOutAlt;
   faBell = faBell;
+  displayName: string;
+
   constructor(
     public _servicio: CamposantoService,
     public _usuario: UsuarioService,
@@ -31,7 +33,9 @@ export class NavbarComponent implements OnInit {
     this.id = JSON.parse(localStorage.getItem('info'));
     this.cargarCamposanto();
     this.getStatus();
-    console.log(this.loggeduser)
+    if(this.loggeduser){
+      this.loadUserInfo();
+    }
   }
 
 
@@ -53,7 +57,9 @@ export class NavbarComponent implements OnInit {
   getStatus(){
     // this.loggeduser = this._usuario.isLoggedin;
     this.loggeduser = this._usuario.statusLogin()
+
     return this.loggeduser;
+
   }
 
   logged(){
@@ -82,6 +88,15 @@ export class NavbarComponent implements OnInit {
     })
   }
    
+  redirectToProfile(){
+    this.router.navigate(['/home/perfil']);
+  }
 
-  
+  loadUserInfo(){
+    let id_usuario = JSON.parse(localStorage.getItem('id'))['user_id'];
+    this._usuario.getUserInfo(id_usuario).subscribe((resp:any)=>{
+      //console.log(resp);
+      this.displayName = resp['first_name']+' '+resp['last_name'];
+    })
+  }
 }

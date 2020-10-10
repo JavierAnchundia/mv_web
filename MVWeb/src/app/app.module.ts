@@ -19,6 +19,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { DatePipe } from '@angular/common'
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 
 
@@ -44,6 +45,7 @@ import { DatePipe } from '@angular/common'
         MatButtonModule,
         MatDividerModule,
     FacebookModule.forRoot(),
+    NgxSkeletonLoaderModule
 
   ],
   providers: [DatePipe],

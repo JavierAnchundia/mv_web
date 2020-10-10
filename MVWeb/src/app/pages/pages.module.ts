@@ -31,6 +31,10 @@ import { ModalComponent } from './muro-fallecido/modal/modal/modal.component';
 import {MatListModule} from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AudioPostComponent } from './muro-fallecido/audio-post/audio-post.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { FavoritosComponent } from './favoritos/favoritos.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
     declarations: [
@@ -44,6 +48,8 @@ import { AudioPostComponent } from './muro-fallecido/audio-post/audio-post.compo
         VideoPostComponent,
         ModalComponent,
         AudioPostComponent,
+        PerfilComponent,
+        FavoritosComponent,
 
     ],
     exports: [
@@ -79,8 +85,9 @@ import { AudioPostComponent } from './muro-fallecido/audio-post/audio-post.compo
         ReactiveFormsModule,
         FontAwesomeModule,
         MatListModule,
-        MatDialogModule
-
+        MatDialogModule,
+        NgxSkeletonLoaderModule,
+        MatToolbarModule
 
     ],
 

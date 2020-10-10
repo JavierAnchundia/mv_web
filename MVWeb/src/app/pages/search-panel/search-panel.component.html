@@ -31,14 +31,16 @@
       <input type="text" class="form-control" placeholder="Apellido del fallecido" formControlName="apellidos">
     </div>
     <div class="col-md-3 col-lg-3 col-xs-11 pb-1">
-      <input type="text" matInput [matDatepicker]="picker" placeholder="Fecha de defunción DESDE" formControlName="fechaDefuncionStart">
+      <input type="text" matInput [matDatepicker]="picker" placeholder="Fecha de defunción DESDE"
+        formControlName="fechaDefuncionStart">
       <mat-datepicker-toggle matSuffix [for]="picker">
         <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
       </mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </div>
     <div class="col-md-3 col-lg-3 col-xs-11 pb-1">
-      <input type="text" matInput [matDatepicker]="picker2" placeholder="Fecha de defunción HASTA" formControlName="fechaDefuncionEnd">
+      <input type="text" matInput [matDatepicker]="picker2" placeholder="Fecha de defunción HASTA"
+        formControlName="fechaDefuncionEnd">
       <mat-datepicker-toggle matSuffix [for]="picker2">
         <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
       </mat-datepicker-toggle>
@@ -73,7 +75,7 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <button type="submit" class="btn btn-primary btn-lg">Buscar</button>
+      <button type="submit" class="btn btn-primary btn-lg search-button">Buscar</button>
     </div>
   </div>
 </form>
@@ -115,12 +117,11 @@
       <mat-cell *matCellDef="let element"> {{element.no_lapida}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="detalle">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Detalle </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Detalle </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-icon-button class="btn btn-primary btn-sm"
-          (click)="redirectDifuntoProfile({difuntoID: element['id_difunto']})">
-          Ver Perfil
-        </button>
+        <button mat-raised-button color="primary"
+          (click)="redirectDifuntoProfile({difuntoID: element['id_difunto']})">Ir al perfil</button>
+
       </mat-cell>
 
 

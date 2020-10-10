@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
                           console.log(resp);
                           console.log('token creado desde componente login')
                           Swal.close();
-                          this.router.navigate(['/home']);
+                          this.router.navigate(['/']);
 
                         }, error=>{
                           Swal.close();
