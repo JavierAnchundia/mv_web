@@ -66,8 +66,7 @@ export class LoginComponent implements OnInit {
                           console.log(resp);
                           console.log('token creado desde componente login')
                           Swal.close();
-                          this.router.navigate(['/']);
-
+                          this.router.navigate([''])
                         }, error=>{
                           Swal.close();
                           Swal.fire('Correo o contraseña incorrectos',error);
@@ -107,8 +106,7 @@ export class LoginComponent implements OnInit {
            this.authresp = this.fb.getAuthResponse();
           localStorage.setItem('FBtoken',this.authresp.accessToken);
           this.user = this.getProfile();
-          this.router.navigate(['/home/inicio']);
-          
+          this.router.navigate([''])          
         }).then(
           (value:any)=>{
             this.crearFBuser(this.authresp.accessToken, this.user);

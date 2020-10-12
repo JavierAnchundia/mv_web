@@ -221,6 +221,8 @@ export class MuroFallecidoComponent implements OnInit {
       .pipe(
         catchError(err => {
           console.log(err);
+          Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente","error")
+
           return throwError(err);
         }))
       .subscribe(
@@ -260,6 +262,8 @@ export class MuroFallecidoComponent implements OnInit {
       .pipe(
         catchError(err => {
           console.log(err);
+          Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente","error")
+
           return throwError(err);
         }))
       .subscribe(
@@ -304,6 +308,8 @@ export class MuroFallecidoComponent implements OnInit {
       .pipe(
         catchError(err => {
           console.log(err);
+          Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente","error")
+
           return throwError(err);
         }))
       .subscribe(
@@ -344,6 +350,7 @@ export class MuroFallecidoComponent implements OnInit {
     await this.homenaje.postAudio(Haudio)
       .pipe(
         catchError(err => {
+          Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente","error")
           console.log(err);
           return throwError(err);
         }))
@@ -441,9 +448,18 @@ export class MuroFallecidoComponent implements OnInit {
     return latest_date;
   }
 
+  getDate() {
+    this.date = new Date();
+
+    let latest_date = this.datepipe.transform(this.date, 'yyyy-MM-dd');
+    console.log(latest_date);
+    return latest_date;
+  }
+
   postRosa() {
     this.homenaje.dejarRosa(this.difuntoID).subscribe((resp: any) => {
       this.getDifuntoInfo();
+      Swal.close();
       //console.log(resp);
 
     })
@@ -468,17 +484,18 @@ export class MuroFallecidoComponent implements OnInit {
       })
     } else {
       const log = new FormData();
-      let fecha = this.getFechaPublicacion();
+      let fecha = this.getDate();
       let id_usuario = JSON.parse(localStorage.getItem('id'))['user_id'];
       //console.log(id_usuario)
       log.append('id_difunto', this.difuntoID as string);
       log.append('id_usuario', id_usuario as string);
       log.append('fecha_publicacion', fecha as string);
 
-
+      Swal.showLoading();
       await this.homenaje.postRegistroRosa(log)
         .pipe(
           catchError(err => {
+            Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente","error")
             console.log(err);
             return throwError(err);
           }))
@@ -518,10 +535,7 @@ export class MuroFallecidoComponent implements OnInit {
     const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
   }
 
-  //Métodos para progress bar
-  selectFile(event): void {
-    this.selectedFiles = event.target.files;
-  }
+
 
   upload(): void {
     this.progress = 0;

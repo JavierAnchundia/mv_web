@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
   faDizzy = faDizzy;
   faSignOutAlt = faSignOutAlt;
   faBell = faBell;
-  displayName: string;
+  displayName: string = "username";
 
   constructor(
     public _servicio: CamposantoService,
@@ -35,6 +35,7 @@ export class NavbarComponent implements OnInit {
     this.getStatus();
     if(this.loggeduser){
       this.loadUserInfo();
+      
     }
   }
 
@@ -57,7 +58,6 @@ export class NavbarComponent implements OnInit {
   getStatus(){
     // this.loggeduser = this._usuario.isLoggedin;
     this.loggeduser = this._usuario.statusLogin()
-
     return this.loggeduser;
 
   }
@@ -81,7 +81,8 @@ export class NavbarComponent implements OnInit {
         )
         this._usuario.logoutUser();
         this.getStatus();
-        this.router.navigate(['/home/inicio'])
+        this.displayName = "";
+        this.router.navigate(['']);
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         
       }

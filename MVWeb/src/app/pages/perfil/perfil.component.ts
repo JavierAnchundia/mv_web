@@ -62,11 +62,11 @@ export class PerfilComponent implements OnInit {
     formData.append('first_name', this.updateProfile.value.nombre);
     formData.append('last_name', this.updateProfile.value.apellidos);
     formData.append('email', this.updateProfile.value.email);
-    formData.append('username', this.updateProfile.value.nombre);
+    formData.append('username', this.updateProfile.value.username);
     formData.append('genero', this.updateProfile.value.genero);
     formData.append('direccion', this.updateProfile.value.direccion);
     formData.append('telefono', this.updateProfile.value.telefono);
-
+    
     this._usuario.updateUserProfile(this.usuario['username'],formData).subscribe(
       (resp:any)=>{
         console.log(resp)

@@ -188,11 +188,11 @@ export class UsuarioService {
     let url = URL_SERVICIOS.updateUser + username +'/'
     let httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer '+this.getToken(),
+        'Authorization': 'Bearer '+ this.getToken(),
       })
     }
 
-    return this.http.patch(url,info,httpOptions);
+    return this.http.put(url,info,httpOptions);
   }
   
 }
