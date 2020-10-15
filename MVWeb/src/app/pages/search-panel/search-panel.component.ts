@@ -5,7 +5,7 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { DifuntoService } from 'src/app/services/difunto/difunto.service';
 import { SectorService } from 'src/app/services/sector/sector.service';
 import { TiposepulturaService } from '../../services/tiposepultura/tiposepultura.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import { Difunto } from 'src/app/models/difunto.model';
 import { NavigationExtras } from '@angular/router';
@@ -46,6 +46,7 @@ export class SearchPanelComponent implements OnInit,AfterViewInit {
     public _sector: SectorService, 
     public _sepultura: TiposepulturaService,
     public router: Router,
+    public route: ActivatedRoute, 
     ) {
     this.searchFG = new FormGroup({
       nombres: new FormControl(''),
@@ -63,10 +64,44 @@ export class SearchPanelComponent implements OnInit,AfterViewInit {
     this.id = JSON.parse(localStorage.getItem('info'));
     this.cargarSector();
     this.cargarSepultura();
+    this.route.queryParams.subscribe(params => {
+      if(params.r){
+        //this.delay();
+        this.getRecargarTable()
+      }
+    });
   }
 
   ngAfterViewInit (){
     this.dataSource.sort = this.sort;
+  }
+
+  async getRecargarTable(){
+    Swal.showLoading();
+    this.dataSource = new MatTableDataSource<Difunto>();
+    console.log('recargar table')
+    this.lista_resultados = [];
+    let nombre = localStorage.getItem('nombres_difunto');
+    let appellido = localStorage.getItem('apellidos_difunto')
+    await this._difunto.getDifuntos(this.id.camposanto, nombre, appellido)
+      .subscribe((resp: any) =>{
+        console.log(resp);
+        this.lista_resultados = resp;
+        this.dataSource.data = resp as Difunto[];
+        console.log(this.dataSource.data.length, this.dataSource.data)
+        console.log(this.dataSource.data.length)
+        Swal.close()
+        if(this.dataSource.data.length == 0){
+          Swal.fire('No se encontraron coincidencias.','Intente nuevamente.')
+        }
+      }
+    )
+  }
+
+  delay(){
+    setTimeout(()=> {
+      this.getRecargarTable()
+    }, 1000);
   }
 
   onSubmit(value) {
@@ -74,7 +109,8 @@ export class SearchPanelComponent implements OnInit,AfterViewInit {
     this.lista_resultados = [];
     this._difunto.getDifuntos(this.id.camposanto, value.nombres, value.apellidos)
       .subscribe((resp: any) =>{
-
+        localStorage.setItem('nombres_difunto', value.nombres)
+        localStorage.setItem('apellidos_difunto', value.apellidos)
         console.log(resp);
         this.lista_resultados = resp;
         this.dataSource.data = resp as Difunto[];

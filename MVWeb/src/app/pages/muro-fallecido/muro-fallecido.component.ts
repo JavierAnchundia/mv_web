@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { DifuntoService } from '../../services/difunto/difunto.service';
 import { Difunto } from 'src/app/models/difunto.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -28,7 +28,7 @@ export class MuroFallecidoComponent implements OnInit {
   rosePost: boolean = false;
   audioSrc;
   skeletonloader = true;
-  maxFileSize = 10 ;
+  maxFileSize = 10;
   //Atributos para progress bar
   selectedFiles: FileList;
   currentFile: File;
@@ -49,7 +49,7 @@ export class MuroFallecidoComponent implements OnInit {
   imageSrc: string;
 
   myForm = new FormGroup({
-    message: new FormControl('', [Validators.minLength(3)]),
+    message: new FormControl('', [Validators.required, Validators.minLength(3)]),
     file: new FormControl('', [Validators.required]),
     fileSource: new FormControl('', [Validators.required])
   });
@@ -73,7 +73,6 @@ export class MuroFallecidoComponent implements OnInit {
     this.getDifuntoInfo();
     this.getHomenajes();
     this.logrosas();
-   // this.getFechaPublicacion();
   }
 
   getRouteParams(): void {
@@ -113,7 +112,7 @@ export class MuroFallecidoComponent implements OnInit {
       this.archivo = event.target.files[0];
       this.nameImagen = event.target.files[0].name;
       this.checkFileType();
-
+      
       reader.onload = () => {
 
         this.imageSrc = reader.result as string;
@@ -132,7 +131,7 @@ export class MuroFallecidoComponent implements OnInit {
   checksize() {
     let file_size = this.archivo.size * 0.000001;
 
-    if (file_size > this.maxFileSize) {
+    if (file_size > this.maxFileSize ) {
       return true;
     }
     return false;
@@ -152,18 +151,18 @@ export class MuroFallecidoComponent implements OnInit {
         console.log('valid')
         return true;
       }
-    }else if(this.videoPost){
-        if (ext.toLowerCase() == 'mp4' || ext.toLowerCase() == 'mov') {
-          console.log('valid');
-          return true;
-        
+    } else if (this.videoPost) {
+      if (ext.toLowerCase() == 'mp4') {
+        console.log('valid');
+        return true;
+
       }
-    }else if(this.audioPost){
-        if (ext.toLowerCase() == 'mp3' || ext.toLowerCase() == 'ogg') {
-          console.log('valid')
-          return true;
-        }
-      
+    } else if (this.audioPost) {
+      if (ext.toLowerCase() == 'mp3') {
+        console.log('valid')
+        return true;
+      }
+
     }
     else {
       return false;
@@ -196,18 +195,20 @@ export class MuroFallecidoComponent implements OnInit {
       if (this.textPost) {
         this.postMensaje();
       }
-      else if (this.checksize()) {
-        Swal.fire("Archivo muy pesado", "El archivo excede el tamaño permitido de "+ this.maxFileSize +' MB.', "error");
-      } else {
-        await this.upload();
-        if (this.imagePost) {
-          this.postImagen();
-        }
-        else if (this.videoPost) {
-          this.postVideo();
-        }
-        else if (this.audioPost) {
-          this.postAudio();
+      else {
+        if (this.checksize()) {
+          Swal.fire("Archivo muy pesado", "El archivo excede el tamaño permitido de " + this.maxFileSize + ' MB.', "error");
+        } else {
+          await this.upload();
+          if (this.imagePost) {
+            this.postImagen();
+          }
+          else if (this.videoPost) {
+            this.postVideo();
+          }
+          else if (this.audioPost) {
+            this.postAudio();
+          }
         }
       }
     }
@@ -221,7 +222,7 @@ export class MuroFallecidoComponent implements OnInit {
       .pipe(
         catchError(err => {
           console.log(err);
-          Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente","error")
+          Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente", "error")
 
           return throwError(err);
         }))
@@ -257,12 +258,13 @@ export class MuroFallecidoComponent implements OnInit {
     const Himagen = new FormData();
     Himagen.append('mensaje', this.myForm.value.message as string);
     Himagen.append('imagen', this.archivo);
-    Himagen.append('img_base64','none');
+    Himagen.append('img_base64', 'none');
+
     await this.homenaje.postImagen(Himagen)
       .pipe(
         catchError(err => {
           console.log(err);
-          Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente","error")
+          Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente", "error")
 
           return throwError(err);
         }))
@@ -292,6 +294,7 @@ export class MuroFallecidoComponent implements OnInit {
 
         }, error => {
           console.error('Error:' + error);
+          Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente", "error")
 
           return throwError(error);
         })
@@ -308,7 +311,7 @@ export class MuroFallecidoComponent implements OnInit {
       .pipe(
         catchError(err => {
           console.log(err);
-          Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente","error")
+          Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente", "error")
 
           return throwError(err);
         }))
@@ -334,6 +337,7 @@ export class MuroFallecidoComponent implements OnInit {
 
         }, error => {
           console.error('Error:' + error);
+          Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente", "error")
 
           return throwError(error);
         })
@@ -350,7 +354,7 @@ export class MuroFallecidoComponent implements OnInit {
     await this.homenaje.postAudio(Haudio)
       .pipe(
         catchError(err => {
-          Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente","error")
+          Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente", "error")
           console.log(err);
           return throwError(err);
         }))
@@ -380,6 +384,7 @@ export class MuroFallecidoComponent implements OnInit {
 
         }, error => {
           console.error('Error:' + error);
+          Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente", "error")
 
           return throwError(error);
         })
@@ -495,7 +500,7 @@ export class MuroFallecidoComponent implements OnInit {
       await this.homenaje.postRegistroRosa(log)
         .pipe(
           catchError(err => {
-            Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente","error")
+            Swal.fire("Error en la publicación", "No se pudo completar la publicación. Intenta nuevamente", "error")
             console.log(err);
             return throwError(err);
           }))
@@ -559,6 +564,13 @@ export class MuroFallecidoComponent implements OnInit {
   }
 
   goBack() {
-     
+
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "r": true
+      }
+    };
+    this.router.navigate(['home/busqueda'], navigationExtras)
+
   }
 }
