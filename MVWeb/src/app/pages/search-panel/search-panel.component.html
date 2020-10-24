@@ -82,6 +82,7 @@
     <h2>Resultados de la búsqueda</h2>
   </div>
 </div>
+<button (click)="getRecargarTable()">recargar</button>
 <div class="container-fluid">
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     <ng-container matColumnDef="cedula">

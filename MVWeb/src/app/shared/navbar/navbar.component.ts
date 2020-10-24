@@ -7,7 +7,7 @@ import { faIdCard } from '@fortawesome/free-solid-svg-icons';
 import { faDizzy} from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-
+import { NavbarService } from 'src/app/services/navbar/navbar.service'
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -25,13 +25,23 @@ export class NavbarComponent implements OnInit {
   constructor(
     public _servicio: CamposantoService,
     public _usuario: UsuarioService,
-    public router: Router) { }
+    public router: Router,
+    private _navbar: NavbarService
+    ) { }
 
   ngOnInit(): void {
     this.id = JSON.parse(localStorage.getItem('info'));
     this.cargarCamposanto();
     this.getStatus();
     console.log(this.loggeduser)
+
+    this._navbar.updateUsername$.subscribe(
+        (message) => {
+           if(message == "actualizar"){
+             
+           }
+         }
+       )
   }
 
 

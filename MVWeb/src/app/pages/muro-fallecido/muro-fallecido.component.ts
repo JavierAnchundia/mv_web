@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { DifuntoService } from '../../services/difunto/difunto.service';
 import { Difunto } from 'src/app/models/difunto.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -65,7 +65,14 @@ export class MuroFallecidoComponent implements OnInit {
     public matDialog: MatDialog
   ) { }
 
-
+  regresarBusqueda(){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          "r": true
+      }
+    };
+    this.router.navigate(['home/busqueda'], navigationExtras)
+  }
   ngOnInit(): void {
     this.getRouteParams();
     this.getDifuntoInfo();
@@ -205,7 +212,7 @@ export class MuroFallecidoComponent implements OnInit {
     const Himagen = new FormData();
     Himagen.append('mensaje', this.myForm.value.message as string);
     Himagen.append('imagen', this.archivo);
-
+    Himagen.append('img_base64', 'none');
     await this.homenaje.postImagen(Himagen)
       .pipe(
         catchError(err => {

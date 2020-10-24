@@ -41,10 +41,9 @@ import { DatePipe } from '@angular/common'
     SharedModule,
     HttpClientModule,
     MatCardModule,
-        MatButtonModule,
-        MatDividerModule,
+    MatButtonModule,
+    MatDividerModule,
     FacebookModule.forRoot(),
-
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
