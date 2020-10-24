@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active ml-5">
-          <a class="nav-link" routerLink="/home/">Inicio <span class="sr-only">(current)</span></a>
+          <a class="nav-link" routerLink="/home/" routerLinkActive="active">Inicio</a>
         </li>
         <li class="nav-item ml-5">
           <a class="nav-link" routerLink= '/404/'>Nosotros</a>
@@ -21,7 +21,7 @@
           <a class="nav-link" routerLink= '/404/'>Contacto</a>
         </li>
         <li class="nav-item ml-5">
-          <a class="nav-link" routerLink="/home/busqueda">Buscar</a>
+          <a class="nav-link" routerLink="/home/busqueda" routerLinkActive="active">Buscar</a>
         </li>
         <li class="nav-item ml-5" *ngIf="!getStatus()">
           <a class="nav-link" routerLink="/home/login" >Login</a>

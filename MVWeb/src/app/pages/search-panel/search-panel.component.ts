@@ -49,8 +49,8 @@ export class SearchPanelComponent implements OnInit,AfterViewInit {
     public route: ActivatedRoute, 
     ) {
     this.searchFG = new FormGroup({
-      nombres: new FormControl(''),
-      apellidos: new FormControl(''),
+      nombres: new FormControl(null),
+      apellidos: new FormControl(null),
       tipoSepultura: new FormControl(''),
       sector: new FormControl(''),
       fechaDefuncionStart: new FormControl(''),
@@ -105,8 +105,15 @@ export class SearchPanelComponent implements OnInit,AfterViewInit {
   }
 
   onSubmit(value) {
+    console.log(value.nombres, value.apellidos);
     Swal.showLoading();
     this.lista_resultados = [];
+    if(value.nombres == ''){
+      value.nombres= null;
+    }
+    if(value.apellidos == ''){
+      value.apellidos = null;
+    }
     this._difunto.getDifuntos(this.id.camposanto, value.nombres, value.apellidos)
       .subscribe((resp: any) =>{
         localStorage.setItem('nombres_difunto', value.nombres)

@@ -61,7 +61,7 @@
         <div class="form-group widget-area no-padding blank text-center" *ngIf="this.imagePost == true">
           <img [src]="imageSrc" *ngIf="imageSrc" style="height: 142px; width:auto;">
 
-          <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)">
+          <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)" accept="image/*">
           <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
             <div *ngIf="f.file.errors.required">File is required.</div>
           </div>
@@ -72,7 +72,7 @@
             <source [src]="imageSrc" *ngIf="imageSrc" type='video/mp4' />
             <source [src]="imageSrc" *ngIf="imageSrc" type="video/*"/>
           </video>
-          <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)">
+          <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)" accept="video/mp4">
           <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
             <div *ngIf="f.file.errors.required">File is required.</div>
           </div>
@@ -86,7 +86,7 @@
             </audio>
            
           </div>
-          <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)">
+          <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)" accept="audio/mp3">
           <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
             <div *ngIf="f.file.errors.required">Adjunta un archivo.</div>
           </div>
@@ -100,7 +100,7 @@
       <div class="widget-area no-padding blank">
         <div class="status-upload">
           <form [formGroup]="myForm" (ngSubmit)="submit()">
-            <textarea formControlName="message" class="form-control" placeholder="Escribe un mensaje para tu ser querido..."></textarea>
+            <textarea formControlName="message" class="form-control" autofocus placeholder="Escribe un mensaje para tu ser querido..."></textarea>
             
             <ul class="btn-group btn-toolbar">
               <li> <button type="button" class="btn btn-sm btn-outline-primary" (click)="selectText()">Texto</button>
