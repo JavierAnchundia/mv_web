@@ -8,6 +8,7 @@ import { FacebookService, InitParams, LoginResponse, AuthResponse, LoginOptions 
 import Swal from 'sweetalert2'
 import { throwError } from 'rxjs';
 import { environment } from '../../environments/environment'
+import { NavbarService } from '../services/navbar/navbar.service';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,8 @@ export class LoginComponent implements OnInit {
     private formb: FormBuilder,
     public _usuarioService: UsuarioService,
     public router: Router,
-    private fb: FacebookService
+    private fb: FacebookService,
+    private _navbar: NavbarService
   ) {
     const initParams: InitParams = {
       appId: '921830748297038',
@@ -63,11 +65,11 @@ export class LoginComponent implements OnInit {
 
     this._usuarioService.loginUser(this.user)
                         .subscribe( resp=>{
+                          this._navbar.recarga_Username('actualizar');
                           console.log(resp);
                           console.log('token creado desde componente login')
                           Swal.close();
-                          this.router.navigate(['/home']);
-
+                          this.router.navigate([''])
                         }, error=>{
                           Swal.close();
                           Swal.fire('Correo o contraseña incorrectos',error);
@@ -107,8 +109,7 @@ export class LoginComponent implements OnInit {
            this.authresp = this.fb.getAuthResponse();
           localStorage.setItem('FBtoken',this.authresp.accessToken);
           this.user = this.getProfile();
-          this.router.navigate(['/home/inicio']);
-          
+          this.router.navigate([''])          
         }).then(
           (value:any)=>{
             this.crearFBuser(this.authresp.accessToken, this.user);
@@ -132,6 +133,7 @@ export class LoginComponent implements OnInit {
     console.log(formData.get('access_token'));
     this._usuarioService.loginUsuarioFB(formData)
     .subscribe((resp:any)=>{
+      this._navbar.recarga_Username('actualizar');
       console.log(resp)
       let token = JSON.stringify(resp['access']).slice(1,-1);
       let refresh = JSON.stringify(resp['refresh']).slice(1,-1);

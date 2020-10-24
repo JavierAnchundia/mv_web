@@ -12,6 +12,7 @@ export class NavbarService {
   updateUsername$ = this._cargarusername.asObservable();
 
   recarga_Username(message: string){
+    console.log(message)
     this._cargarusername.next(message);
   }
 }

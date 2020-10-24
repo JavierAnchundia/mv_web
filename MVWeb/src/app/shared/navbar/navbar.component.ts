@@ -22,6 +22,8 @@ export class NavbarComponent implements OnInit {
   faDizzy = faDizzy;
   faSignOutAlt = faSignOutAlt;
   faBell = faBell;
+  displayName: string = "username";
+
   constructor(
     public _servicio: CamposantoService,
     public _usuario: UsuarioService,
@@ -33,15 +35,18 @@ export class NavbarComponent implements OnInit {
     this.id = JSON.parse(localStorage.getItem('info'));
     this.cargarCamposanto();
     this.getStatus();
-    console.log(this.loggeduser)
-
     this._navbar.updateUsername$.subscribe(
         (message) => {
+          console.log(message)
            if(message == "actualizar"){
-             
+            this.loadUserInfo();
            }
          }
        )
+    if(this.loggeduser){
+      this.loadUserInfo();
+      
+    }
   }
 
 
@@ -64,6 +69,7 @@ export class NavbarComponent implements OnInit {
     // this.loggeduser = this._usuario.isLoggedin;
     this.loggeduser = this._usuario.statusLogin()
     return this.loggeduser;
+
   }
 
   logged(){
@@ -83,15 +89,26 @@ export class NavbarComponent implements OnInit {
           '¡Se ha cerrado sesión!',
           'Se ha cerrado la sesión exitosamente'
         )
+        this._navbar.recarga_Username('');
         this._usuario.logoutUser();
         this.getStatus();
-        this.router.navigate(['/home/inicio'])
+        this.displayName = "";
+        this.router.navigate(['']);
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         
       }
     })
   }
    
+  redirectToProfile(){
+    this.router.navigate(['/home/perfil']);
+  }
 
-  
+  loadUserInfo(){
+    let id_usuario = JSON.parse(localStorage.getItem('id'))['user_id'];
+    this._usuario.getUserInfo(id_usuario).subscribe((resp:any)=>{
+      //console.log(resp);
+      this.displayName = resp['first_name']+' '+resp['last_name'];
+    })
+  }
 }

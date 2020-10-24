@@ -7,7 +7,7 @@
             <mat-list-item *ngFor="let row of this.historial">
               <mat-icon mat-list-icon [inline]="true">person</mat-icon>
               <div mat-line>{{row.id_usuario.first_name}} {{row.id_usuario.last_name}}</div>
-              <div mat-line> {{row.fecha_publicacion | date}} </div>
+              <div mat-line> {{row.fecha_publicacion | date:'MMM d, y HH:mm:ss a':'+0:00'}} </div>
             </mat-list-item>
             <mat-divider></mat-divider>
             

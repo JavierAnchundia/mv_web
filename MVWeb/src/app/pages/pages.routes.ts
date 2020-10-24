@@ -6,6 +6,8 @@ import { HomeComponent } from './home/home/home.component';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { MuroFallecidoComponent } from './muro-fallecido/muro-fallecido.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { FavoritosComponent } from './favoritos/favoritos.component';
 
 
 
@@ -18,6 +20,9 @@ const pagesRoutes: Routes = [
     { path: 'login', component: LoginComponent, data: { titulo: 'login' } },
     { path: 'register', component: RegisterComponent , data: { titulo: 'register' }},
     { path: 'muro', component: MuroFallecidoComponent , data: { titulo: 'muro' }},
+    { path: 'perfil', component: PerfilComponent , data: { titulo: 'perfil' }},
+    { path: 'favoritos', component: FavoritosComponent , data: { titulo: 'faavoritos' }},
+
 
     { path: '', redirectTo: 'inicio', pathMatch: 'full' }
 ];

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import URL_SERVICIOS from 'src/app/config/config';
 
 @Component({
@@ -13,12 +14,19 @@ export class VideoPostComponent implements OnInit {
   @Input() message: String;
   @Input() likes: String;
   @Input() video: String;
-  
+  videoURL;
   url_backend: String = URL_SERVICIOS.url_backend;
 
-  constructor() { }
+  constructor(
+    protected sanitizer: DomSanitizer,
+
+  ) { }
 
   ngOnInit(): void {
+    const reader = new FileReader();
+    let url = URL_SERVICIOS.url_backend + this.video;
+    console.log(url);
+    this.videoURL = this.sanitizer.bypassSecurityTrustUrl(url);
     console.log(this.video);
   }
 
