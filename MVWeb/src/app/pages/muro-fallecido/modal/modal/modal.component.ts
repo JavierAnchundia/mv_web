@@ -8,20 +8,21 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class ModalComponent implements OnInit {
   @Input() log: any;
   public historial : []=[];
+  public numRosas;
+
   constructor(
     public dialogRef: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA) data 
   ) {
     this.historial = data.historial;
-    console.log(data);
-
+    this.numRosas = data.num;
    }
 
   ngOnInit(): void {
-    console.log(this.historial);
   }
   
   closeModal() {
     this.dialogRef.close();
+
   }
 }

@@ -1,94 +1,118 @@
-<div class="container">
+<div class="background-image">
   <div class="row justify-content-center align-items-center">
-    <div class="card col-8">
-      <div class="card-body mr-5 ml-5">
-        <h3 class="card-title text-center mb-3 mt-1">Regístrate para obtener tu cuenta</h3>
-        <hr>
+
+    <div class="card col-8 align-self-center">
+      <div class="card-body mr-2 ml-2">
+        <div class="container text-left">
+          <h2 class="active">REGISTRAR<span class="border-title">SE</span></h2>
+        </div>
         <form [formGroup]="registrationFormGroup" (submit)="onSubmitRegisterDetails(registrationFormGroup.value)">
           <div class="row">
-            <div class="col-6">
-              <div class="form-group">
-                <label for="nombre">Nombres:</label>
-                <input type="text" class="form-control" formControlName="nombre" />
-                <p style="color: red;"
-                  *ngIf="registrationFormGroup.controls.nombre.errors?.required && registrationFormGroup.controls.nombre.touched">
-                  Este campo es obligatorio.</p>
+            <div class="col-md-7 col-xs-12 col-sm-12">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input type="text" class="form-control" formControlName="nombre" placeholder="Nombres" />
+                  <small><p style="color: red;"
+                    *ngIf="registrationFormGroup.controls.nombre.errors?.required && registrationFormGroup.controls.nombre.touched">
+                  Este campo es obligatorio.</p></small>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input type="text" class="form-control" formControlName="apellidos" placeholder="Apellidos" />
+                  <small><p style="color: red;"
+                    *ngIf="registrationFormGroup.controls.apellidos.errors?.required && registrationFormGroup.controls.apellidos.touched">
+                    Este campo es obligatorio.</p></small>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input type="text" class="form-control" formControlName="username" required
+                    [ngClass]="{ 'is-invalid': submitted && registrationFormGroup.controls.username.errors }"
+                    placeholder="Username" />
+                  <div
+                    *ngIf=" registrationFormGroup.controls.username.invalid && (registrationFormGroup.controls.username.dirty || registrationFormGroup.controls.username.touched)"
+                    class="">
+                    <div *ngIf="registrationFormGroup.controls.username.errors.required " class="text-danger">
+                      <small>Ingresar un nombre de usuario</small></div>
+                    <div *ngIf="registrationFormGroup.controls.username.errors.usernameMatch" class="text-danger">
+                      <small> Nombre de usuario ya registrado</small></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input id="email" type="text" class="form-control" formControlName="email"
+                    placeholder="Correo electrónico"
+                    [ngClass]="{ 'is-invalid': submitted && registrationFormGroup.controls.email.errors }" required
+                    (input)="match_email()" />
+                  <div
+                    *ngIf=" registrationFormGroup.controls.email.invalid && (registrationFormGroup.controls.email.dirty || registrationFormGroup.controls.email.touched ) "
+                    class="">
+                    <div *ngIf="registrationFormGroup.controls.email.errors.required" class="text-danger">
+                      <small>Ingresar un correo electrónico</small></div>
+                    <div *ngIf="registrationFormGroup.controls.email.errors?.pattern" class="text-danger">
+                      <small>Ingresar un correo electrónico válido</small></div>
+                    <div *ngIf="registrationFormGroup.controls.email.errors.correoMatch" class="text-danger">
+                      <small>Este correo ya ha sido registrado</small></div>
+                  </div>
+
+                </div>
+                <form [formGroup]="passwordFormGroup">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="password" class="form-control" formControlName="password"
+                          placeholder="Contraseña" />
+                      </div>
+                      <small><p style="color: red;"
+                        *ngIf="passwordFormGroup.controls.password.errors?.required && passwordFormGroup.controls.password.touched">
+                      La contraseña no es válida</p></small>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="password" class="form-control" formControlName="repeatPassword"
+                          placeholder="Confirmar contraseña" />
+                      </div>
+                      <small><p style="color: red;"
+                        *ngIf="passwordFormGroup.controls.repeatPassword.errors?.required && passwordFormGroup.controls.repeatPassword.touched">
+                      La contraseña no es válida</p></small>
+                      <small><p style="color: red;" *ngIf="passwordFormGroup.errors?.doesMatchPassword">
+                      Las contraseñas no coinciden.</p></small>
+                    </div>
+                  </div>
+                </form>
+                <small>Al registrarme, acepto las <strong>Condiciones del servicio</strong> y su <strong>Política de
+                    privacidad.</strong></small>
+                <div class="form-group text-center">
+                  <button type="submit" class="btn-signup" [disabled]="!registrationFormGroup.valid">
+                    CREAR CUENTA </button>
+                </div>
               </div>
             </div>
-            <div class="col-6 col-md-6">
-              <div class="form-group">
-                <label for="apellidos">Apellidos:</label>
-                <input type="text" class="form-control" formControlName="apellidos" />
-                <p style="color: red;"
-                  *ngIf="registrationFormGroup.controls.apellidos.errors?.required && registrationFormGroup.controls.apellidos.touched">
-                  Este campo es obligatorio.</p>
+            <div class="col-md-1 v-divider d-none d-md-block">
+
+            </div>
+            <div class="col-md-3 col-xs-12 col-sm-12">
+              <div class="container d-flex h-100">
+
+                <div class="row justify-content-center align-self-center text-center">
+                  <div class="col-md-12">
+                    <img src="../../assets/icons/AVATAR.png" alt="">
+                  </div>
+                  <div class="col-md-12">
+                    <button type="button" class="btn btn-primary botonFacebook">
+                      <fa-icon class="mr-3" [icon]="faFacebookF"></fa-icon>
+                      <span><small>Continuar con <strong>Facebook</strong></small></span>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" class="form-control" formControlName="username"required [ngClass]="{ 'is-invalid': submitted && registrationFormGroup.controls.username.errors }"/>
-            <div *ngIf=" registrationFormGroup.controls.username.invalid && (registrationFormGroup.controls.username.dirty || registrationFormGroup.controls.username.touched)" class="">
-              <div *ngIf="registrationFormGroup.controls.username.errors.required " class="text-danger"><small>Ingresar un nombre de usuario</small></div>
-              <div *ngIf="registrationFormGroup.controls.username.errors.usernameMatch" class="text-danger"><small> Nombre de usuario ya registrado</small></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="email">Email:</label>
-            <input id="email" type="text" class="form-control" formControlName="email" 
-              [ngClass]="{ 'is-invalid': submitted && registrationFormGroup.controls.email.errors }" required (input)="match_email()" />
-              <!-- <div *ngIf="email.errors?.pattern && (registrationFormGroup.controls.email.dirty || registrationFormGroup.controls.email.touched )" class="text-danger"><small>Ingresar un correo electrónico válido</small></div> -->
-              <div *ngIf=" registrationFormGroup.controls.email.invalid && (registrationFormGroup.controls.email.dirty || registrationFormGroup.controls.email.touched ) " class="">
-                <div *ngIf="registrationFormGroup.controls.email.errors.required" class="text-danger"><small>Ingresar un correo electrónico</small></div>
-                <div *ngIf="registrationFormGroup.controls.email.errors?.pattern" class="text-danger"><small>Ingresar un correo electrónico válido</small></div>
-                <div *ngIf="registrationFormGroup.controls.email.errors.correoMatch" class="text-danger"> <small>Este correo ya ha sido registrado</small></div> 
-              </div>
-              
-            <!-- <p style="color: red;"
-              *ngIf="(registrationFormGroup.controls.email.errors?.required) && registrationFormGroup.controls.email.touched">
-              Ingrese una dirección de correo.</p> -->
-            <!-- <p style="color: red;"
-              *ngIf="(registrationFormGroup.controls.email.errors?.pattern) && registrationFormGroup.controls.email.touched">
-              Ingrese una dirección de correo válida.</p> -->
-              <!-- <div *ngIf="registrationFormGroup.controls.email.errors.correoMatch && registrationFormGroup.controls.email.touched" class="text-danger"> <small>Este correo ya ha sido registrado</small></div> -->
           </div>
           <div>
-            <form [formGroup]="passwordFormGroup">
-              <div class="row">
-                <div class="col-6">
-                  <div class="form-group">
-                    <label for="password">Contraseña:</label>
-                    <input type="password" class="form-control" formControlName="password" />
-                  </div>
-                  <p style="color: red;"
-                    *ngIf="passwordFormGroup.controls.password.errors?.required && passwordFormGroup.controls.password.touched">
-                    La contraseña no es válida</p>
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="password">Confirmar contraseña:</label>
-                        <input type="password" class="form-control" formControlName="repeatPassword" />
-                  </div>
-                  <p style="color: red;"
-                    *ngIf="passwordFormGroup.controls.repeatPassword.errors?.required && passwordFormGroup.controls.repeatPassword.touched">
-                    La contraseña no es válida</p>
-                  <p style="color: red;" *ngIf="passwordFormGroup.errors?.doesMatchPassword">Las contraseñas no coinciden.</p>
-                </div>
-              </div>
-            </form>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block" [disabled]="!registrationFormGroup.valid"> Registrar </button>
-            </div>
           </div>
         </form>
-        
-        
-        <hr>
-        <div class="form-group text-center">
-          <div class="row">
-            <a routerLink="/home/login">¿Ya tienes cuenta? Inicia sesión</a>
-          </div>
-        </div>
       </div>
     </div>
   </div>

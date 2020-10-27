@@ -115,4 +115,29 @@ export class HomenajeService {
 
   }
 
+  deleteAudio(id){
+    let url = URL_SERVICIOS.del_audio + id +'/'
+
+    return this.http.delete(url);
+  }
+
+  deleteImagen(id){
+    let url = URL_SERVICIOS.del_img + id +'/'
+
+    return this.http.delete(url);
+  }
+
+  deleteVideo(id){
+    let url = URL_SERVICIOS.del_video + id +'/'
+
+    return this.http.delete(url);
+  }
+
+  deleteMensaje(id){
+    let url = URL_SERVICIOS.del_mensaje + id +'/'
+
+    return this.http.delete(url);
+  }
+  
+
 }

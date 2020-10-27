@@ -28,3 +28,29 @@ mat-dialog-container#modal-component {
 .mat-list-icon{
     font-size: 40px;
 }
+
+mat-divider{
+    color: #c2c3c9;
+}
+
+.dates{
+    color: #87868a;
+    justify-content: flex-end !important;
+    text-align: end !important;
+    align-items: flex-end !important;
+    font-size: 10px;
+    float:right;
+}
+
+.title-divider{
+    border-top-color:#000000;
+}
+
+.names{
+    font-size: 13px;
+    color: #000000;
+    float:left;
+    justify-content: start !important;
+}
+
+

@@ -35,7 +35,11 @@ const URL_SERVICIOS = {
     addRoses: URL_ROOT + '/difunto/update-partial/',
     registroRosa: URL_ROOT +'/historial_rosas_post/',
     logRosas: URL_ROOT + '/historial_rosas/',
-    updateUser: URL_ROOT +'/usuario/'
+    updateUser: URL_ROOT +'/usuario/',
+    del_img: URL_ROOT + '/himagen_del/',
+    del_video:URL_ROOT + '/hvideo_del/',
+    del_mensaje:URL_ROOT + '/hmensaje_del/',
+    del_audio: URL_ROOT + '/haudio_del/',
 }
 
 export default URL_SERVICIOS

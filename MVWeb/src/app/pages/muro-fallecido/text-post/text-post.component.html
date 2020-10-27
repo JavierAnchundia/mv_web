@@ -1,18 +1,20 @@
-<div>
-<mat-card class="example-card mat-elevation-z2">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title defaultValue="">{{this.author_first_name}} {{this.author_last_name}} </mat-card-title>
-    <mat-card-subtitle> {{this.dateCreated| date:'MMM d, y HH:mm:ss a':'+0:00'}}</mat-card-subtitle>
-  </mat-card-header>
+<div class="row mb-3 mt-3 ml-1 mr-1">
+  <mat-card class="example-card mat-elevation-z2">
+  <div class="d-flex justify-content-between">
+    <div>
+      <mat-card-title>{{this.author_first_name|uppercase}} {{this.author_last_name|uppercase}} </mat-card-title>
+    </div>
+    <div>
+      <mat-card-subtitle>{{this.dateCreated| date:'MMM d, y HH:mm a':'+0:00' }}</mat-card-subtitle>
+    </div>
+  </div>
   <mat-card-content>
-    <p>
+    <p class="mensaje">
       {{this.message}}
     </p>
   </mat-card-content>
-  <mat-card-actions>
-    <!-- <button mat-button>LIKE</button>
-    <button mat-button>A {{this.likes}} le gusta esto</button> -->
+  <mat-card-actions *ngIf="this.user_id == this.author_id" class="d-flex justify-content-end">
+    <button (click)="submit()" mat-button><mat-icon>delete</mat-icon></button>
   </mat-card-actions>
 </mat-card>
 </div>

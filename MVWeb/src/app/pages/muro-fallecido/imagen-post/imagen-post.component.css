@@ -2,22 +2,49 @@
   min-width: 100%;
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
-}
-
 .mat-card {
   margin-bottom: 5px;
   margin-top: 5px;
 }
 
 img{
-  max-height:250px;
+  max-height:300px;
   width:auto; 
-  max-width: 250px;
+  max-width: 100%;
   margin: auto;    
   display: block;
+  padding: 5px 5px;
 }
 
+.mensaje{
+  color: #87868a;
+  padding-left: 10px;
+  padding-right: 10px; 
+  padding-bottom: 5px;
+  padding-top: 10px;
+}
 
+mat-icon{
+  color: red;
+}
+
+@media screen and (min-width: 601px) {
+  mat-card-title {
+    font-size: 20px;
+  }
+
+  mat-card-subtitle{
+    font-size: 12px;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+  mat-card-title {
+    font-size: 12px;
+  }
+
+  mat-card-subtitle{
+    font-size: 10px;
+  }
+}

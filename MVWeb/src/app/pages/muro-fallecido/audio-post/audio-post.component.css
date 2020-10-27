@@ -2,10 +2,6 @@
   min-width: 100%;
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
-}
 
 .mat-card {
   margin-bottom: 5px;
@@ -15,4 +11,42 @@
 audio{
   width:100%;
   max-width:600px;
+}
+
+.mensaje{
+  color: #87868a;
+  padding-left: 10px;
+  padding-right: 10px; 
+  padding-bottom: 5px;
+  padding-top: 10px;
+}
+
+mat-icon{
+  color: red;
+}
+
+mat-card-actions{
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+@media screen and (min-width: 601px) {
+  mat-card-title {
+    font-size: 20px;
+  }
+
+  mat-card-subtitle{
+    font-size: 12px;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+  mat-card-title {
+    font-size: 12px;
+  }
+
+  mat-card-subtitle{
+    font-size: 10px;
+  }
 }

@@ -121,7 +121,6 @@ export class UsuarioService {
     localStorage.removeItem('tipo_user'); 
     localStorage.removeItem('refresh'); 
     this.isLoggedin = false;
-    this.router.navigate(['/home']);
   }
 
   private updateData(token) {

@@ -1,0 +1,41 @@
+.masthead {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url('../../../../assets/backgrounds/fondo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+
+.btn-buscar{
+    background-color: #a3c442;
+    border: none;
+    color: white;
+    padding: 15px 35px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.title-home{
+    font-size: 40px;
+    color: white;
+    font-weight: 500;
+    text-shadow: 3px 3px grey;
+    padding: 10px 5px;
+    margin: 10px 5px;
+    letter-spacing: 0.4px;
+}
+
+.border-title{
+    border-bottom-style:  solid ; 
+    border-bottom-width: 3px;
+    border-color:  rgb(163, 196, 66);
+}
+
+h2{
+    font-size: 32px;
+    font-weight: 400;
+}

@@ -1,10 +1,78 @@
-.botonFacebook{
-    background-color: #3b5998;
-    border-color: #3b5998;
+.botonFacebook {
+  background-color: #3b5998;
+  border-color: #3b5998;
+  color: white;
 }
 
-button.btn-cambiar-color:hover{
-    background-color: #8b9dc3;
-    border-color: #8b9dc3;
-    color: #8b9dc3;
+button.btn-cambiar-color:hover {
+  background-color: #8b9dc3;
+  border-color: #8b9dc3;
+  color: #8b9dc3;
+}
+
+.border-title {
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-color: rgb(163, 196, 66);
+}
+
+h2 {
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.form-control {
+  box-shadow: none;
+  border: none;
+  font-weight: normal;
+  font-size: 11px;
+  background-color: rgba(212, 209, 209, 0.432);
+  height: 35px;
+}
+
+.background-image {
+  height: 1000px;
+  min-height: 300px;
+  background-image: url('../../assets/backgrounds/fondo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+}
+
+.btn-signup {
+  background-color: #a3c442;
+  border: none;
+  color: white;
+  padding: 10px 35px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
+small {
+  font-size: 10px;
+  color: #727176;
+}
+
+.v-divider {
+  border-left: 1px solid #c2c3c9;
+  height: 400px;
+  margin-bottom: 0px;
+}
+
+
+
+.card {
+  margin-top: 40px;
+}
+
+span small {
+  color: white;
+}
+
+img{
+    height: 80px;
+    width: 80px;
+    margin-bottom: 20px;
 }
