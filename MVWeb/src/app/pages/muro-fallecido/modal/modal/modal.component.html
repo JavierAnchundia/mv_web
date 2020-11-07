@@ -1,16 +1,29 @@
 <div id="modal-content-wrapper">
-    <header id="modal-header">
-        <h1 id="modal-title">Historial de rosas</h1>
+    <header id="modal-header" *ngIf="this.historial.length != 0">
+        <h1 id="modal-title"><img width="25" height="35" class="mr-2 ml-2" src="../../../assets/icons/ROSAS.png" alt="rosa">{{this.numRosas}} rosas </h1>
+        <mat-divider class="title-divider"></mat-divider>
     </header>
+    <header id="modal-header"*ngIf="this.historial.length == 0">
+      <h2 id="modal-title"><img width="28" height="50" class="mr-2 ml-2" src="../../../assets/icons/ROSAS.png" alt="rosa">0 rosas </h2>
+      <mat-divider class="title-divider"></mat-divider>
+  </header>
     <section id="modal-body">
+        <mat-list *ngIf="this.historial.length == 0">
+            <mat-list-item>
+            Aún no hay rosas en este muro.
+            !Sé el primero en dejar una rosa!
+            </mat-list-item>            
+          </mat-list>
         <mat-list>
-            <mat-list-item *ngFor="let row of this.historial">
-              <mat-icon mat-list-icon [inline]="true">person</mat-icon>
-              <div mat-line>{{row.id_usuario.first_name}} {{row.id_usuario.last_name}}</div>
-              <div mat-line> {{row.fecha_publicacion | date:'MMM d, y HH:mm:ss a':'+0:00'}} </div>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            
+            <mat-list-item *ngFor="let row of this.historial" >
+              <div class="row">
+              <div class="d-flex justify-content-between">
+                <div  class="pr-3 names">{{row.id_usuario.first_name | titlecase}} {{row.id_usuario.last_name | titlecase}}</div>
+                <div class="pl-3 mr-0 dates"> {{row.fecha_publicacion | date:'M/d/yyyy HH:mm a':'+0:00'}} </div>
+              </div> 
+              <mat-divider></mat-divider>
+            </div>
+            </mat-list-item>            
           </mat-list>
     </section>
     <footer id="modal-footer">

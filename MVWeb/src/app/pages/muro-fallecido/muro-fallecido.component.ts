@@ -35,7 +35,7 @@ export class MuroFallecidoComponent implements OnInit {
   message = '';
 
   loggeduser = false;
-
+  public USERID;
   public params;
   public difuntoID;
   public difunto: Difunto;
@@ -48,7 +48,7 @@ export class MuroFallecidoComponent implements OnInit {
   imageSrc: string;
 
   myForm = new FormGroup({
-    message: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    message: new FormControl(null, [Validators.required, Validators.minLength(3)]),
     file: new FormControl('', [Validators.required]),
     fileSource: new FormControl('', [Validators.required])
   });
@@ -65,8 +65,18 @@ export class MuroFallecidoComponent implements OnInit {
     public matDialog: MatDialog,
   ) { }
 
-
+  regresarBusqueda(){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          "r": true
+      }
+    };
+    this.router.navigate(['home/busqueda'], navigationExtras)
+  }
   ngOnInit(): void {
+    if(localStorage.getItem('id')!=null){
+      this.USERID = JSON.parse(localStorage.getItem('id'))['user_id'];
+    }
     this.getRouteParams();
     this.getDifuntoInfo();
     this.getHomenajes();
@@ -201,7 +211,7 @@ export class MuroFallecidoComponent implements OnInit {
       })
     } else {
       
-      if (this.textPost && this.myForm.valid) {
+      if (this.textPost && this.myForm.value.message != null) {
         this.postMensaje();
       }
       else {
@@ -279,7 +289,6 @@ export class MuroFallecidoComponent implements OnInit {
     Himagen.append('mensaje', this.myForm.value.message as string);
     Himagen.append('imagen', this.archivo);
     Himagen.append('img_base64', 'none');
-
     await this.homenaje.postImagen(Himagen)
       .pipe(
         catchError(err => {
@@ -461,8 +470,8 @@ export class MuroFallecidoComponent implements OnInit {
   getHomenajes() {
     this.homenaje.getHomenajesByID(this.difuntoID).subscribe(
       (resp: any) => {
-        //console.log(resp);
         this.homenajes = resp;
+        Swal.close();
         this.homenajes.reverse();
 
       })
@@ -542,18 +551,22 @@ export class MuroFallecidoComponent implements OnInit {
   }
 
   openModal() {
+    if(!this.skeletonloader){
+    console.log(this.numRosas);
     const dialogConfig = new MatDialogConfig();
     // The user can't close the dialog by clicking outside its body
     // dialogConfig.disableClose = true;
     dialogConfig.id = "modal-component";
     dialogConfig.height = "450px";
-    dialogConfig.width = "400px";
+    dialogConfig.width = "";
     dialogConfig.data = {
-      historial: this.historial
+      historial: this.historial,
+      num: this.numRosas
     }
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
   }
+}
 
 
 
@@ -587,5 +600,25 @@ export class MuroFallecidoComponent implements OnInit {
     };
     this.router.navigate(['home/busqueda'], navigationExtras)
 
+  }
+
+  guardarFavorito(){
+    Swal.fire({
+      title: '¿Desea guardar este perfil como favorito?',
+      text: "Al guardar este perfil recibirá notificaciones de este",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, guardar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Guardado',
+          'El perfil se agregó con exito a su listado.',
+          'success'
+        )
+      }
+    })
   }
 }

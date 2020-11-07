@@ -42,11 +42,10 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     SharedModule,
     HttpClientModule,
     MatCardModule,
-        MatButtonModule,
-        MatDividerModule,
+    MatButtonModule,
+    MatDividerModule,
     FacebookModule.forRoot(),
     NgxSkeletonLoaderModule
-
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

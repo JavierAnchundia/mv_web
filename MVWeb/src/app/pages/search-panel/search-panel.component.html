@@ -1,9 +1,10 @@
 <div class="row">
-  <div class="col-md-12 col-xs-12 col-lg-12 pt-20">
-    <h1>Encuentra a tus seres queridos </h1>
+  <div class="col-md-12 col-xs-12 col-lg-12 pt-20 text-center">
+    <h2>BUSCAR DIFUNT<span class="border-title">OS</span></h2>
+    <p class="subtitle">Encuentra a tus seres queridos </p>
   </div>
 </div>
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-2 col-lg-2 d-none d-md-block pt-20">
     <h5>Nombre:</h5>
   </div>
@@ -20,53 +21,52 @@
     <h5>No. de lápida:</h5>
   </div>
 
-</div>
-
+</div> -->
+<div class="container-fluid">
 <form [formGroup]="searchFG" (ngSubmit)="onSubmit(this.searchFG.value)">
   <div class="row pb-10">
-    <div class="col-md-2 col-lg-2 col-xs-10 pb-1">
-      <input type="text" class="form-control" placeholder="Nombre del fallecido" formControlName="nombres">
+    <div class="col-md-5 col-lg-5 col-xs-10 pb-1">
+      <input type="text" class="form-control" placeholder="Nombres" formControlName="nombres">
     </div>
-    <div class="col-md-2 col-lg-2 col-xs-10 pb-1">
-      <input type="text" class="form-control" placeholder="Apellido del fallecido" formControlName="apellidos">
+    <div class="col-md-5 col-lg-5 col-xs-10 pb-1">
+      <input type="text" class="form-control" placeholder="Apellidos" formControlName="apellidos">
     </div>
-    <div class="col-md-3 col-lg-3 col-xs-11 pb-1">
-      <input type="text" matInput [matDatepicker]="picker" placeholder="Fecha de defunción DESDE"
-        formControlName="fechaDefuncionStart">
-      <mat-datepicker-toggle matSuffix [for]="picker">
-        <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
-      </mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </div>
-    <div class="col-md-3 col-lg-3 col-xs-11 pb-1">
-      <input type="text" matInput [matDatepicker]="picker2" placeholder="Fecha de defunción HASTA"
-        formControlName="fechaDefuncionEnd">
-      <mat-datepicker-toggle matSuffix [for]="picker2">
-        <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
-      </mat-datepicker-toggle>
-      <mat-datepicker #picker2></mat-datepicker>
-    </div>
-
     <div class="col-md-2 col-lg-2 col-xs-10 pb-1">
       <input type="text" class="form-control" placeholder="No. lápida" formControlName="noLapida">
     </div>
   </div>
   <div class="row">
-    <div class="col-md-2 col-lg-2 d-none d-md-block pt-20">
-      <h5>Sector:</h5>
-    </div>
-    <div class="col-md-2 col-lg-2 d-none d-md-block pt-20">
-      <h5>Tipo de sepultura:</h5>
+    <div class="col-md-4 col-lg-4 d-none d-md-block pt-20">
+      <p>Fecha de defunción:</p>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-2 col-lg-2 col-xs-10 pb-1">
-      <select class=" custom-select" formControlName="sector" (change)="onChangeSector($event.target.value)">
+  <div class="row pb-10">
+      <div class="col-md-2 col-lg-2 col-xs-8 col-sm-8 mr-0" fxFlex="40">
+      <input type="text" class="form-control"  [matDatepicker]="picker" placeholder="Desde" formControlName="fechaDefuncionStart">
+      </div>
+      <div class="col-md-1 col-lg-1 col-xs-1 col-sm-1" fxFlex="30">
+      <mat-datepicker-toggle matSuffix [for]="picker" class="pr-0 pl-0 ml-0 mr-0">
+        <mat-icon matDatepickerToggleIcon class="pr-0 pl-0 ml-0 mr-0">calendar_today</mat-icon>
+      </mat-datepicker-toggle>
+      </div>
+      <mat-datepicker #picker></mat-datepicker>
+    <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3 mr-0" fxFlex="40">
+        <input class="form-control" type="text" [matDatepicker]="picker2" placeholder="Hasta" formControlName="fechaDefuncionEnd">
+    </div>
+    <div class="col-md-1 col-lg-1 col-xs-1" fxFlex="30">
+      <mat-datepicker-toggle [for]="picker2" class="pr-0 pl-0 ml-0 mr-0">
+        <mat-icon matDatepickerToggleIcon class="pr-0 pl-0 ml-0 mr-0">calendar_today</mat-icon>
+      </mat-datepicker-toggle>
+    </div>
+        
+        <mat-datepicker #picker2></mat-datepicker>
+    <div class="col-md-3 col-lg-3 col-xs-10 pb-1">
+      <select class="custom-select" formControlName="sector" (change)="onChangeSector($event.target.value)">
         <option selected value=""> Seleccione un sector</option>
         <option *ngFor="let sec of this.lista_sector" value={{sec.id_sector}}> {{sec.nombre}} </option>
       </select>
     </div>
-    <div class="col-md-2 col-lg-2 col-xs-10 pb-1">
+    <div class="col-md-3 col-lg-3 col-xs-10 pb-1">
       <select class=" custom-select" formControlName="tipoSepultura" (change)="onChangeSepultura($event.target.value)">
         <option selected value=""> Seleccione un tipo</option>
         <option *ngFor="let sep of this.lista_sepultura" value={{sep.id_tip_sepultura}}> {{sep.nombre}} </option>
@@ -74,57 +74,70 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12">
-      <button type="submit" class="btn btn-primary btn-lg search-button">Buscar</button>
+    <div class="col-12 text-center pb-2 pt-5">
+      <button type="submit" class="search-button">BUSCAR</button>
     </div>
   </div>
 </form>
+</div>
+
 <div class="row">
   <div class="col-12">
-    <h2>Resultados de la búsqueda</h2>
+    <h3>RESULTADOS</h3>
   </div>
 </div>
-<div class="container-fluid">
+<div class="container-fluid table-responsive">
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     <ng-container matColumnDef="cedula">
-      <mat-header-cell *matHeaderCellDef> Cédula </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.cedula}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef>CÉDULA</mat-header-cell>
+      <mat-cell *matCellDef="let element"> 
+      <span class="mobile-label">CÉDULA: </span>
+        {{element.cedula}} 
+      </mat-cell>
     </ng-container>
     <!-- Name Column -->
     <ng-container matColumnDef="nombre">
-      <mat-header-cell *matHeaderCellDef> Nombres </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef>NOMBRES</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <span class="mobile-label">NOMBRES: </span>
+        {{element.nombre | titlecase}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="apellidos">
-      <mat-header-cell *matHeaderCellDef> Apellidos </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.apellido}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef>APELLIDOS</mat-header-cell>
+      <mat-cell *matCellDef="let element"> 
+        <span class="mobile-label">APELLIDOS: </span>
+        {{element.apellido | titlecase}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="fechaNacimiento">
-      <mat-header-cell *matHeaderCellDef> Fecha de nacimiento </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.fecha_nacimiento| date: 'dd MMM., yyyy'}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef>FECHA DE NACIMIENTO</mat-header-cell>
+      <mat-cell *matCellDef="let element"> 
+        <span class="mobile-label">NACIMIENTO: </span>
+        {{element.fecha_nacimiento| date: 'dd MMM., yyyy'}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="fecha_difuncion">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de defuncion </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.fecha_difuncion| date: 'dd MMM., yyyy'}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>FECHA DE DEFUNCIÓN</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <span class="mobile-label">DEFUNCIÓN: </span>
+        {{element.fecha_difuncion| date: 'dd MMM., yyyy'}} </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="lapida">
-      <mat-header-cell *matHeaderCellDef> No. Lápida </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.no_lapida}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef>Nº DE LÁPIDA</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <span class="mobile-label">Nº DE LÁPIDA: </span>
+
+        {{element.no_lapida}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="detalle">
-      <mat-header-cell *matHeaderCellDef> Detalle </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="text-center">DETALLE</mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-raised-button color="primary"
-          (click)="redirectDifuntoProfile({difuntoID: element['id_difunto']})">Ir al perfil</button>
-
+        <button class="btn goto"
+          (click)="redirectDifuntoProfile({difuntoID: element['id_difunto']})"><mat-icon>search</mat-icon></button>
       </mat-cell>
-
-
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

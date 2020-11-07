@@ -5,6 +5,7 @@ import URL_SERVICIOS from 'src/app/config/config';
 import { Router } from '@angular/router';
 import { Usuario } from '../../models/usuario.model';
 import { map } from 'rxjs/operators';
+import { NavbarService } from '../navbar/navbar.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +21,13 @@ export class UsuarioService {
   public errors: any = [];
   public isLoggedin = false;
 
+
   
-  constructor(public http: HttpClient, public router: Router) {
+  constructor(
+    public http: HttpClient, 
+    public router: Router,
+    private _navbar: NavbarService
+  ) {
     this.loadStorage();
     this.httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -115,7 +121,6 @@ export class UsuarioService {
     localStorage.removeItem('tipo_user'); 
     localStorage.removeItem('refresh'); 
     this.isLoggedin = false;
-    this.router.navigate(['/home']);
   }
 
   private updateData(token) {
