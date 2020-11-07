@@ -558,7 +558,7 @@ export class MuroFallecidoComponent implements OnInit {
     // dialogConfig.disableClose = true;
     dialogConfig.id = "modal-component";
     dialogConfig.height = "450px";
-    dialogConfig.width = "400px";
+    dialogConfig.width = "";
     dialogConfig.data = {
       historial: this.historial,
       num: this.numRosas
@@ -600,5 +600,25 @@ export class MuroFallecidoComponent implements OnInit {
     };
     this.router.navigate(['home/busqueda'], navigationExtras)
 
+  }
+
+  guardarFavorito(){
+    Swal.fire({
+      title: '¿Desea guardar este perfil como favorito?',
+      text: "Al guardar este perfil recibirá notificaciones de este",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, guardar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Guardado',
+          'El perfil se agregó con exito a su listado.',
+          'success'
+        )
+      }
+    })
   }
 }

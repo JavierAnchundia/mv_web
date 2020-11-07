@@ -330,6 +330,7 @@ i{
   width: 20px;
   height: 20px;
 }
-
-
+h2 a:hover{
+  cursor: pointer;
+}
 
