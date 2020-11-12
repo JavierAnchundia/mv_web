@@ -1,4 +1,9 @@
 <div id="modal-content-wrapper">
+  <footer id="modal-footer">
+    <button mat-button id="modal-cancel-button" (click)="closeModal()">    
+      <mat-icon class="close-icon">close</mat-icon>
+    </button>
+</footer>
     <header id="modal-header" *ngIf="this.historial.length != 0">
         <h1 id="modal-title"><img width="25" height="35" class="mr-2 ml-2" src="../../../assets/icons/ROSAS.png" alt="rosa">{{this.numRosas}} rosas </h1>
         <mat-divider class="title-divider"></mat-divider>
@@ -26,7 +31,7 @@
             </mat-list-item>            
           </mat-list>
     </section>
-    <footer id="modal-footer">
+    <!-- <footer id="modal-footer">
         <button mat-button id="modal-cancel-button" (click)="closeModal()">Cerrar</button>
-    </footer>
+    </footer> -->
 </div>

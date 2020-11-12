@@ -13,6 +13,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalComponent } from './modal/modal/modal.component';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { FavoritosService } from '../../services/favoritos/favoritos.service';
 
 @Component({
   selector: 'app-muro-fallecido',
@@ -47,6 +48,8 @@ export class MuroFallecidoComponent implements OnInit {
   public historial: [] = [];
   imageSrc: string;
 
+  public isSaved: boolean = false;
+
   myForm = new FormGroup({
     message: new FormControl(null, [Validators.required, Validators.minLength(3)]),
     file: new FormControl('', [Validators.required]),
@@ -57,12 +60,13 @@ export class MuroFallecidoComponent implements OnInit {
   constructor(
     public router: Router,
     public route: ActivatedRoute,
-    public _difunto: DifuntoService,
-    public _usuario: UsuarioService,
+    private _difunto: DifuntoService,
+    private _usuario: UsuarioService,
     protected sanitizer: DomSanitizer,
     private homenaje: HomenajeService,
     public datepipe: DatePipe,
     public matDialog: MatDialog,
+    private _favorito : FavoritosService
   ) { }
 
   regresarBusqueda(){
@@ -81,6 +85,7 @@ export class MuroFallecidoComponent implements OnInit {
     this.getDifuntoInfo();
     this.getHomenajes();
     this.logrosas();
+    this.isFavorito();
   }
 
   getRouteParams(): void {
@@ -603,6 +608,22 @@ export class MuroFallecidoComponent implements OnInit {
   }
 
   guardarFavorito(){
+    this.getStatus();
+    if (!this.loggeduser) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Acción denegada',
+        text: 'Inicia sesión para poder marcar como favorito.',
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText:
+          '<a href="#/home/login" style="color:white;">Iniciar Sesion</a>',
+        confirmButtonAriaLabel: 'Thumbs up, great!',
+        cancelButtonText:
+          '<a href="#/home/register">Registrarse</a>',
+        cancelButtonAriaLabel: 'Thumbs down'
+      })
+    } else {
     Swal.fire({
       title: '¿Desea guardar este perfil como favorito?',
       text: "Al guardar este perfil recibirá notificaciones de este",
@@ -613,12 +634,66 @@ export class MuroFallecidoComponent implements OnInit {
       confirmButtonText: 'Sí, guardar'
     }).then((result) => {
       if (result.isConfirmed) {
+        this.addFavorito();
+      }
+    })
+  }
+}
+
+  addFavorito(){
+    let id_usuario = JSON.parse(localStorage.getItem('id'))['user_id'];
+
+    const favorito = new FormData();
+    favorito.append("id_usuario",id_usuario as string);
+    favorito.append("id_difunto", this.difuntoID as string);
+    favorito.append("estado", "True")
+
+    this._favorito.agregarFavorito(favorito).subscribe(
+      (data:any)=>{
         Swal.fire(
           'Guardado',
           'El perfil se agregó con exito a su listado.',
           'success'
         )
+        this.router.navigateByUrl('/home/favoritos');
+      }
+    )
+  }
+
+  isFavorito(){
+    let id_usuario = JSON.parse(localStorage.getItem('id'))['user_id'];
+
+    this._favorito.loadFavoritos(id_usuario).subscribe(
+      (data:any)=>{
+        data.forEach(element => {
+          if (element.id_difunto == this.difuntoID){
+            this.isSaved = true;
+          }
+        });
+      }
+    )
+  }
+
+  quitarFavorito(){
+    let id_usuario = JSON.parse(localStorage.getItem('id'))['user_id'];
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar este perfil de sus favoritos?',
+      text: "Al eliminar este perfil dejará de recibir notificaciones de este.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._favorito.removeFavorito(id_usuario, this.difuntoID).subscribe(
+          (data:any) =>{
+            this.isSaved = false;
+            Swal.fire("Eliminado", "Se ha eliminado este perfil de tus favoritos", "success");
+          }
+        )
       }
     })
+    
   }
 }

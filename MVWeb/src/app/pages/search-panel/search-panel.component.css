@@ -174,3 +174,7 @@ h3 {
     color: #000000;
   }
 }
+
+mat-cell, mat-header-cell {
+  border: none !important;
+}

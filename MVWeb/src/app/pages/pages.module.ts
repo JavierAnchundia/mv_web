@@ -35,6 +35,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { FavoritosComponent } from './favoritos/favoritos.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @NgModule({
     declarations: [
@@ -64,7 +65,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
         MatButtonModule,
         MatDividerModule,
         MatListModule,
-        MatDialogModule
+        MatDialogModule,
+        FavoritosComponent
 
     ],
     imports: [
@@ -87,7 +89,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
         MatListModule,
         MatDialogModule,
         NgxSkeletonLoaderModule,
-        MatToolbarModule
+        MatToolbarModule,
+        SlickCarouselModule
 
     ],
 

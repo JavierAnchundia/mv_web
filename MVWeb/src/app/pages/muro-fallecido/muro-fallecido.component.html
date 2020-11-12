@@ -21,8 +21,12 @@
 
   </div>
   <nav class="more">
-    <h2 class="names">{{this.difunto.nombre | uppercase}} {{this.difunto.apellido | uppercase}} <a class="bookmark" (click)="guardarFavorito()" data-toggle="tooltip" data-placement="top" title="Guardar como favorito"><img width="18" height="28"
-          src="../../../assets/icons/GUARDAR.png" /></a></h2>
+    <h2 class="names">{{this.difunto.nombre | uppercase}} {{this.difunto.apellido | uppercase}} <a class="bookmark" (click)="guardarFavorito()" data-toggle="tooltip" data-placement="top" title="Guardar como favorito">
+      <img width="18" height="28" *ngIf="!this.isSaved"
+          src="../../../assets/icons/GUARDAR.png" /></a>
+          <a (click)="quitarFavorito()" class="bookmark"  data-toggle="tooltip" data-placement="top" title="Eliminar de favoritos"><img width="18" height="28" *ngIf="this.isSaved"
+          src="../../../assets/icons/GUARDADO.png" />
+        </a></h2>
     <p class="dates"><img  class="navbar-img" src="../../../assets/icons/NACIMIENTO.png" />{{this.difunto.fecha_nacimiento| date: 'dd MMM., yyyy'}} -
       <img class="navbar-img" src="../../../assets/icons/DEFUNCION.png" /> {{this.difunto.fecha_difuncion | date: 'dd MMM., yyyy'}} </p>
     <div class="row ml-5 mr-5 text-center align-items-center">

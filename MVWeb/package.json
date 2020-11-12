@@ -31,8 +31,10 @@
     "jquery": "^3.5.1",
     "ngx-facebook": "^3.0.0-0",
     "ngx-skeleton-loader": "^2.4.4",
+    "ngx-slick-carousel": "^0.5.1",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",
+    "slick-carousel": "^1.8.1",
     "sweetalert2": "^9.17.1",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
