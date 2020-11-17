@@ -1,0 +1,33 @@
+section{
+    background-color: #d8d9dd;
+}
+
+
+.footer-item{
+    color: #000000;
+    font-size: medium;
+    font-family: 'Poppins', sans-serif; 
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.footer-item:hover{
+    color: #a3c442 !important;
+    text-decoration: none !important;
+}
+
+.social-icon{
+    width: auto;
+    height: 20px;
+    cursor: pointer;
+}
+
+.social-icon-fb{
+    width: auto;
+    height: 20px;
+    cursor: pointer;
+}
+
+.img-fluid{
+    max-width: 30% !important;
+}

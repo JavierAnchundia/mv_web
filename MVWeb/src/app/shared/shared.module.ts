@@ -6,6 +6,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -18,10 +19,12 @@ import { MatDividerModule } from '@angular/material/divider';
         MatDividerModule
     ],
     declarations: [
-        NavbarComponent
+        NavbarComponent,
+        FooterComponent
     ],
     exports: [
-        NavbarComponent
+        NavbarComponent,
+        FooterComponent
     ]
 })
 export class SharedModule { }

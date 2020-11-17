@@ -1,92 +1,143 @@
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4 text-center">Datos de la cuenta</h1>
-  </div>
-</div>
-<div class="container">
-  <ngx-skeleton-loader count="5" animation="pulse" appearance="line" *ngIf="skeletonloader"> </ngx-skeleton-loader>
-  <div class="row justify-content-center align-items-center">
-    <div class="card-body mr-5 ml-5" *ngIf="!skeletonloader">
-      <form [formGroup]="updateProfile" (submit)="onSubmit(updateProfile.value)">
-        <div class="row">
-          <div class="col-md-6 col-sm-12 col-xs-12">
-            <div class="form-group">
-              <label for="nombre"><strong>Nombres:</strong></label>
-              <p *ngIf="!this.edit && !skeletonloader">{{this.usuario['first_name'] |titlecase}}</p>
-              <input *ngIf="this.edit" type="text" class="form-control" formControlName="nombre"
-              value={{this.usuario?.first_name}} />
+<div class="background-image">
+  <div class="row justify-content-center align-items-center ml-1 mr-1">
 
-            </div>
-          </div>
-          <div class="col-md-6 col-sm-12 col-xs-12">
-            <div class="form-group">
-              <label for="apellidos"><strong>Apellidos:</strong></label>
-              <p *ngIf="!this.edit">{{this.usuario['last_name'] |titlecase}}</p>
-             
-                <input *ngIf="this.edit" type="text" class="form-control" formControlName="apellidos"
-                value={{this.usuario?.last_name}} />
-            </div>
-          </div>
+    <div class="card col-md-8 col-sm-10 col-xs-10 align-self-center">
+      <div class="card-body mr-2 ml-2">
+        <div class="container text-left">
+          <h2 class="active">PERFIL DEL USUAR<span class="border-title">IO</span></h2>
         </div>
-        <div class="row">
-          <div class="col-md-6 col-sm-12 col-xs-12">
-            <div class="form-group">
-              <label for="username"><strong>Username:</strong></label>
-              <p *ngIf="!this.edit">{{this.usuario['username'] }}</p>
-              <input *ngIf="this.edit" type="text" class="form-control" formControlName="username"
-              value={{this.usuario?.username}}/>
-            </div>
-          </div>
-          <div class="col-md-6 col-sm-12 col-xs-12">
-            <div class="form-group">
-                <label for="email"><strong>Email:</strong></label>
-                <p *ngIf="!this.edit">{{this.usuario['email'] }}</p>
-                <input *ngIf="this.edit" type="email" class="form-control" formControlName="email"
-                value={{this.usuario?.email}} />
-              </div>
-          </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="form-group">
-                    <label for="genero"><strong>Género:</strong></label>
-                    <p *ngIf="!this.edit">{{this.usuario['genero'] |titlecase}}</p>
-                    <input *ngIf="this.edit" type="genero" class="form-control" formControlName="genero"
-                    value={{this.usuario?.genero}}/>
+        <div class="container ml-2 mr-2">
+          <ngx-skeleton-loader count="5" animation="pulse" appearance="line" *ngIf="skeletonloader"> </ngx-skeleton-loader>
+          <div class="row justify-content-center align-items-center ml-2 mr-2">
+            <div class="card-body mr-1 ml-1" *ngIf="!skeletonloader">
+              <form [formGroup]="updateProfile" (submit)="onSubmit(updateProfile.value)">
+                <div class="row justify-content-center align-items-center">
+                  <div class="col-md-11 col-sm-10 col-xs-10"><!--left col-->
+                    <form [formGroup]="myForm">
+                  <div class="text-center">
+                    <img *ngIf="imageSrc" [src]="imageSrc" class="rounded-circle img-responsive img-thumbnail" alt="avatar" style="height: 120px; width:120px;">
+                    <img *ngIf="!imageSrc" src="../../../assets/icons/AVATAR.png" class="rounded-circle img-responsive img-thumbnail" alt="avatar" style="height: 100px; width:auto;">
+
+                    <br>
+                    <input *ngIf="this.edit" formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)"
+                    accept="image/*">                  
                   </div>
-              </div>
-              <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="form-group">
-                    <label for="direccion"><strong>Dirección:</strong></label>
-                    <p *ngIf="!this.edit">{{this.usuario['direccion'] |titlecase}}</p>
-                    <input *ngIf="this.edit" type="direccion" class="form-control" formControlName="direccion"
-                    value={{this.usuario?.direccion}}/>
+                </form>
+                  <br>
                   </div>
-              </div>
-              
-        </div>
-        <div class="row">
-          <div class="col-md-6 col-sm-12 col-xs-12">
-            <div class="form-group">
-                <label for="telefono"><strong>Teléfono:</strong></label>
-                <p *ngIf="!this.edit">{{this.usuario['telefono'] |titlecase}}</p>
-                <input *ngIf="this.edit" type="telefono" class="form-control" formControlName="telefono"
-                value={{this.usuario?.telefono}}/>
-              </div>
-          </div>
-        </div>
-        <div class="btn-toolbar">
-          <div class="btn-group mr-2" role="group" aria-label="First group">
-            <button *ngIf="!this.edit" class="btn btn-info" (click)="editProfile()">Editar perfil</button>
-          </div>
-          <div class="btn-group mr-2" role="group" aria-label="First group">
-          <button *ngIf="this.edit" class="btn btn-success" type="submit">Guardar cambios</button>
-          </div>
-          <div class="btn-group mr-2" role="group" aria-label="First group">
-            <button *ngIf="this.edit" class="btn btn-danger" (click)="cancelEdit()">Cancelar </button>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-6 col-sm-11 col-xs-11">
+                    <div class="form-group">
+                      <label for="nombre"><strong>Nombres:</strong></label>
+                      <p *ngIf="!this.edit && !skeletonloader">{{this.usuario['first_name'] |titlecase}}</p>
+                      <input *ngIf="this.edit" type="text" class="form-control" formControlName="nombre"
+                      value={{this.usuario?.first_name}} />
+        
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-11 col-xs-11">
+                    <div class="form-group">
+                      <label for="apellidos"><strong>Apellidos:</strong></label>
+                      <p *ngIf="!this.edit">{{this.usuario['last_name'] |titlecase}}</p>
+                     
+                        <input *ngIf="this.edit" type="text" class="form-control" formControlName="apellidos"
+                        value={{this.usuario?.last_name}} />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-11 col-xs-11">
+                    <div class="form-group">
+                      <label for="username"><strong>Username:</strong></label>
+                      <p *ngIf="!this.edit">{{this.usuario['username'] }}</p>
+                      <input *ngIf="this.edit" type="text" class="form-control" formControlName="username"
+                      value={{this.usuario?.username}}/>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label for="email"><strong>Email:</strong></label>
+                        <p *ngIf="!this.edit">{{this.usuario['email'] }}</p>
+                        <input *ngIf="this.edit" type="email" class="form-control" formControlName="email"
+                        value={{this.usuario?.email}} />
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-11 col-xs-11">
+                        <div class="form-group">
+                            <label for="genero"><strong>Género:</strong></label>
+                            <p *ngIf="!this.edit">{{this.usuario['genero'] |titlecase}}</p>
+                            <input *ngIf="this.edit" type="genero" class="form-control" formControlName="genero"
+                            value={{this.usuario?.genero}}/>
+                          </div>
+                      </div>
+                      <div class="col-md-6 col-sm-11 col-xs-11">
+                        <div class="form-group">
+                            <label for="direccion"><strong>Dirección:</strong></label>
+                            <p *ngIf="!this.edit">{{this.usuario['direccion'] |titlecase}}</p>
+                            <input *ngIf="this.edit" type="direccion" class="form-control" formControlName="direccion"
+                            value={{this.usuario?.direccion}}/>
+                          </div>
+                      </div>
+                      
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-11 col-xs-11">
+                    <div class="form-group">
+                        <label for="telefono"><strong>Teléfono:</strong></label>
+                        <p *ngIf="!this.edit">{{this.usuario['telefono'] |titlecase}}</p>
+                        <input *ngIf="this.edit" type="telefono" class="form-control" formControlName="telefono"
+                        value={{this.usuario?.telefono}}/>
+                      </div>
+                  </div>
+                </div>
+                <form [formGroup]="passwordFormGroup" *ngIf="this.edit">
+                  <div class="row ml-2">
+                    <label for="direccion"><strong>Actualizar contraseña:</strong></label>
+                  </div>
+                  <div class="row ">
+                    <div class="col-md-6 col-sm-11 col-xs-11">
+                      <div class="form-group">
+                        <input type="password" class="form-control" formControlName="password"
+                          placeholder="Contraseña" />
+                      </div>
+                      <small><p style="color: red;"
+                        *ngIf="passwordFormGroup.controls.password.errors?.required && passwordFormGroup.controls.password.touched">
+                      La contraseña no es válida</p></small>
+                    </div>
+                    <div class="col-md-6 col-sm-11 col-xs-11">
+                      <div class="form-group">
+                        <input type="password" class="form-control" formControlName="repeatPassword"
+                          placeholder="Confirmar contraseña" />
+                      </div>
+                      <small><p style="color: red;"
+                        *ngIf="passwordFormGroup.controls.repeatPassword.errors?.required && passwordFormGroup.controls.repeatPassword.touched">
+                      La contraseña no es válida</p></small>
+                      <small><p style="color: red;" *ngIf="passwordFormGroup.errors?.doesMatchPassword">
+                      Las contraseñas no coinciden.</p></small>
+                    </div>
+                  </div>
+                </form>
+                <div class="btn-toolbar">
+                  <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button *ngIf="!this.edit" class="btn-edit" (click)="editProfile()">EDITAR PERFIL</button>
+                  </div>
+                  <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button *ngIf="this.edit" class="btn-edit" type="submit">GUARDAR CAMBIOS</button>
+                  </div>
+                  <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button *ngIf="this.edit" class="btn-cancel" (click)="cancelEdit()">Cancelar </button>
+                    </div>
+                </div>
+              </form>
             </div>
+          </div>
         </div>
-      </form>
-    </div>
-  </div>
+        
+        </div>
+        </div>
+        </div>
 </div>
