@@ -1,0 +1,40 @@
+.border-title {
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-color: #a3c442;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 400;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+}
+
+.icon-img{
+  margin-top: 0px;
+  padding-top: 0px;
+  width: auto;
+  height: 16px;
+}
+
+.text-muted{
+    font-size: 12px;
+    color: #87868a;
+}
+
+li { 
+    cursor: pointer;
+ }
+
+ .list-group-item:nth-child(even) {
+    background-color: #edeef0;  
+  }
+
+.container{
+    border-color: #aeadb3;
+}
+  

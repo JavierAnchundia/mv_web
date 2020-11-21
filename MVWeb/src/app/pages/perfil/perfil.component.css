@@ -1,0 +1,54 @@
+.background-image {
+  height: 1000px;
+  min-height: 300px;
+  background-image: url('../../../assets/backgrounds/fondo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+}
+
+.form-control {
+  box-shadow: none;
+  border: none;
+  font-weight: normal;
+  font-size: 11px;
+  background-color: rgba(212, 209, 209, 0.432);
+}
+
+
+.card {
+  margin-top: 40px;
+}
+
+.btn-edit {
+  background-color: #a3c442;
+  border: none;
+  color: white;
+  padding: 10px 35px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.btn-cancel {
+  background-color: #87868a;
+  border: none;
+  color: white;
+  padding: 10px 35px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.border-title {
+    border-bottom-style: solid;
+    border-bottom-width: 3px;
+    border-color: rgb(163, 196, 66);
+  }
+
+  h2 {
+    font-size: 28px;
+    font-weight: 400;
+  }

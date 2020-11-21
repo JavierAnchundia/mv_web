@@ -21,7 +21,7 @@ const pagesRoutes: Routes = [
     { path: 'register', component: RegisterComponent , data: { titulo: 'register' }},
     { path: 'muro', component: MuroFallecidoComponent , data: { titulo: 'muro' }},
     { path: 'perfil', component: PerfilComponent , data: { titulo: 'perfil' }},
-    { path: 'favoritos', component: FavoritosComponent , data: { titulo: 'faavoritos' }},
+    { path: 'favoritos', component: FavoritosComponent , data: { titulo: 'favoritos' }},
 
 
     { path: '', redirectTo: 'inicio', pathMatch: 'full' }

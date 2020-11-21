@@ -1,1 +1,47 @@
-<p>favoritos works!</p>
+<div class="row">
+  <div class="col-md-12 col-xs-12 col-lg-12 pt-20 text-center">
+    <h2>DIFUNTOS GUARDAD<span class="border-title">OS</span></h2>
+  </div>
+</div>
+<div class="container-fluid ml-15 mr-15 mt-5">
+    <div class="container">
+        <!-- difuntos card -->
+        <div class="card card-default" id="card_contacts">
+            <div id="contacts" class="panel-collapse collapse show" aria-expanded="true" style="">
+                <ul class="list-group pull-down" id="contact-list">
+                    <li class="list-group-item" *ngFor="let fav of this.favoritos_lista" (click)="redirectDifuntoProfile({difuntoID: this.fav.id_difunto?.id_difunto})">
+                        <div class="row w-100" >
+                            <div class="col-12 col-sm-6 col-md-3 px-0">
+                                <img src="../../../assets/icons/AVATAR.png" alt="Profile photo" class="avatar rounded-circle mx-auto d-block img-fluid">
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-9 text-center text-sm-left">
+                                <span class="fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
+                                <label class="name lead">{{this.fav.id_difunto?.nombre}} {{this.fav.id_difunto?.apellido}}</label>
+                                <br> 
+                                <div class="row d-flex align-items-center">
+                                    <div class="col-md-3 col-sm-12 col-xs-12 ">
+                                        <span><img class="icon-img mt-0" src="../../../assets/icons/NACIMIENTO.png"></span>
+                                        <span class="text-muted ml-1">{{this.fav.id_difunto?.fecha_nacimiento}}</span>
+                                    </div>
+                                    <div class="col-md-3 col-sm-12 col-xs-12">
+                                        <span><img class="icon-img mt-0" src="../../../assets/icons/DEFUNCION.png"></span>
+                                        <span class="text-muted ml-1">{{this.fav.id_difunto?.fecha_difuncion}}</span>
+                                    </div>
+                                    <div class="col-md-3 col-sm-12 col-xs-12">
+                                        <span><img class="icon-img mt-0" src="../../../assets/icons/POINTER.png"></span>
+                                        <span class="text-muted ml-1">{{this.fav.id_difunto?.lugar_nacimiento}}</span>
+                                    </div>
+                                    <div class="col-md-3 col-sm-12 col-xs-12">
+                                        <span><img class="icon-img mt-0" src="../../../assets/icons/TIPO_SEPULTURA.png"></span>
+                                        <span class="text-muted ml-1">{{this.fav.id_difunto?.no_lapida}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>                   
+                </ul>
+                <!--/difuntos list-->
+            </div>
+        </div>
+    </div>
+</div>
