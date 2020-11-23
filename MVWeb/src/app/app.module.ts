@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { DatePipe } from '@angular/common'
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 
 
 
@@ -30,6 +31,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     //LoginComponent,
     PagesComponent,
     ErrorpageComponent,
+    PasswordRecoveryComponent,
   ],
   imports: [
     BrowserModule,

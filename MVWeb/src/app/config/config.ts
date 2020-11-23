@@ -42,7 +42,9 @@ const URL_SERVICIOS = {
     del_audio: URL_ROOT + '/haudio_del/',
     favoritos: URL_ROOT + '/favoritos/',
     favoritos_list: URL_ROOT + '/favoritos_list/',
-    favoritos_del: URL_ROOT + '/favoritos_del/'
+    favoritos_del: URL_ROOT + '/favoritos_del/',
+    recuperar_contrasena: URL_ROOT + '/enviar_email_password_admin/',
+
 }
 
 export default URL_SERVICIOS

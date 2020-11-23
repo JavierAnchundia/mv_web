@@ -5,6 +5,7 @@ import { PagesComponent } from './pages/pages.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorpageComponent } from './errorpage/errorpage.component';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 
 
 const appRoutes: Routes = [
@@ -12,6 +13,7 @@ const appRoutes: Routes = [
     path: 'home', component: PagesComponent,
     loadChildren: () => import('src/app/pages/pages.module').then(m => m.PagesModule)
     },
+    {path: 'recuperarContrasena', component:PasswordRecoveryComponent},
     {
         path:'',redirectTo: 'home', pathMatch: 'full'
     },
