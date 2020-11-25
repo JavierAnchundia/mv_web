@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import { RecuperarContrasenaService } from '../services/recuperar-contrasena/recuperar-contrasena.service';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-password-recovery',
   templateUrl: './password-recovery.component.html',
@@ -16,6 +18,8 @@ export class PasswordRecoveryComponent implements OnInit {
   constructor(
     private formb: FormBuilder,
     public _recuperarContrasena: RecuperarContrasenaService,
+    private router: Router,
+
 
 
   ){ }
@@ -23,7 +27,7 @@ export class PasswordRecoveryComponent implements OnInit {
   ngOnInit(): void {
 
     this.recuperar_form = this.formb.group({
-      username: [null, Validators.compose([Validators.required])],
+      correo: [null, Validators.compose([Validators.required])],
     });
 
   }
@@ -39,15 +43,16 @@ export class PasswordRecoveryComponent implements OnInit {
   }
 
   recuperarContrasena() {
-    
+    console.log(this.recuperar_form.value.correo);
+    let id_cementerio = JSON.parse(localStorage.getItem('camposanto')).camposanto.toString()
     this._recuperarContrasena
-    .recuperarContrasena(this.recuperar_form.value.username)
+    .recuperarContrasenaCorreo(this.recuperar_form.value.correo, id_cementerio)
     .pipe(
      catchError((err) => {
       Swal.close();
       if(err.error[Object.keys(err.error)[0]] == 'Not found.') {
         Swal.fire({
-          title: 'No existe ese usuario, intente nuevemente',
+          title: 'No existe ese correo, intente nuevemente',
           heightAuto: false,
           backdrop:false,
           animation: false,
@@ -71,7 +76,14 @@ export class PasswordRecoveryComponent implements OnInit {
        Swal.fire({
         heightAuto: false,
         backdrop:false,
-        title:'¡Petición Exitosa! Revise su correo por favor'});
+        title:'¡Petición Exitosa! Revise su correo por favor',
+        confirmButtonText: 'Ok',
+        }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/home/']);
+        } 
+        })
+
        console.log("Holi");
        return true;
      },

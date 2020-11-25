@@ -25,4 +25,18 @@ export class RecuperarContrasenaService {
     return this.http.get(url, httpOptions);
 
   }
+
+  recuperarContrasenaCorreo(correo, idCementerio){
+
+    let url = URL_SERVICIOS.recuperar_contrasenaCorreo + correo + '/' + idCementerio + '/' ;
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': "*",
+      })
+    }
+    
+    return this.http.get(url, httpOptions);
+
+  }
+
 }

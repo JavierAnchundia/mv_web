@@ -44,6 +44,8 @@ const URL_SERVICIOS = {
     favoritos_list: URL_ROOT + '/favoritos_list/',
     favoritos_del: URL_ROOT + '/favoritos_del/',
     recuperar_contrasena: URL_ROOT + '/enviar_email_password_admin/',
+    recuperar_contrasenaCorreo: URL_ROOT + '/enviar_email_password/',
+
 
 }
 
