@@ -1,7 +1,7 @@
-const URL_ROOT = 'http://localhost:8000/api'
-const URL_ROOT_AUTH = 'http://localhost:8000'
-//const URL_ROOT = 'https://carmsanc.pythonanywhere.com/api'
-//const URL_ROOT_AUTH = 'https://carmsanc.pythonanywhere.com'
+//const URL_ROOT = 'http://localhost:8000/api'
+//const URL_ROOT_AUTH = 'http://localhost:8000'
+const URL_ROOT = 'https://carmsanc.pythonanywhere.com/api';
+const URL_ROOT_AUTH = 'https://carmsanc.pythonanywhere.com';
 
 const URL_SERVICIOS = {
     url_backend: URL_ROOT_AUTH,
@@ -47,6 +47,6 @@ const URL_SERVICIOS = {
     recuperar_contrasenaCorreo: URL_ROOT + '/enviar_email_password/',
 
 
-}
+};
 
-export default URL_SERVICIOS
+export default URL_SERVICIOS;
