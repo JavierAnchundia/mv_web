@@ -36,6 +36,21 @@ import { FavoritosComponent } from './favoritos/favoritos.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { PaquetesComponent } from './paquetes/paquetes.component'
+
+export const MY_DATE_FORMATS = {
+    parse: {
+      dateInput: 'DD-MM-YYYY',
+    },
+    display: {
+      dateInput: 'MMM DD, YYYY',
+      monthYearLabel: 'MMMM YYYY',
+      dateA11yLabel: 'LL',
+      monthYearA11yLabel: 'MMMM YYYY'
+    },
+  }; 
 
 @NgModule({
     declarations: [
@@ -51,6 +66,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
         AudioPostComponent,
         PerfilComponent,
         FavoritosComponent,
+        PaquetesComponent,
 
     ],
     exports: [
@@ -90,9 +106,13 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
         MatDialogModule,
         NgxSkeletonLoaderModule,
         MatToolbarModule,
-        SlickCarouselModule
+        SlickCarouselModule,
+        MatMomentDateModule,
+        MatNativeDateModule
 
     ],
-
+    providers: [
+        { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
+    ],
 })
 export class PagesModule { }

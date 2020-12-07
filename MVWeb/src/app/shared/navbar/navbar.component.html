@@ -22,7 +22,7 @@
           <a class="nav-link" routerLink="/home/busqueda" routerLinkActive="active">BUSCAR DIFUNTOS</a>
         </li>
         <li class="nav-item ml-5">
-          <a class="nav-link" routerLink='/404/'>PAQUETES</a>
+          <a class="nav-link" routerLink='/home/paquetes'>PAQUETES</a>
         </li>
         <li class="nav-item ml-5">
           <a class="nav-link" routerLink='/404/'>SOBRE NOSOTROS</a>
@@ -76,12 +76,15 @@
     <li class="nav-item ml-5 mt-0 pt-0  dropdown" *ngIf="getStatus()">
       <a class="nav-link mt-0 pt-0" id="navbarDropdownMenuLink" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
-        <img class="navbar-img" src="../../../assets/icons/AVATAR.png">
+        <img *ngIf="!imgSrc" class="navbar-img" src="../../../assets/icons/AVATAR.png">
+        <img *ngIf="imgSrc" [src]="imgSrc" class="rounded-circle img-responsive navbar-img" alt="avatar">
       </a>
 
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
         <div class="text-center">
-          <img class="avatar" src="../../../assets/icons/AVATAR.png">
+          <img *ngIf="!imgSrc" class="avatar" src="../../../assets/icons/AVATAR.png">
+          <img *ngIf="imgSrc" [src]="imgSrc" class="rounded-circle img-responsive avatar" alt="avatar">
+
         </div>
         <p class="dropdown-item username" (click)="redirectToProfile()">
           {{this.displayName | titlecase}}

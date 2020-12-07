@@ -21,8 +21,20 @@ import { MatDividerModule } from '@angular/material/divider';
 import { DatePipe } from '@angular/common'
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
 
-
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD-MM-YYYY',
+  },
+  display: {
+    dateInput: 'MMM DD, YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  },
+}; 
 
 @NgModule({
   declarations: [
@@ -47,9 +59,12 @@ import { PasswordRecoveryComponent } from './password-recovery/password-recovery
     MatButtonModule,
     MatDividerModule,
     FacebookModule.forRoot(),
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
+    MatNativeDateModule,
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

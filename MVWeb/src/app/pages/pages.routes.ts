@@ -8,20 +8,23 @@ import { RegisterComponent } from '../register/register.component';
 import { MuroFallecidoComponent } from './muro-fallecido/muro-fallecido.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { FavoritosComponent } from './favoritos/favoritos.component';
+import { PaquetesComponent } from './paquetes/paquetes.component';
+import { LogInGuard } from '../guards/logIn/log-in.guard';
 
 
 
 const pagesRoutes: Routes = [
-    
-    { path: 'busqueda', component: SearchPanelComponent, data: { titulo: 'busqueda' } 
+
+    { path: 'busqueda', component: SearchPanelComponent, data: { titulo: 'busqueda' }
     },
-    { path: 'inicio', component: HomeComponent, data: { titulo: 'inicio' } 
+    { path: 'inicio', component: HomeComponent, data: { titulo: 'inicio' }
     },
     { path: 'login', component: LoginComponent, data: { titulo: 'login' } },
     { path: 'register', component: RegisterComponent , data: { titulo: 'register' }},
     { path: 'muro', component: MuroFallecidoComponent , data: { titulo: 'muro' }},
-    { path: 'perfil', component: PerfilComponent , data: { titulo: 'perfil' }},
-    { path: 'favoritos', component: FavoritosComponent , data: { titulo: 'favoritos' }},
+    { path: 'perfil', component: PerfilComponent , data: { titulo: 'perfil' }, canActivate: [LogInGuard]},
+    { path: 'favoritos', component: FavoritosComponent , data: { titulo: 'favoritos' }, canActivate: [LogInGuard]},
+    { path: 'paquetes', component: PaquetesComponent , data: { titulo: 'paquetes' }},
 
 
     { path: '', redirectTo: 'inicio', pathMatch: 'full' }
