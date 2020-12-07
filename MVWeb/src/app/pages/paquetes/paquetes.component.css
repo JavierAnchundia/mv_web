@@ -1,0 +1,70 @@
+.border-title {
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-color: #a3c442;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 400;
+}
+
+div.clear {
+  clear: both;
+}
+
+
+div.product-chooser.disabled div.product-chooser-item {
+  zoom: 1;
+  cursor: default;
+}
+
+div.product-chooser div.product-chooser-item {
+  padding: 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  border: 1px solid #fffdfd;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10x;
+  background: #fffefe;
+  box-shadow: 3px 3px 3px 3px #c0bebe79;
+
+}
+
+
+div.product-chooser div.product-chooser-item img {
+  padding: 0;
+  max-height: 200px;
+  min-height: 200px;
+  width: 100%;
+}
+
+div.product-chooser div.product-chooser-item span.title {
+  display: block;
+  margin: 10px 0 5px 0;
+  font-weight: bolder;
+  font-size: 14px;
+}
+
+div.product-chooser div.product-chooser-item span.description {
+  font-size: 12px;
+  font-weight: normal;
+  color: #87868a;
+  justify-content: center;
+}
+
+.container-fluid {
+    height: 1000px;
+    background-image: url('../../../assets/backgrounds/paquete2.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat-y;
+}
+
+.price{
+  display: block;
+  color: #a3c442;
+  font-weight: 700;
+}

@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-md-12 col-xs-12 col-lg-12 pt-20 text-center">
+    <h2>PAQUET<span class="border-title">ES</span></h2>
+  </div>
+</div>
+
+<div class="container-fluid py-3">
+    <div class="row form-group product-chooser">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngFor="let paq of paquetes">
+    		<div class="product-chooser-item">
+    			<img src={{url_backend}}{{this.paq.imagen}}
+				alt={{this.paq.imagen}} class="img-rounded col-xs-4 col-sm-4 col-md-12 col-lg-12">
+                <div class="col-xs-8 col-sm-8 col-md-12 col-lg-12">
+    				<span class="title">{{paq.nombre}}</span>
+					<span class="description justify-content-around">{{paq.descripcion}}</span>
+					<span class="price">{{paq.precio | currency : 'USD'}} </span>
+    			</div>
+    			<div class="clear"></div>
+    		</div>
+		</div> 
+    </div>
+</div>
