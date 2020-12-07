@@ -9,24 +9,34 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Difunto } from 'src/app/models/difunto.model';
 import { NavigationExtras } from '@angular/router';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
-export interface difunto {
-  nombre: string;
-  position: number;
-  apellidos: string;
-  fechaDefuncion: string;
-  sector: string;
-  lapida: number;
-  tipoSepultura: string;
-
-}
-
-
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'YYYY-MM-DD',
+  },
+  display: {
+    dateInput: 'YYYY-MM-DD',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  },
+};
 
 @Component({
   selector: 'app-search-panel',
   templateUrl: './search-panel.component.html',
-  styleUrls: ['./search-panel.component.css']
+  styleUrls: ['./search-panel.component.css'],
+  providers: [
+    /* {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    }, */
+
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ]
 })
 export class SearchPanelComponent implements OnInit, AfterViewInit {
 
@@ -38,6 +48,9 @@ export class SearchPanelComponent implements OnInit, AfterViewInit {
   sepulturaOption: any;
   sectorOption: string;
   id: any;
+  public desde = null;
+  public hasta = null;
+
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   public dataSource = new MatTableDataSource<Difunto>();
 
@@ -50,12 +63,12 @@ export class SearchPanelComponent implements OnInit, AfterViewInit {
   ) {
     this.searchFG = new FormGroup({
       nombres: new FormControl('', Validators.required),
-      apellidos: new FormControl(''),
-      tipoSepultura: new FormControl(''),
-      sector: new FormControl(''),
+      apellidos: new FormControl('', Validators.required),
+      tipoSepultura: new FormControl(null),
+      sector: new FormControl(null),
       fechaDefuncionStart: new FormControl(''),
       fechaDefuncionEnd: new FormControl(''),
-      noLapida: new FormControl('')
+      noLapida: new FormControl(null)
 
     });
   }
@@ -81,7 +94,7 @@ export class SearchPanelComponent implements OnInit, AfterViewInit {
     this.lista_resultados = [];
     const nombre = localStorage.getItem('nombres_difunto');
     const apellido = localStorage.getItem('apellidos_difunto');
-    await this._difunto.getDifuntos(this.id.camposanto, nombre, apellido)
+    await this._difunto.getDifuntos(this.id.camposanto, nombre, apellido, this.desde, this.hasta, this.searchFG.value.noLapida, this.searchFG.value.sector, this.searchFG.value.tipoSepultura)
       .subscribe((resp: any) => {
         console.log(resp);
         this.lista_resultados = resp;
@@ -103,13 +116,23 @@ export class SearchPanelComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit(value) {
-    console.log(value.nombres, value.apellidos);
+    console.log(value);
+    if (value.fechaDefuncionStart !== ''){
+      this.desde = value.fechaDefuncionStart._i.year + '-' + (value.fechaDefuncionStart._i.month + 1) + '-' + (value.fechaDefuncionStart._i.date);
+    }
+    if ( value.fechaDefuncionEnd !== ''){
+      this.hasta = value.fechaDefuncionEnd._i.year + '-' + (value.fechaDefuncionEnd._i.month + 1) + '-' + (value.fechaDefuncionEnd._i.date);
+    }
+    if (value.noLapida === ''){
+      value.noLapida = null;
+    }
+
     Swal.showLoading();
     this.lista_resultados = [];
     if (value.nombres === '' || value.apellidos === '') {
-      Swal.fire('Búsqueda fallida', 'Por favor completar los campos para realizar la búsqueda.', 'warning');
-    } else {
-      this._difunto.getDifuntos(this.id.camposanto, value.nombres, value.apellidos)
+      Swal.fire('Búsqueda fallida', 'Por favor completar nombre y apellido para realizar la búsqueda.', 'warning');
+    }  else {
+      this._difunto.getDifuntos(this.id.camposanto, value.nombres, value.apellidos, this.desde, this.hasta, value.noLapida, value.sector, value.tipoSepultura)
         .subscribe((resp: any) => {
           localStorage.setItem('nombres_difunto', value.nombres);
           localStorage.setItem('apellidos_difunto', value.apellidos);
@@ -123,7 +146,7 @@ export class SearchPanelComponent implements OnInit, AfterViewInit {
           }
         }
         );
-    }
+    } 
   }
 
   cargarSector() {
@@ -190,4 +213,19 @@ export class SearchPanelComponent implements OnInit, AfterViewInit {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
+  limpiarFiltros(){
+    this.searchFG.setValue(
+      {
+      nombres: '',
+      apellidos: '',
+      tipoSepultura: null,
+      sector: null,
+      fechaDefuncionStart: '',
+      fechaDefuncionEnd: '',
+      noLapida: null
+      }
+    );
+    this.desde = null;
+    this.hasta = null;
+  }
 }

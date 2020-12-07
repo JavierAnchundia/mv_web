@@ -16,14 +16,14 @@ export class DifuntoService {
     this._cargarLista.next(message);
   }
 
-getDifuntos(id,nombre,apellido):Observable<any[]> {
-  let url = URL_SERVICIOS.difuntos+id+'/'+nombre+'/'+ apellido+'/';
+getDifuntos(id, nombre, apellido, desde, hasta, lapida, sector, sepultura): Observable<any[]> {
+  let url = URL_SERVICIOS.difuntos + id + '/' + nombre + '/' + apellido + '/' + desde + '/' + hasta + '/' + lapida + '/' + sector + '/' + sepultura + '/';
 
   return this.http.get<any[]>(url);
 }
 
 getDifuntoByID(id){
-  let url = URL_SERVICIOS.difunto+id+'/';
+  let url = URL_SERVICIOS.difunto + id + '/';
 
   return this.http.get(url);
 }
