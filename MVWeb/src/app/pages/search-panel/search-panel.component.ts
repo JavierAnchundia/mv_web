@@ -117,11 +117,15 @@ export class SearchPanelComponent implements OnInit, AfterViewInit {
 
   onSubmit(value) {
     console.log(value);
-    if (value.fechaDefuncionStart !== ''){
+    if (value.fechaDefuncionStart !== '' && value.fechaDefuncionStart != null){
       this.desde = value.fechaDefuncionStart._i.year + '-' + (value.fechaDefuncionStart._i.month + 1) + '-' + (value.fechaDefuncionStart._i.date);
+    }else{
+      this.desde = null;
     }
-    if ( value.fechaDefuncionEnd !== ''){
+    if ( value.fechaDefuncionEnd !== '' && value.fechaDefuncionEnd != null){
       this.hasta = value.fechaDefuncionEnd._i.year + '-' + (value.fechaDefuncionEnd._i.month + 1) + '-' + (value.fechaDefuncionEnd._i.date);
+    }else{
+      this.hasta = null;
     }
     if (value.noLapida === ''){
       value.noLapida = null;
@@ -131,7 +135,10 @@ export class SearchPanelComponent implements OnInit, AfterViewInit {
     this.lista_resultados = [];
     if (value.nombres === '' || value.apellidos === '') {
       Swal.fire('Búsqueda fallida', 'Por favor completar nombre y apellido para realizar la búsqueda.', 'warning');
-    }  else {
+    } else if (new Date(this.hasta) < new Date(this.desde)){
+      Swal.fire('Datos no válidos', 'Seleccione un rango de fechas válido', 'error');
+    }
+    else {
       this._difunto.getDifuntos(this.id.camposanto, value.nombres, value.apellidos, this.desde, this.hasta, value.noLapida, value.sector, value.tipoSepultura)
         .subscribe((resp: any) => {
           localStorage.setItem('nombres_difunto', value.nombres);
@@ -146,7 +153,7 @@ export class SearchPanelComponent implements OnInit, AfterViewInit {
           }
         }
         );
-    } 
+    }
   }
 
   cargarSector() {

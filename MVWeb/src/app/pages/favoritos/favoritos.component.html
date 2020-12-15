@@ -6,8 +6,9 @@
 <div class="container-fluid ml-15 mr-15 mt-5">
     <div class="container">
         <!-- difuntos card -->
+        <div *ngIf="this.favoritos_lista.length == 0">Aún no has agregado ningún difunto a tu lista de guardados.</div>
         <div class="card card-default" id="card_contacts">
-            <div id="contacts" class="panel-collapse collapse show" aria-expanded="true" style="">
+            <div id="contacts" class="panel-collapse collapse show" aria-expanded="true">
                 <ul class="list-group pull-down" id="contact-list">
                     <li class="list-group-item" *ngFor="let fav of this.favoritos_lista" (click)="redirectDifuntoProfile({difuntoID: this.fav.id_difunto?.id_difunto})">
                         <div class="row w-100" >
