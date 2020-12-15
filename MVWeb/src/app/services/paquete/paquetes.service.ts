@@ -16,4 +16,10 @@ export class PaquetesService {
 
     return this.http.get(url);
   }
+
+  getPaquetesRecientes(id){
+    const url = URL_SERVICIOS.paquetes_recientes + id + '/';
+
+    return this.http.get(url);
+  }
 }

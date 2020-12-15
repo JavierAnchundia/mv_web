@@ -16,29 +16,32 @@
     <div class="col-md-1 cols-xs-1 col-sm-1 text-center element">
       <mat-icon (click)="prev()">arrow_back</mat-icon>
     </div>
-    <div class="col-md-8 col-sm-8 col-xs-8 text-center">
+    <div *ngIf="!this.loaded">
+      No hay paquetes para mostrar
+    </div>
+    <div class="col-md-8 col-sm-8 col-xs-8 text-center" *ngIf="this.loaded">
       <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig"
         (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
         (beforeChange)="beforeChange($event)">
         <div ngxSlickItem class="slide" *ngFor="let paq of paquetes">
-          <mat-card class="example-card mat-elevation-z4">
-            <img mat-card-image src={{url_backend}}{{this.paq.imagen}}
-              alt={{this.paq.imagen}}>
+          <mat-card class="example-card mat-elevation-z4 d-flex flex-column">
+            <img mat-card-image src={{url_backend}}{{this.paq.imagen}} alt={{this.paq.imagen}}>
             <mat-card-header class="text-center">
-              <mat-card-title >{{paq.nombre | titlecase}}</mat-card-title>
+              <mat-card-title class="title text-center">{{paq.nombre | titlecase}}</mat-card-title>
             </mat-card-header>
-            <mat-card-content>
+            <mat-card-content class="text-center d-flex justify-content-center mt-auto">
+              <a (click)="openModal(paq)">Ver más</a>
               <!-- <p>
                 {{ (paq.descripcion.length>120)? (paq.descripcion | slice:0:120)+'...':(paq.descripcion) }}
               </p> -->
-              <p>{{paq.descripcion}} </p>
+              <!-- <p>{{paq.descripcion}} </p> -->
             </mat-card-content>
-            <mat-card-actions class="d-flex justify-content-between">
-              <p class="precio">{{paq.precio| currency : 'USD'}}</p>
-              <a class="precio">COMPRAR</a>
+            <mat-card-actions class="d-flex justify-content-between mt-auto">
+                <p class="precio">{{paq.precio| currency : 'USD'}}</p>
+                <a class="precio" data-toggle="modal" data-target="#comprarModal">COMPRAR</a>
             </mat-card-actions>
           </mat-card>
-        </div>  
+        </div>
       </ngx-slick-carousel>
 
     </div>
@@ -80,3 +83,22 @@
     </form>
   </div>
 </section>
+
+<div class="modal fade" id="comprarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Comprar paquete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        La opción no se encuentra disponible todavía.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

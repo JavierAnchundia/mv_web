@@ -10,7 +10,7 @@ import { PaquetesService } from 'src/app/services/paquete/paquetes.service';
 export class PaquetesComponent implements OnInit {
   public paquetes = [];
   url_backend = URL_SERVICIOS.url_backend;
-
+  public loaded = false;
   constructor(
     private paquete: PaquetesService,
   ) { }
@@ -24,6 +24,7 @@ export class PaquetesComponent implements OnInit {
     this.paquete.getPaquetes(id.camposanto).subscribe(
       (data: any) => {
         this.paquetes = data;
+        this.loaded = true;
       }
     );
   }

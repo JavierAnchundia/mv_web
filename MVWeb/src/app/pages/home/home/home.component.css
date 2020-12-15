@@ -57,14 +57,14 @@ h2 {
 }
 
 .slide {
-  max-height: 480px;
-  min-height: 480px;
+  max-height: 380px;
+  min-height: 380px;
 }
 
 .slick-slider {
   width: 100%;
   margin: auto;
-  
+
 }
 
 .nav-btn {
@@ -93,10 +93,12 @@ h2 {
 
 .prev-slide:hover {
   background-position: 0px -53px;
+  cursor: pointer;
 }
 
 .next-slide:hover {
   background-position: -24px -53px;
+  cursor: pointer;
 }
 
 .mat-card {
@@ -104,13 +106,13 @@ h2 {
   margin-right: 7px;
   margin-top: 1px;
   margin-bottom: 1px;
-  max-height: 470px;
-  min-height: 470px;
+  max-height: 370px;
+  min-height: 370px;
 }
 
 .example-card {
-  max-height: 470px;
-  min-height: 470px;
+  max-height: 370px;
+  min-height: 370px;
 }
 
 .mat-card-image {
@@ -128,6 +130,10 @@ h2 {
   margin-top: auto;
   margin-bottom: auto;
 
+}
+
+.element:hover{
+  cursor: pointer;
 }
 
 .suggestions {
@@ -190,13 +196,27 @@ small a {
 
 }
 
-mat-card-content{
+mat-card-content {
   font-size: 12px;
   color: #87868a;
   justify-content: space-around;
 }
 
-mat-card-actions{
+mat-card-actions {
   margin-left: 2px;
   margin-right: 2px;
+}
+
+a {
+  cursor: pointer;
+}
+
+a:hover {
+  color: #a3c442;
+}
+
+.title{
+  font-size:  18px;
+  text-align: center;
+  justify-content: center;
 }

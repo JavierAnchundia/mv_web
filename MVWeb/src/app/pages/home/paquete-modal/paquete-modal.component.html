@@ -1,0 +1,21 @@
+<div id="modal-content-wrapper">
+    <footer id="modal-footer">
+      <!-- <button mat-button id="modal-cancel-button" (click)="closeModal()">    
+        <mat-icon class="close-icon">close</mat-icon>
+      </button> -->
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button> 
+
+  </footer>
+      <header id="modal-header">
+          <h1 id="modal-title">{{paquete.nombre}} </h1>
+          <mat-divider class="title-divider"></mat-divider>
+      </header>
+      
+      <section id="modal-body">   
+        <img mat-card-image src={{url_backend}}{{this.paquete.imagen}} alt={{this.paquete.imagen}}>
+        <p>{{paquete.descripcion}} </p>
+      </section>
+      
+  </div>

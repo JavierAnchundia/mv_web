@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SlickCarouselComponent } from 'ngx-slick-carousel';
 import URL_SERVICIOS from 'src/app/config/config';
 import { PaquetesService } from '../../../services/paquete/paquetes.service';
+import { ModalComponent } from '../../muro-fallecido/modal/modal/modal.component';
+import { PaqueteModalComponent } from '../paquete-modal/paquete-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +15,8 @@ export class HomeComponent implements OnInit {
   @ViewChild('slickModal') slickModal: SlickCarouselComponent;
   slides = [342, 453, 846, 855, 234, 564, 744, 243];
   public paquetes = [];
-  url_backend: String = URL_SERVICIOS.url_backend;
+  url_backend = URL_SERVICIOS.url_backend;
+  public loaded = false;
 
   slideConfig = {
     slidesToShow: 3,
@@ -48,7 +52,9 @@ export class HomeComponent implements OnInit {
   };
 
   constructor(
-    private paquete: PaquetesService
+    private paquete: PaquetesService,
+    public matDialog: MatDialog,
+
   ) { }
 
   ngOnInit(): void {
@@ -89,11 +95,23 @@ export class HomeComponent implements OnInit {
 
   cargarPaquetes() {
     const id = JSON.parse(localStorage.getItem('info'));
-    this.paquete.getPaquetes(id.camposanto).subscribe(
+    this.paquete.getPaquetesRecientes(id.camposanto).subscribe(
       (data: any) => {
         this.paquetes = data;
+        this.loaded = true;
       }
     );
   }
+
+  openModal(paq) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.id = 'modal-component';
+    dialogConfig.height = '450px';
+    dialogConfig.width = '450px';
+    dialogConfig.data = {
+      paquete: paq
+    };
+    const modalDialog = this.matDialog.open(PaqueteModalComponent, dialogConfig);
+}
 
 }
