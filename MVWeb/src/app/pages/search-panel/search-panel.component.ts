@@ -62,8 +62,8 @@ export class SearchPanelComponent implements OnInit, AfterViewInit {
               public route: ActivatedRoute,
   ) {
     this.searchFG = new FormGroup({
-      nombres: new FormControl('', Validators.required),
-      apellidos: new FormControl('', Validators.required),
+      nombres: new FormControl(null, Validators.required),
+      apellidos: new FormControl(null, Validators.required),
       tipoSepultura: new FormControl(null),
       sector: new FormControl(null),
       fechaDefuncionStart: new FormControl(''),
@@ -115,25 +115,46 @@ export class SearchPanelComponent implements OnInit, AfterViewInit {
     }, 1000);
   }
 
+  formatDay(day: any){
+    if (day <= 9  ){
+      return '0' + day;
+    }
+    return String(day);
+  }
   onSubmit(value) {
     console.log(value);
-    if (value.fechaDefuncionStart !== '' && value.fechaDefuncionStart != null){
-      this.desde = value.fechaDefuncionStart._i.year + '-' + (value.fechaDefuncionStart._i.month + 1) + '-' + (value.fechaDefuncionStart._i.date);
+    const desdeFull = value.fechaDefuncionStart !== '' && value.fechaDefuncionStart != null;
+    const hastaFull = value.fechaDefuncionEnd !== '' && value.fechaDefuncionEnd != null;
+    const lapidaEmpty = value.noLapida === '';
+    const lapidaNull = value.noLapida === null;
+    const nameEmpty = value.nombres === null;
+    const lnameEmpty = value.apellidos === null;
+    const sectorEmpty = value.sector === null;
+    const tipoEmpty = value.tipoSepultura === null;
+
+    if (desdeFull){
+      this.desde = value.fechaDefuncionStart._i.year + '-' + (value.fechaDefuncionStart._i.month + 1) + '-' + this.formatDay(value.fechaDefuncionStart._i.date);
     }else{
       this.desde = null;
     }
-    if ( value.fechaDefuncionEnd !== '' && value.fechaDefuncionEnd != null){
-      this.hasta = value.fechaDefuncionEnd._i.year + '-' + (value.fechaDefuncionEnd._i.month + 1) + '-' + (value.fechaDefuncionEnd._i.date);
+    if (hastaFull){
+      this.hasta = value.fechaDefuncionEnd._i.year + '-' + (value.fechaDefuncionEnd._i.month + 1) + '-' + this.formatDay(value.fechaDefuncionEnd._i.date);
     }else{
       this.hasta = null;
     }
-    if (value.noLapida === ''){
+    if (lapidaEmpty){
       value.noLapida = null;
+    }
+    if (value.nombres === ''){
+        value.nombres = null;
+    }
+    if (value.apellidos === ''){
+      value.apellidos = null;
     }
 
     Swal.showLoading();
     this.lista_resultados = [];
-    if (value.nombres === '' || value.apellidos === '') {
+    if (nameEmpty && lnameEmpty && !desdeFull && !hastaFull && lapidaNull && sectorEmpty && tipoEmpty) {
       Swal.fire('Búsqueda fallida', 'Por favor completar nombre y apellido para realizar la búsqueda.', 'warning');
     } else if (new Date(this.hasta) < new Date(this.desde)){
       Swal.fire('Datos no válidos', 'Seleccione un rango de fechas válido', 'error');
@@ -223,8 +244,8 @@ export class SearchPanelComponent implements OnInit, AfterViewInit {
   limpiarFiltros(){
     this.searchFG.setValue(
       {
-      nombres: '',
-      apellidos: '',
+      nombres: null,
+      apellidos: null,
       tipoSepultura: null,
       sector: null,
       fechaDefuncionStart: '',
