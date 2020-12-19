@@ -18,12 +18,12 @@
           [zoom]="zoom"
           [disableDefaultUI]="false"
         >
-          <agm-polygon
-            [paths]="markers"
-            [strokeColor]="'red'"
-            [fillColor]="'red'"
-          >
-          </agm-polygon>
+        <agm-marker
+        [latitude]="this.markers[0].lat"
+        [longitude]="this.markers[0].lng"
+        [markerDraggable]="false"
+        [label]="{color: 'black'}"
+      ></agm-marker>
         </agm-map>
       </div>
     </div>

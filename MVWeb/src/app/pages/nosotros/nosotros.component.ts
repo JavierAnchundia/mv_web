@@ -19,7 +19,7 @@ export class NosotrosComponent implements OnInit {
   public redes: any;
 
   marker: Marker;
-  zoom: number = 14;
+  zoom: number = 16;
   // inicializar punto central del mapa
   lat: any;
   lng: any;
