@@ -1,0 +1,80 @@
+<div class="row py-3">
+  <div class="col-md-12 col-xs-12 col-lg-12 pt-25 text-center">
+    <h2>SOBRE NOSOTR<span class="border-title">OS</span></h2>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row p-2">
+    <div class="col text-center">
+      <h2>{{this.campo?.nombre}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-xs-12 col-sm-12 col-lg-6">
+      <div class="agm-container col-12 p-1" *ngIf="show ">
+        <agm-map
+          [latitude]="lat"
+          [longitude]="lng"
+          [zoom]="zoom"
+          [disableDefaultUI]="false"
+        >
+          <agm-polygon
+            [paths]="markers"
+            [strokeColor]="'red'"
+            [fillColor]="'red'"
+          >
+          </agm-polygon>
+        </agm-map>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-12 col-sm-12 col-lg-6">
+      <div class="row p-3">
+        <div>
+          <div class="content">
+            <img src="../../../assets/icons/POINTER_VERDE.png" height="40px" width="30px" alt="Pointer">
+            <div class="text">
+              <p>{{this.campo?.direccion}} </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div>
+          <div class="content">
+            <img src="../../../assets/icons/TELEFONO.png" height="40px" width="40px" alt="Telefono">
+            <div class="text">
+              <p>{{this.campo?.telefono}} </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="content">
+          <img src="../../../assets/icons/CORREO.png" height="30px" width="45px" alt="Correo">
+          <div class="text">
+            <p>{{this.empresa?.correo}} </p>
+          </div>
+        </div>
+      </div>
+      <div class="p-3">
+          <hr/>
+          <div class="d-flex justify-content-center">
+            <div class="" *ngFor= "let red of redes">
+              <button *ngIf="red.nombre == 'facebook'" type="button" class="btn btn-social-icon btn-facebook">
+                <a href ={{red.link}} target="_blank"><img src="../../../assets/icons/FACEBOOK.png" width="25" height="30"></a>
+              </button>
+              
+              <button *ngIf="red.nombre == 'twitter'" type="button" class="btn btn-social-icon btn-twitter">
+                <a href ={{red.link}}  target="_blank"> <img src="../../../assets/icons/TWITTER_VERDE.png" width="30" height="30"></a>
+              </button>
+              
+              <button type="button" *ngIf="red.nombre == 'instagram'"  class="btn btn-social-icon btn-instagram">
+                <a href ={{red.link}} target="_blank"><img src="../../../assets/icons/INSTAGRAM.png" width="30" height="30"></a>
+              </button>
+            </div>
+          </div>
+          <hr />
+      </div>
+    </div>
+  </div>
+</div>

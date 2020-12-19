@@ -38,7 +38,12 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { PaquetesComponent } from './paquetes/paquetes.component'
+import { PaquetesComponent } from './paquetes/paquetes.component';
+import { PaqueteModalComponent } from './home/paquete-modal/paquete-modal.component';
+import { ContactoComponent } from './contacto/contacto.component';
+import { NosotrosComponent } from './nosotros/nosotros.component'
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
+import {GoogleMapsModule} from '@angular/google-maps'; 
 
 export const MY_DATE_FORMATS = {
     parse: {
@@ -67,6 +72,9 @@ export const MY_DATE_FORMATS = {
         PerfilComponent,
         FavoritosComponent,
         PaquetesComponent,
+        PaqueteModalComponent,
+        ContactoComponent,
+        NosotrosComponent,
 
     ],
     exports: [
@@ -108,11 +116,15 @@ export const MY_DATE_FORMATS = {
         MatToolbarModule,
         SlickCarouselModule,
         MatMomentDateModule,
-        MatNativeDateModule
-
+        MatNativeDateModule,
+        AgmCoreModule.forRoot({
+          apiKey: 'AIzaSyD4O-t27PSlyGg2_K6fHbPKlO9Tu_x5h-4',
+          libraries: ['places', 'drawing', 'geometry'],
+        }),
     ],
     providers: [
-        { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
+        { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+        
     ],
 })
 export class PagesModule { }

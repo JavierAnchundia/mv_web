@@ -10,6 +10,8 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { FavoritosComponent } from './favoritos/favoritos.component';
 import { PaquetesComponent } from './paquetes/paquetes.component';
 import { LogInGuard } from '../guards/logIn/log-in.guard';
+import { ContactoComponent } from './contacto/contacto.component';
+import { NosotrosComponent } from './nosotros/nosotros.component';
 
 
 
@@ -25,6 +27,9 @@ const pagesRoutes: Routes = [
     { path: 'perfil', component: PerfilComponent , data: { titulo: 'perfil' }, canActivate: [LogInGuard]},
     { path: 'favoritos', component: FavoritosComponent , data: { titulo: 'favoritos' }, canActivate: [LogInGuard]},
     { path: 'paquetes', component: PaquetesComponent , data: { titulo: 'paquetes' }},
+    { path: 'contacto', component: ContactoComponent , data: { titulo: 'contacto' }},
+    { path: 'nosotros', component: NosotrosComponent , data: { titulo: 'nosotros' }},
+
 
 
     { path: '', redirectTo: 'inicio', pathMatch: 'full' }

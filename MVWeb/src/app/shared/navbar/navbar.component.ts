@@ -42,7 +42,7 @@ export class NavbarComponent implements OnInit {
     private fb: FacebookService,
   ) {
     const initParams: InitParams = {
-      appId: '921830748297038',
+      appId: '675818219748107',
       xfbml: true,
       version: 'v8.0'
     };
