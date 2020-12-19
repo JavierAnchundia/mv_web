@@ -154,9 +154,9 @@ export class SearchPanelComponent implements OnInit, AfterViewInit {
 
     Swal.showLoading();
     this.lista_resultados = [];
-    if (nameEmpty && lnameEmpty && !desdeFull && !hastaFull && lapidaNull && sectorEmpty && tipoEmpty) {
+    if (((nameEmpty || lnameEmpty) && !desdeFull && !hastaFull && lapidaNull && sectorEmpty && tipoEmpty) ) {
       Swal.fire('Búsqueda fallida', 'Por favor completar nombre y apellido para realizar la búsqueda.', 'warning');
-    } else if (new Date(this.hasta) < new Date(this.desde)){
+    } else if ((new Date(this.hasta) < new Date(this.desde)) || (desdeFull && !hastaFull) || (!desdeFull && hastaFull) ){
       Swal.fire('Datos no válidos', 'Seleccione un rango de fechas válido', 'error');
     }
     else {

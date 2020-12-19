@@ -11,7 +11,7 @@
 		  </div>
 	</div>
     <div class="row form-group product-chooser" *ngIf="this.loaded">
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" *ngFor="let paq of paquetes">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 p-2" *ngFor="let paq of paquetes">
     		<div class="card product-chooser-item equal-height">
     			<img src={{url_backend}}{{this.paq.imagen}}
 				alt={{this.paq.imagen}} class="img-rounded col-xs-3 col-sm-3 col-md-12 col-lg-12">

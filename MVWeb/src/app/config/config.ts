@@ -46,6 +46,8 @@ const URL_SERVICIOS = {
     recuperar_contrasena: URL_ROOT + '/enviar_email_password_admin/',
     recuperar_contrasenaCorreo: URL_ROOT + '/enviar_email_password/',
     paquetes: URL_ROOT + '/paquetes_list/',
+    paquetes_recientes: URL_ROOT + '/paquetes_rec/',
+    geolocalizacion_camp: URL_ROOT + '/geolocalizacion_camp/',
 
 };
 
