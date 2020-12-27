@@ -1,7 +1,7 @@
-const URL_ROOT = 'http://localhost:8000/api'
-const URL_ROOT_AUTH = 'http://localhost:8000'
-//const URL_ROOT = 'https://carmsanc.pythonanywhere.com/api'
-//const URL_ROOT_AUTH = 'https://carmsanc.pythonanywhere.com'
+//const URL_ROOT = 'http://localhost:8000/api'
+//const URL_ROOT_AUTH = 'http://localhost:8000'
+const URL_ROOT = 'https://carmsanc.pythonanywhere.com/api';
+const URL_ROOT_AUTH = 'https://carmsanc.pythonanywhere.com';
 
 const URL_SERVICIOS = {
     url_backend: URL_ROOT_AUTH,
@@ -22,31 +22,33 @@ const URL_SERVICIOS = {
     empresa_get: URL_ROOT + '/empresa_get/',
     usuario: URL_ROOT_AUTH + '/users/',
     login: URL_ROOT + '/token/',
-    refreshlogin: URL_ROOT_AUTH +'api/token/refresh/ ',
-    fblogin: URL_ROOT_AUTH+'/auth/convert-token/',
+    refreshlogin: URL_ROOT_AUTH + 'api/token/refresh/ ',
+    fblogin: URL_ROOT_AUTH + '/auth/convert-token/',
     obtener_usuarios: URL_ROOT + '/obtener_usuarios/',
-    FBauth: URL_ROOT+ '/get_token_facebook/',
+    FBauth: URL_ROOT + '/get_token_facebook/',
     homenajes: URL_ROOT + '/homenajes/',
     homenaje_post: URL_ROOT + '/homenajes_post/',
     hmensaje_post: URL_ROOT + '/hmensaje_post/',
-    himagen_post: URL_ROOT +'/himagen_post/',
+    himagen_post: URL_ROOT + '/himagen_post/',
     hvideo_post: URL_ROOT + '/hvideo_post/',
-    haudio_post: URL_ROOT +'/haudio_post/',
+    haudio_post: URL_ROOT + '/haudio_post/',
     addRoses: URL_ROOT + '/difunto/update-partial/',
-    registroRosa: URL_ROOT +'/historial_rosas_post/',
+    registroRosa: URL_ROOT + '/historial_rosas_post/',
     logRosas: URL_ROOT + '/historial_rosas/',
-    updateUser: URL_ROOT +'/usuario/',
+    updateUser: URL_ROOT + '/usuario/',
     del_img: URL_ROOT + '/himagen_del/',
-    del_video:URL_ROOT + '/hvideo_del/',
-    del_mensaje:URL_ROOT + '/hmensaje_del/',
+    del_video: URL_ROOT + '/hvideo_del/',
+    del_mensaje: URL_ROOT + '/hmensaje_del/',
     del_audio: URL_ROOT + '/haudio_del/',
     favoritos: URL_ROOT + '/favoritos/',
     favoritos_list: URL_ROOT + '/favoritos_list/',
     favoritos_del: URL_ROOT + '/favoritos_del/',
     recuperar_contrasena: URL_ROOT + '/enviar_email_password_admin/',
     recuperar_contrasenaCorreo: URL_ROOT + '/enviar_email_password/',
+    paquetes: URL_ROOT + '/paquetes_list/',
+    paquetes_recientes: URL_ROOT + '/paquetes_rec/',
+    geolocalizacion_camp: URL_ROOT + '/geolocalizacion_camp/',
 
+};
 
-}
-
-export default URL_SERVICIOS
+export default URL_SERVICIOS;

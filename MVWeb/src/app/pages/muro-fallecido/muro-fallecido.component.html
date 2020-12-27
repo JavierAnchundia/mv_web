@@ -22,9 +22,9 @@
   </div>
   <nav class="more">
     <h2 class="names">{{this.difunto.nombre | uppercase}} {{this.difunto.apellido | uppercase}} <a class="bookmark" (click)="guardarFavorito()" data-toggle="tooltip" data-placement="top" title="Guardar como favorito">
-      <img width="18" height="28" *ngIf="!this.isSaved"
+      <img width="25" height="25" *ngIf="!this.isSaved"
           src="../../../assets/icons/GUARDAR.png" /></a>
-          <a (click)="quitarFavorito()" class="bookmark"  data-toggle="tooltip" data-placement="top" title="Eliminar de favoritos"><img width="18" height="28" *ngIf="this.isSaved"
+          <a (click)="quitarFavorito()" class="bookmark"  data-toggle="tooltip" data-placement="top" title="Eliminar de favoritos"><img width="25" height="25" *ngIf="this.isSaved"
           src="../../../assets/icons/GUARDADO.png" />
         </a></h2>
     <p class="dates"><img  class="navbar-img" src="../../../assets/icons/NACIMIENTO.png" />{{this.difunto.fecha_nacimiento| date: 'dd MMM., yyyy'}} -
@@ -33,7 +33,7 @@
 
       <div class="col-xs-12 col-sm-6 col-md-6 emphasis pb-3">
 
-        <button class="btn" (click)="saveLogRosa()"><img class="navbar-img"
+        <button class="btn" (click)="saveLogRosa()"><img  width="28" height="28"
             src="https://www.iconfinder.com/data/icons/spring-2-1/30/Rose-24.png" alt="rosa"> Dejar rosa </button>
       </div>
       <div class="v-divider col-sm-1 col-md-1 d-none d-md-block"></div>

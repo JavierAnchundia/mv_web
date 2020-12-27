@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import URL_SERVICIOS from 'src/app/config/config';
 import { Router } from '@angular/router';
-import { Usuario } from '../../models/usuario.model';
 import { map } from 'rxjs/operators';
 import { NavbarService } from '../navbar/navbar.service';
 
@@ -22,9 +21,9 @@ export class UsuarioService {
   public isLoggedin = false;
 
 
-  
+
   constructor(
-    public http: HttpClient, 
+    public http: HttpClient,
     public router: Router,
     private _navbar: NavbarService
   ) {
@@ -36,13 +35,13 @@ export class UsuarioService {
 
   public loginUser(user) {
     localStorage.setItem('username', user['username']);
-    let url = URL_SERVICIOS.login;
+    const url = URL_SERVICIOS.login;
     return this.http.post(url, JSON.stringify(user), this.httpOptions).pipe(
       map((resp: any) => {
         console.log(resp);
         this.isLoggedin = true;
         this.token = JSON.stringify(resp['access']);
-        this.refresh = JSON.stringify(resp['refresh']).slice(1,-1);
+        this.refresh = JSON.stringify(resp['refresh']).slice(1, -1);
         this.updateData(resp['access']);
         localStorage.setItem('token', this.token);
         localStorage.setItem('refresh', this.refresh);
@@ -58,9 +57,9 @@ export class UsuarioService {
   }
 
   statusLogin(){
-    let tokenDjango = localStorage.getItem('token');
-    let tokenFacebook = localStorage.getItem('FBtoken');
-    if(tokenDjango || tokenFacebook){
+    const tokenDjango = localStorage.getItem('token');
+    const tokenFacebook = localStorage.getItem('FBtoken');
+    if (tokenDjango || tokenFacebook){
       return true;
     }
     else{
@@ -72,9 +71,9 @@ export class UsuarioService {
       this.token = localStorage.getItem('token');
       this.user = JSON.parse(localStorage.getItem('user'));
       let expires_in = JSON.parse(localStorage.getItem('id'))['exp'];
-      let tiempo_token_exp = new Date(expires_in*1000).getTime() -  new Date().getTime();
+      let tiempo_token_exp = new Date(expires_in * 1000).getTime() -  new Date().getTime();
       // console.log(tiempo_token_exp)
-      if(tiempo_token_exp <= 300000){
+      if (tiempo_token_exp <= 300000){
         this.refreshToken();
       }
     }
@@ -95,7 +94,7 @@ export class UsuarioService {
   }
 
   public refreshToken() {
-    let url = URL_SERVICIOS.refreshlogin;
+    const url = URL_SERVICIOS.refreshlogin;
     this.http.post(url, { "refresh" : localStorage.getItem('refresh')}, this.httpOptions).subscribe(
       data => {
         localStorage.setItem('token', data['access']);
@@ -118,9 +117,10 @@ export class UsuarioService {
     localStorage.removeItem('user');
     localStorage.removeItem('username');
     localStorage.removeItem('id');
-    localStorage.removeItem('tipo_user'); 
-    localStorage.removeItem('refresh'); 
+    localStorage.removeItem('tipo_user');
+    localStorage.removeItem('refresh');
     this.isLoggedin = false;
+
   }
 
   private updateData(token) {
@@ -134,70 +134,70 @@ export class UsuarioService {
   }
 
   getInti(id) {
-    let url = URL_SERVICIOS.usuario + id;
+    const url = URL_SERVICIOS.usuario + id;
     return this.http.get(url);
   }
 
   crearUsuario(usuario) {
-    let url = URL_SERVICIOS.usuario;
+    const url = URL_SERVICIOS.usuario;
     return this.http.post(url, usuario);
   }
 
   crearUsuarioFB(usuario) {
-    let url = URL_SERVICIOS.fblogin;
+    const url = URL_SERVICIOS.fblogin;
     this.isLoggedin = true;
 
     return this.http.post(url, usuario);
   }
 
   loginUsuarioFB(userToken){
-    let url = URL_SERVICIOS.FBauth;
+    const url = URL_SERVICIOS.FBauth;
     this.isLoggedin = true;
     return this.http.post(url, userToken).pipe(
       map((resp: any) => {
         console.log(resp);
         this.isLoggedin = true;
         this.token = JSON.stringify(resp['access']);
-        this.refresh = JSON.stringify(resp['refresh']).slice(1,-1);
+        this.refresh = JSON.stringify(resp['refresh']).slice(1, -1);
         this.updateData(resp['access']);
         localStorage.setItem('token', this.token);
         localStorage.setItem('refresh', this.refresh);
         localStorage.setItem('id', JSON.stringify(this.tokenGestion(resp['access'])));
         return true;
       })
-    );;
+    ); ;
 
   }
 
   isAuthenticated(){
     return this.getToken();
-  };
+  }
 
   getUsersAll(){
-    let url = URL_SERVICIOS.obtener_usuarios;
+    const url = URL_SERVICIOS.obtener_usuarios;
     return this.http.get(url);
   }
 
   getUserInfo(id){
-    let url = URL_SERVICIOS.usuario+id+'/'
-    let httpOptions = {
+    const url = URL_SERVICIOS.usuario + id + '/';
+    const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer '+this.getToken(),
+        'Authorization': 'Bearer ' + this.getToken(),
       })
-    }
+    };
     return this.http.get(url, httpOptions);
 
   }
 
   updateUserProfile(username, info){
-    let url = URL_SERVICIOS.updateUser + username +'/'
-    let httpOptions = {
+    const url = URL_SERVICIOS.updateUser + username + '/';
+    const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer '+ this.getToken(),
+        Authorization: 'Bearer ' + this.getToken(),
       })
-    }
+    };
 
-    return this.http.put(url,info,httpOptions);
+    return this.http.put(url, info, httpOptions);
   }
-  
+
 }

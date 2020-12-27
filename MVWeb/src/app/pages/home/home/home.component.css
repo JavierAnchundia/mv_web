@@ -1,170 +1,222 @@
 .masthead {
-    height: 100vh;
-    min-height: 500px;
-    background-image: url('../../../../assets/backgrounds/fondo.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
-
-.btn-buscar{
-    background-color: #a3c442;
-    border: none;
-    color: white;
-    padding: 15px 35px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
+  height: 100vh;
+  min-height: 500px;
+  background-image: url('../../../../assets/backgrounds/fondo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.title-home{
-    font-size: 40px;
-    color: white;
-    font-weight: 500;
-    text-shadow: 3px 3px grey;
-    padding: 10px 5px;
-    margin: 10px 5px;
-    letter-spacing: 0.4px;
+.paquete {
+  height: 100%;
+  background-image: url('../../../../assets/backgrounds/paquete2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.border-title{
-    border-bottom-style:  solid ; 
-    border-bottom-width: 3px;
-    border-color:  rgb(163, 196, 66);
+
+.btn-buscar {
+  background-color: #a3c442;
+  border: none;
+  color: white;
+  padding: 15px 35px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
 }
 
-.border-title-w{
-    border-bottom-style:  solid ; 
-    border-bottom-width: 3px;
-    border-color:  white;
-    margin-top: 0px;
-    
+.title-home {
+  font-size: 40px;
+  color: white;
+  font-weight: 500;
+  text-shadow: 3px 3px grey;
+  padding: 10px 5px;
+  margin: 10px 5px;
+  letter-spacing: 0.4px;
 }
 
-h2{
-    font-size: 32px;
-    font-weight: 400;
+.border-title {
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-color: rgb(163, 196, 66);
 }
 
+.border-title-w {
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-color: white;
+  margin-top: 0px;
+
+}
+
+h2 {
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.slide {
+  max-height: 380px;
+  min-height: 380px;
+}
 
 .slick-slider {
-    width: 100%;
-    margin: auto;
-    background: rgb(255, 255, 255);
-  }
-  
-  .nav-btn {
-    height: 47px;
-    position: absolute;
-    width: 26px;
-    cursor: pointer;
-    top: 100px !important;
-  }
-  
-  .prev-slide.slick-disabled,
-  .next-slide.slick-disabled {
-    pointer-events: none;
-    opacity: 0.2;
-  }
-  
-  .prev-slide {
-    background: url(../../../../assets/icons/FLECHA.png) no-repeat scroll 0 0;
-    left: -33px;
-  }
-  
-  .next-slide {
-    background: url(../../../../assets/icons/FLECHA.png) no-repeat scroll -24px 0px;
-    right: -33px;
-  }
-  
-  .prev-slide:hover {
-    background-position: 0px -53px;
-  }
-  
-  .next-slide:hover {
-    background-position: -24px -53px;
-  }
+  width: 100%;
+  margin: auto;
 
-  .mat-card {
-    margin-left: 7px;
-    margin-right: 7px;
-    margin-top: 1px;
-    margin-bottom: 1px;
-  }
+}
 
-  .example-card {
-    max-width: 400px;
-  }
-  
-  .mat-card-image {
-   padding: 10px 10px;
-   border-radius: 25px 25px !important;
-  }
+.nav-btn {
+  height: 47px;
+  position: absolute;
+  width: 26px;
+  cursor: pointer;
+  top: 100px !important;
+}
 
-  .cont{
-    display:flex;
-  }
+.prev-slide.slick-disabled,
+.next-slide.slick-disabled {
+  pointer-events: none;
+  opacity: 0.2;
+}
 
-  .element{
-    margin-top:auto;
-    margin-bottom:auto;
+.prev-slide {
+  background: url(../../../../assets/icons/FLECHA.png) no-repeat scroll 0 0;
+  left: -33px;
+}
 
-  }
+.next-slide {
+  background: url(../../../../assets/icons/FLECHA.png) no-repeat scroll -24px 0px;
+  right: -33px;
+}
 
-  .suggestions{
-      background: #a3c442;
-      margin-bottom: 3px;
-      padding-bottom: 5px;
-  }
+.prev-slide:hover {
+  background-position: 0px -53px;
+  cursor: pointer;
+}
 
-  textarea.form-control {
-    box-shadow: none;
-    border: none;
-    font-weight: normal;
-    font-size: 11px;
-    background-color: #edeef0;
-    color:#87868a;
-  }
+.next-slide:hover {
+  background-position: -24px -53px;
+  cursor: pointer;
+}
 
-  input.form-control {
-    box-shadow: none;
-    border: none;
-    font-weight: normal;
-    font-size: 11px;
-    background-color: #edeef0;
-    color:#87868a;
-    height: 45px;
-  }
+.mat-card {
+  margin-left: 7px;
+  margin-right: 7px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  max-height: 370px;
+  min-height: 370px;
+}
 
-  .btn-send {
-    background-color: #ffffff;
-    border: none;
-    color:  black;
-    padding: 10px 35px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 700;
-    box-shadow: 5px 5px #5e5d5d79;
-  }
+.example-card {
+  max-height: 370px;
+  min-height: 370px;
+}
 
-  small {
+.mat-card-image {
+  padding: 10px 10px;
+  border-radius: 25px 25px !important;
+  min-height: 180px;
+  max-height: 180px;
+}
+
+.cont {
+  display: flex;
+}
+
+.element {
+  margin-top: auto;
+  margin-bottom: auto;
+
+}
+
+.element:hover{
+  cursor: pointer;
+}
+
+.suggestions {
+  background: #a3c442;
+  margin-bottom: 3px;
+  padding-bottom: 5px;
+}
+
+textarea.form-control {
+  box-shadow: none;
+  border: none;
+  font-weight: normal;
+  font-size: 11px;
+  background-color: #edeef0;
+  color: #87868a;
+}
+
+input.form-control {
+  box-shadow: none;
+  border: none;
+  font-weight: normal;
+  font-size: 11px;
+  background-color: #edeef0;
+  color: #87868a;
+  height: 45px;
+}
+
+.btn-send {
+  background-color: #ffffff;
+  border: none;
+  color: black;
+  padding: 10px 35px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 5px 5px #5e5d5d79;
+}
+
+small {
   font-size: 11px;
   color: #ffffff;
   font-style: italic;
 }
 
-small a{
-    font-weight: 700;
-    text-decoration: none;
-    color: white;
+small a {
+  font-weight: 700;
+  text-decoration: none;
+  color: white;
 }
 
-.container-fluid{
-    width: 90%;
+.container-fluid {
+  width: 90%;
 }
 
-  
+.precio {
+  color: #a3c442;
+  font-weight: 700;
+
+}
+
+mat-card-content {
+  font-size: 12px;
+  color: #87868a;
+  justify-content: space-around;
+}
+
+mat-card-actions {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+a {
+  cursor: pointer;
+}
+
+a:hover {
+  color: #a3c442;
+}
+
+.title{
+  font-size:  18px;
+  text-align: center;
+  justify-content: center;
+}

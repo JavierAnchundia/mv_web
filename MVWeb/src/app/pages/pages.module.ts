@@ -36,6 +36,26 @@ import { FavoritosComponent } from './favoritos/favoritos.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { PaquetesComponent } from './paquetes/paquetes.component';
+import { PaqueteModalComponent } from './home/paquete-modal/paquete-modal.component';
+import { ContactoComponent } from './contacto/contacto.component';
+import { NosotrosComponent } from './nosotros/nosotros.component'
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
+import {GoogleMapsModule} from '@angular/google-maps'; 
+
+export const MY_DATE_FORMATS = {
+    parse: {
+      dateInput: 'DD-MM-YYYY',
+    },
+    display: {
+      dateInput: 'MMM DD, YYYY',
+      monthYearLabel: 'MMMM YYYY',
+      dateA11yLabel: 'LL',
+      monthYearA11yLabel: 'MMMM YYYY'
+    },
+  }; 
 
 @NgModule({
     declarations: [
@@ -51,6 +71,10 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
         AudioPostComponent,
         PerfilComponent,
         FavoritosComponent,
+        PaquetesComponent,
+        PaqueteModalComponent,
+        ContactoComponent,
+        NosotrosComponent,
 
     ],
     exports: [
@@ -90,9 +114,17 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
         MatDialogModule,
         NgxSkeletonLoaderModule,
         MatToolbarModule,
-        SlickCarouselModule
-
+        SlickCarouselModule,
+        MatMomentDateModule,
+        MatNativeDateModule,
+        AgmCoreModule.forRoot({
+          apiKey: 'AIzaSyD4O-t27PSlyGg2_K6fHbPKlO9Tu_x5h-4',
+          libraries: ['places', 'drawing', 'geometry'],
+        }),
     ],
-
+    providers: [
+        { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+        
+    ],
 })
 export class PagesModule { }

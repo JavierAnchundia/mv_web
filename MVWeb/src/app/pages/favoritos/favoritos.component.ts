@@ -9,10 +9,10 @@ import { FavoritosService } from '../../services/favoritos/favoritos.service';
   styleUrls: ['./favoritos.component.css']
 })
 export class FavoritosComponent implements OnInit {
-  private id_usuario;
-  public favoritos_lista;
-  public lista_sepultura;
-  public id:any;
+  private id_usuario: any;
+  public favoritos_lista: any;
+  public lista_sepultura: any;
+  public id: any;
 
   constructor(
     private _favorito : FavoritosService,
@@ -29,30 +29,21 @@ export class FavoritosComponent implements OnInit {
 
   getFavoritos(){
     this._favorito.obtenerFavoritos(this.id_usuario).subscribe(
-      (data:any)=>{
-        this.favoritos_lista = data;
+      (data: any) => {
+        this.favoritos_lista = data.reverse();
       }
     )
   }
 
   redirectDifuntoProfile(value){
-    console.log("click aquí");
-    let difuntoId = value.difuntoID;
-    console.log(difuntoId)
-    let data = {'difuntoID':difuntoId}
-    let navigationExtras: NavigationExtras = {
+    const difuntoId = value.difuntoID;
+    const data = {difuntoID: difuntoId}
+    const navigationExtras: NavigationExtras = {
       queryParams: {
-          "difuntoID": JSON.stringify(data.difuntoID)
-          
+          difuntoID: JSON.stringify(data.difuntoID)
+
       }
     };
-    this.router.navigate(["home/muro"],  navigationExtras);
-  }
-
-  cargarSepultura() {
-    this._sepultura.getSepultura(this.id.camposanto)
-      .subscribe((resp: any) => {
-        this.lista_sepultura = resp;
-      })
+    this.router.navigate(['home/muro'],  navigationExtras);
   }
 }

@@ -52,7 +52,7 @@
                     <div class="form-group">
                       <label for="username"><strong>Username:</strong></label>
                       <p *ngIf="!this.edit">{{this.usuario['username'] }}</p>
-                      <input *ngIf="this.edit" type="text" class="form-control" formControlName="username"
+                      <input *ngIf="this.edit" type="text" class="form-control" formControlName="username" disabled
                       value={{this.usuario?.username}}/>
                     </div>
                   </div>

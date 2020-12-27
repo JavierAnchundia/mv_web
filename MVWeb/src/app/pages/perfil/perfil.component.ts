@@ -17,7 +17,7 @@ export class PerfilComponent implements OnInit {
   imageSrc: string;
   public archivo: File = null;
   url_backend: String = URL_SERVICIOS.url_backend;
-  public nameImagen: string = "Seleccione un archivo";
+  public nameImagen: string = 'Seleccione un archivo';
   skeletonloader = true;
   myForm = new FormGroup({
     file: new FormControl('', [Validators.required]),
@@ -35,8 +35,8 @@ export class PerfilComponent implements OnInit {
     this.passwordFormGroup = this.formBuilder.group({
       password: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(30)])],
       repeatPassword: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(30)])],
-    }, { validator: RegistrationValidator.validate.bind(this) })
-    
+    }, { validator: RegistrationValidator.validate.bind(this) });
+
     this.updateProfile = this.formBuilder.group({
       nombre: new FormControl('', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])),
       apellidos: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
@@ -63,7 +63,7 @@ export class PerfilComponent implements OnInit {
     this._usuario.getUserInfo(id_usuario).subscribe((resp: any) => {
       this.usuario = resp;
       if (this.usuario.image_perfil) {
-        this.imageSrc = this.usuario.image_perfil
+        this.imageSrc = this.usuario.image_perfil;
       }
       this.updateProfile.setValue({
         nombre: this.usuario.first_name,
@@ -74,32 +74,31 @@ export class PerfilComponent implements OnInit {
         direccion: this.usuario.direccion,
         telefono: this.usuario.telefono,
         fileSource: this.usuario.image_perfil
-      })
+      });
       this.skeletonloader = false;
 
-    })
+    });
   }
 
-  onSubmit(value) {
+  onSubmit(value: any) {
     const formData = new FormData();
 
     formData.append('first_name', this.updateProfile.value.nombre);
     formData.append('last_name', this.updateProfile.value.apellidos);
     formData.append('email', this.updateProfile.value.email);
-    formData.append('username', this.updateProfile.value.username);
     formData.append('genero', this.updateProfile.value.genero);
     formData.append('direccion', this.updateProfile.value.direccion);
     formData.append('telefono', this.updateProfile.value.telefono);
     if(this.archivo != null){
       formData.append('image_perfil', this.archivo);
     }
-    if(this.passwordFormGroup.value.password != ""){
+    if(this.passwordFormGroup.value.password !== ''){
       formData.append('password', this.passwordFormGroup.value.repeatPassword);
       console.log(formData.get('password'));
     }
     Swal.fire({
       title: '¿Desea guardar los cambios a su perfil?',
-      text: "La información del perfil se actualizarán con los nuevos datos",
+      text: 'La información del perfil se actualizarán con los nuevos datos',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -110,7 +109,7 @@ export class PerfilComponent implements OnInit {
         Swal.showLoading();
         this._usuario.updateUserProfile(this.usuario['username'], formData).subscribe(
           (resp: any) => {
-            console.log(resp)
+            console.log(resp);
             Swal.close();
             Swal.fire(
               'Guardado',
@@ -118,22 +117,22 @@ export class PerfilComponent implements OnInit {
               'success'
             );
             window.location.reload();
-          }), (error =>{
+          }), ((error: any) => {
             Swal.fire(
               'Error en la actualización.',
               'No se pudo actualizar el perfil. Intente nuevamente',
               'error'
             );
-          })
-        
+          });
+
       }
-    })
-    
+    });
+
 
 
   }
 
-  onFileChange(event) {
+  onFileChange(event: { target: { files: string | any[]; }; }) {
     const reader = new FileReader();
 
     if (event.target.files && event.target.files.length) {

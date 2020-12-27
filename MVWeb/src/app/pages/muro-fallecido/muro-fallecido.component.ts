@@ -494,6 +494,7 @@ export class MuroFallecidoComponent implements OnInit {
     this.homenaje.dejarRosa(this.difuntoID).subscribe((resp: any) => {
       this.getDifuntoInfo();
       Swal.close();
+      Swal.fire('¡Tu rosa se ha publicado exitosamente!');
       //console.log(resp);
 
     })
@@ -503,7 +504,7 @@ export class MuroFallecidoComponent implements OnInit {
     this.getStatus();
     if (!this.loggeduser) {
       Swal.fire({
-        icon: 'error',
+        icon: 'warning',
         title: 'Acción denegada',
         text: 'Inicia sesión para poder publicar.',
         showCloseButton: true,

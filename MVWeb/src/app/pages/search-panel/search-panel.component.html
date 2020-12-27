@@ -4,32 +4,22 @@
     <p class="subtitle">Encuentra a tus seres queridos </p>
   </div>
 </div>
-<!-- <div class="row">
-  <div class="col-md-2 col-lg-2 d-none d-md-block pt-20">
-    <h5>Nombre:</h5>
-  </div>
-  <div class="col-md-2 col-lg-2 d-none d-md-block pt-20">
-    <h5>Apellidos:</h5>
-  </div>
-  <div class="col-md-3 col-lg-3 d-none d-md-block pt-20">
-    <h5>Fecha de defunción desde:</h5>
-  </div>
-  <div class="col-md-3 col-lg-3 d-none d-md-block pt-20">
-    <h5>Fecha de defunción hasta:</h5>
-  </div>
-  <div class="col-md-2 col-lg-2 d-none d-md-block pt-20">
-    <h5>No. de lápida:</h5>
-  </div>
 
-</div> -->
 <div class="container-fluid">
 <form [formGroup]="searchFG" (ngSubmit)="onSubmit(this.searchFG.value)">
   <div class="row pb-10">
     <div class="col-md-5 col-lg-5 col-xs-10 pb-1">
-      <input type="text" class="form-control" placeholder="Nombres" formControlName="nombres">
+      
+      <input type="text" required class="form-control" autofocus placeholder="Nombres*" formControlName="nombres">
+      <small><p style="color: red;"
+        *ngIf="searchFG.controls.nombres.errors?.required && searchFG.controls.nombres.touched">
+      Este campo es obligatorio.</p></small>
     </div>
     <div class="col-md-5 col-lg-5 col-xs-10 pb-1">
-      <input type="text" class="form-control" placeholder="Apellidos" formControlName="apellidos">
+      <input type="text" required class="form-control" placeholder="Apellidos*" formControlName="apellidos">
+      <small><p style="color: red;"
+        *ngIf="searchFG.controls.apellidos.errors?.required && searchFG.controls.apellidos.touched">
+      Este campo es obligatorio.</p></small>
     </div>
     <div class="col-md-2 col-lg-2 col-xs-10 pb-1">
       <input type="text" class="form-control" placeholder="No. lápida" formControlName="noLapida">
@@ -62,19 +52,24 @@
         <mat-datepicker #picker2></mat-datepicker>
     <div class="col-md-3 col-lg-3 col-xs-10 pb-1">
       <select class="custom-select" formControlName="sector" (change)="onChangeSector($event.target.value)">
-        <option selected value=""> Seleccione un sector</option>
+        <option selected value="null"> Seleccione un sector</option>
         <option *ngFor="let sec of this.lista_sector" value={{sec.id_sector}}> {{sec.nombre}} </option>
       </select>
     </div>
     <div class="col-md-3 col-lg-3 col-xs-10 pb-1">
       <select class=" custom-select" formControlName="tipoSepultura" (change)="onChangeSepultura($event.target.value)">
-        <option selected value=""> Seleccione un tipo</option>
+        <option selected value="null"> Seleccione un tipo</option>
         <option *ngFor="let sep of this.lista_sepultura" value={{sep.id_tip_sepultura}}> {{sep.nombre}} </option>
       </select>
     </div>
   </div>
   <div class="row">
-    <div class="col-12 text-center pb-2 pt-5">
+    <div class="col-12 text-right pb-1 pt-1">
+      <button type="button" class="btn" (click)="limpiarFiltros()">LIMPIAR FILTROS</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 text-center pb-2 pt-2">
       <button type="submit" class="search-button">BUSCAR</button>
     </div>
   </div>
