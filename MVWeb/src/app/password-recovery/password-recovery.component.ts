@@ -44,7 +44,7 @@ export class PasswordRecoveryComponent implements OnInit {
 
   recuperarContrasena() {
     console.log(this.recuperar_form.value.correo);
-    let id_cementerio = JSON.parse(localStorage.getItem('camposanto')).camposanto.toString()
+    let id_cementerio = JSON.parse(localStorage.getItem('info')).camposanto.toString()
     this._recuperarContrasena
     .recuperarContrasenaCorreo(this.recuperar_form.value.correo, id_cementerio)
     .pipe(
