@@ -42,8 +42,9 @@ import { PaquetesComponent } from './paquetes/paquetes.component';
 import { PaqueteModalComponent } from './home/paquete-modal/paquete-modal.component';
 import { ContactoComponent } from './contacto/contacto.component';
 import { NosotrosComponent } from './nosotros/nosotros.component'
-import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
-import {GoogleMapsModule} from '@angular/google-maps'; 
+import { AgmCoreModule } from '@agm/core';
+import { YouTubePlayerModule } from '@angular/youtube-player';
+import { YoutubePostComponent } from './muro-fallecido/youtube-post/youtube-post.component';
 
 export const MY_DATE_FORMATS = {
     parse: {
@@ -75,6 +76,7 @@ export const MY_DATE_FORMATS = {
         PaqueteModalComponent,
         ContactoComponent,
         NosotrosComponent,
+        YoutubePostComponent,
 
     ],
     exports: [
@@ -117,6 +119,7 @@ export const MY_DATE_FORMATS = {
         SlickCarouselModule,
         MatMomentDateModule,
         MatNativeDateModule,
+        YouTubePlayerModule,
         AgmCoreModule.forRoot({
           apiKey: 'AIzaSyD4O-t27PSlyGg2_K6fHbPKlO9Tu_x5h-4',
           libraries: ['places', 'drawing', 'geometry'],

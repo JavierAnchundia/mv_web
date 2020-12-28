@@ -192,6 +192,16 @@
         [user_id]="this.USERID" 
         [post_id]="post.id_audiocontent.id_audio">
       </app-audio-post>
+      <app-youtube-post 
+        [author_first_name]="post.id_usuario.first_name" 
+        [author_last_name]="post.id_usuario.last_name"
+        [dateCreated]="post.fecha_publicacion" 
+        *ngIf="post.id_youtube != null" [message]="post.id_youtube.mensaje" 
+        [video]="post.id_youtube.video" 
+        [author_id]="post.id_usuario.id"
+        [user_id]="this.USERID" 
+        [post_id]="post.id_youtube.id_video">
+      </app-youtube-post>
     </div>
     <div>
     </div>
