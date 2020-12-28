@@ -1,0 +1,35 @@
+.border-title {
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-color: rgb(163, 196, 66);
+}
+
+input.form-control {
+  box-shadow: none;
+  border: none;
+  font-weight: normal;
+  font-size: 11px;
+  background-color: #edeef0;
+  color: #87868a;
+  height: 45px;
+}
+
+.btn-send {
+  background-color: #a3c442;
+  border: none;
+  color: white;
+  padding: 15px 35px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
+textarea.form-control {
+  box-shadow: none;
+  border: none;
+  font-weight: normal;
+  font-size: 11px;
+  background-color: #edeef0;
+  color: #87868a;
+}
