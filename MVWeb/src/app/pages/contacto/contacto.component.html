@@ -3,24 +3,96 @@
     <h2>CONTAC<span class="border-title">TO</span></h2>
   </div>
 </div>
-<div class="container-fluid">
-  <div class="row ml-5 mr-5">
-    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-      <input placeholder="Nombre" type="text" class="form-control">
-    </div>
-    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-      <input placeholder="Correo electrónico" type="text" class="form-control">
-    </div>
 
-  </div>
-  <div class="row pt-3 ml-5 mr-5">
-    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-      <textarea placeholder="Escribir aquí" type="text" class="form-control" rows="6"></textarea>
+
+<div class="container-fluid">
+  <form [formGroup]="form_contacto" (submit)="submit()" enctype="multipart/form-data">
+    <div class="row ml-5 mr-5">
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <input formControlName="nombre" placeholder="Nombre" type="text" class="form-control form-control-sm">
+        <span class="text-danger" 
+                    *ngIf="
+                      form_contacto.controls['nombre'].touched &&
+                      form_contacto.controls['nombre'].hasError('required')
+                    "
+                  >
+                    <small>Nombre es requerido!</small>
+          </span>
+        
+      </div>
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 spaceTop">
+        <input formControlName="correo" placeholder="Correo electrónico" type="text"  class="form-control form-control-sm">
+        <span class="text-danger" 
+                    *ngIf="
+                      form_contacto.controls['correo'].touched &&
+                      form_contacto.controls['correo'].hasError('required')"
+                  >
+                    <small>Email es requerido!</small>
+                  </span>
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      form_contacto.controls['correo'].touched &&
+                      form_contacto.controls['correo'].hasError('email')
+                    "
+                  >
+                    <small>Email no valido!</small>
+                  </span>
+      </div>
+  
     </div>
-  </div>
-  <div class="row">
-    <div class="col-12 text-center pb-2 pt-2">
-      <button type="submit" class="btn-send">ENVIAR</button>
+    
+    <div class=" pt-3 row ml-5 mr-5">
+        
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+          <div class="custom-file">
+            <input
+              formControlName="imagen"
+              type="file"
+              class="custom-file-input form-control form-control-sm"
+              (change)="selectFile($event)"
+              lang="es"
+              
+            />
+            <label
+              class="custom-file-label col-form-label col-form-label-sm textLabel"
+              for="customFileLang"
+              >{{ nameImagen }}</label
+            >
+          </div>
+          
+        </div>
     </div>
-  </div>
+    
+  
+    <div class="row pt-3 ml-5 mr-5">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <textarea formControlName="mensaje" placeholder="Escribir aquí" type="text" class="form-control" rows="6"></textarea>
+        <span class="text-danger" 
+                    *ngIf="
+                      form_contacto.controls['mensaje'].touched &&
+                      form_contacto.controls['mensaje'].hasError('required')"
+                  >
+                    <small>Mensaje es requerido!</small>
+                  </span>
+
+        <span class="text-danger" 
+                    *ngIf="
+                      form_contacto.controls['mensaje'].touched &&
+                      form_contacto.controls['mensaje'].hasError('maxlength')"
+                  >
+                    <small>Máximo 500 palabras!</small>
+                  </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-center pb-2 pt-2">
+        <button 
+        id="enviarButton"
+        type="submit"
+        [disabled]="!form_contacto.valid"
+        class="btn">ENVIAR</button>
+      </div>
+    </div>    
+  </form>
 </div>

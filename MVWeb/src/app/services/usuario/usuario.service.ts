@@ -200,4 +200,14 @@ export class UsuarioService {
     return this.http.put(url, info, httpOptions);
   }
 
+  obtenerUserInfo(username){
+    const url = URL_SERVICIOS.userInfo + username + '/';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + this.getToken(),
+      })
+    };
+    return this.http.get(url, httpOptions);
+  }
+
 }

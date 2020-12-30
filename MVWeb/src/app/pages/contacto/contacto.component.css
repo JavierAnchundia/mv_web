@@ -14,7 +14,25 @@ input.form-control {
   height: 45px;
 }
 
+.textLabel{
+  box-shadow: none;
+  font-weight: normal;
+  font-size: 11px;
+  color: #87868a;
+}
+
 .btn-send {
+  background-color: #a3c442;
+  border: none;
+  color: white;
+  padding: 15px 35px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.btn{
   background-color: #a3c442;
   border: none;
   color: white;
@@ -32,4 +50,10 @@ textarea.form-control {
   font-size: 11px;
   background-color: #edeef0;
   color: #87868a;
+}
+
+@media (max-width: 767px) {
+  .spaceTop {
+      margin-top:20px;
+  }
 }

@@ -48,6 +48,8 @@ const URL_SERVICIOS = {
     paquetes: URL_ROOT + '/paquetes_list/',
     paquetes_recientes: URL_ROOT + '/paquetes_rec/',
     geolocalizacion_camp: URL_ROOT + '/geolocalizacion_camp/',
+    contacto: URL_ROOT + '/contactoPost/',
+    userInfo: URL_ROOT + '/usuario/',
 
 };
 
