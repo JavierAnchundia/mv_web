@@ -95,7 +95,6 @@ export class ContactoComponent implements OnInit {
     const contacto = new FormData();
     if(this.archivo){contacto.append('imagen', this.archivo);
     console.log("Tobirama")}
-    contacto.append('img_base64', 'none');
     contacto.append('mensaje', this.form_contacto.value.mensaje);
     contacto.append('fecha_emision', this.myDate);
     contacto.append('id_camposanto', JSON.parse(localStorage.getItem('info')).camposanto);
