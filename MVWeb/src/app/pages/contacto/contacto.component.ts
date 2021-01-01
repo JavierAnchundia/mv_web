@@ -58,8 +58,39 @@ export class ContactoComponent implements OnInit {
 
 
   selectFile(event) {
+    if (event.target.files && event.target.files.length) {
+
     this.archivo = event.target.files[0];
     this.nameImagen = event.target.files[0].name;
+    this.checkFileType();
+
+    }
+  }
+
+  checkFileType() {
+    var ext = this.nameImagen.substring(this.nameImagen.lastIndexOf('.') + 1);
+
+    if (!this.validateFile(ext)) {
+      Swal.fire("Formato no válido", "El formato del archivo no está permitido", "error");
+      this.archivo = null;
+      this.nameImagen = null;
+      this.nameImagen = "Seleccione Imagen (Opcional)"
+      this.form_contacto.patchValue({
+        imagen: ""
+      });     
+
+    }
+  }
+
+  validateFile(ext: String) {
+  
+      if (ext.toLowerCase() == 'png' || ext.toLowerCase() == 'jpg' || ext.toLowerCase() == 'jpeg') {
+        console.log('valid')
+        return true;
+      }
+    else {
+      return false;
+    }
   }
 
   async obtenerIDUser(){

@@ -40,6 +40,7 @@ const URL_SERVICIOS = {
     del_video: URL_ROOT + '/hvideo_del/',
     del_mensaje: URL_ROOT + '/hmensaje_del/',
     del_audio: URL_ROOT + '/haudio_del/',
+    del_youtube: URL_ROOT + '/hyoutube_del/',
     favoritos: URL_ROOT + '/favoritos/',
     favoritos_list: URL_ROOT + '/favoritos_list/',
     favoritos_del: URL_ROOT + '/favoritos_del/',

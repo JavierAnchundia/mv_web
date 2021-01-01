@@ -139,5 +139,10 @@ export class HomenajeService {
     return this.http.delete(url);
   }
   
+  deleteYoutube(id_youtube){
+    let url = URL_SERVICIOS.del_youtube + id_youtube +'/'
+
+    return this.http.delete(url);
+  }
 
 }
