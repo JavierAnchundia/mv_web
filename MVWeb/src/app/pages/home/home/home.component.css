@@ -137,7 +137,7 @@ h2 {
 }
 
 .suggestions {
-  background: #a3c442;
+  background: #fffffff8;
   margin-bottom: 3px;
   padding-bottom: 5px;
 }
@@ -220,3 +220,25 @@ a:hover {
   text-align: center;
   justify-content: center;
 }
+
+.sebm-google-map-container {
+  height: 300px;
+}
+
+.border-title {
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-color: rgb(163, 196, 66);
+}
+
+.content {
+display: flex;
+}
+
+.content img {
+margin-right: 10px;
+display: block;
+}
+
+.content h3,
+.content p {margin: 0;}
