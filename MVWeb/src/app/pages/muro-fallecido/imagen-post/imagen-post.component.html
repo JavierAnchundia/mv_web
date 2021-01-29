@@ -4,6 +4,9 @@
   <div class="d-flex justify-content-between">
     <div >
       <mat-card-title>{{this.author_first_name|uppercase}} {{this.author_last_name|uppercase}} </mat-card-title>
+      <div *ngIf="!gratuito">
+        <span class="badge rounded-pill"><i class="fa fa-star" id="star"></i></span>
+      </div>
     </div>
     <div>
       <mat-card-subtitle>{{this.dateCreated| date:'M/d/yyyy HH:mm a':'+0:00' }}</mat-card-subtitle>

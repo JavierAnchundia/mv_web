@@ -17,10 +17,11 @@ export class ImagenPostComponent implements OnInit {
   @Input() author_id: String;
   @Input() user_id: String;
   @Input() post_id: String;
+  @Input() gratuito;
 
 
   url_backend: String = URL_SERVICIOS.url_backend;
-  
+
   constructor(
     public _homenaje: HomenajeService,
 

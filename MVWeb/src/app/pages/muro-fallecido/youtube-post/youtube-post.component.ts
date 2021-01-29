@@ -17,6 +17,7 @@ export class YoutubePostComponent implements OnInit {
   @Input() author_id: String;
   @Input() user_id: String;
   @Input() post_id: String;
+  @Input() gratuito;
 
   constructor(
     public homenaje: HomenajeService,

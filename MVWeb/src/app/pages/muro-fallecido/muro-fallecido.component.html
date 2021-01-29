@@ -153,54 +153,57 @@
       <p>No hay publicaciones en este perfil</p>
     </div>
     <div *ngFor="let post of this.homenajes">
-      <app-text-post 
-        [author_first_name]="post.id_usuario.first_name" 
+      <app-text-post
+        [author_first_name]="post.id_usuario.first_name"
         [author_last_name]="post.id_usuario.last_name"
-        [dateCreated]="post.fecha_publicacion" 
-        *ngIf="post.id_textcontent != null" [message]="post.id_textcontent.mensaje" 
+        [dateCreated]="post.fecha_publicacion"
+        *ngIf="post.id_textcontent != null" [message]="post.id_textcontent.mensaje"
         [author_id]="post.id_usuario.id" [user_id]="this.USERID"
         [post_id]="post.id_textcontent.id_mensaje">
       </app-text-post>
-      <app-imagen-post 
-        [author_first_name]="post.id_usuario.first_name" 
+      <app-imagen-post
+        [author_first_name]="post.id_usuario.first_name"
         [author_last_name]="post.id_usuario.last_name"
-        [dateCreated]="post.fecha_publicacion" 
-        *ngIf="post.id_imagecontent != null" [message]="post.id_imagecontent.mensaje" 
-        [imagen]="post.id_imagecontent.imagen" 
+        [dateCreated]="post.fecha_publicacion"
+        *ngIf="post.id_imagecontent != null" [message]="post.id_imagecontent.mensaje"
+        [imagen]="post.id_imagecontent.imagen"
         [author_id]="post.id_usuario.id"
-        [user_id]="this.USERID" 
+        [user_id]="this.USERID"
         [post_id]="post.id_imagecontent.id_imagen"
+        [gratuito]="post.gratuito"
         ></app-imagen-post>
-      <app-video-post 
-        [author_first_name]="post.id_usuario.first_name" 
+      <app-video-post
+        [author_first_name]="post.id_usuario.first_name"
         [author_last_name]="post.id_usuario.last_name"
-        [dateCreated]="post.fecha_publicacion" 
-        *ngIf="post.id_videocontent != null" [message]="post.id_videocontent.mensaje" 
-        [video]="post.id_videocontent.video" 
+        [dateCreated]="post.fecha_publicacion"
+        *ngIf="post.id_videocontent != null" [message]="post.id_videocontent.mensaje"
+        [video]="post.id_videocontent.video"
         [author_id]="post.id_usuario.id"
-        [user_id]="this.USERID" 
+        [user_id]="this.USERID"
         [post_id]="post.id_videocontent.id_video">
       </app-video-post>
-      <app-audio-post 
-        [author_first_name]="post.id_usuario.first_name" 
+      <app-audio-post
+        [author_first_name]="post.id_usuario.first_name"
         [author_last_name]="post.id_usuario.last_name"
-        [dateCreated]="post.fecha_publicacion" 
+        [dateCreated]="post.fecha_publicacion"
         *ngIf="post.id_audiocontent != null"
-        [message]="post.id_audiocontent.mensaje" 
-        [audio]="post.id_audiocontent.audio" 
+        [message]="post.id_audiocontent.mensaje"
+        [audio]="post.id_audiocontent.audio"
         [author_id]="post.id_usuario.id"
-        [user_id]="this.USERID" 
+        [user_id]="this.USERID"
         [post_id]="post.id_audiocontent.id_audio">
       </app-audio-post>
-      <app-youtube-post 
-        [author_first_name]="post.id_usuario.first_name" 
+      <app-youtube-post
+        [author_first_name]="post.id_usuario.first_name"
         [author_last_name]="post.id_usuario.last_name"
-        [dateCreated]="post.fecha_publicacion" 
-        *ngIf="post.id_youtube != null" [message]="post.id_youtube.mensaje" 
-        [video]="post.id_youtube.video" 
+        [dateCreated]="post.fecha_publicacion"
+        *ngIf="post.id_youtube != null" [message]="post.id_youtube.mensaje"
+        [video]="post.id_youtube.video"
         [author_id]="post.id_usuario.id"
-        [user_id]="this.USERID" 
-        [post_id]="post.id_youtube.id_video">
+        [user_id]="this.USERID"
+        [post_id]="post.id_youtube.id_video"
+        [gratuito]="post.gratuito"
+        >
       </app-youtube-post>
     </div>
     <div>
