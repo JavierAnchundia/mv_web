@@ -35,6 +35,8 @@ export class ContactoComponent implements OnInit {
       mensaje: ["", Validators.compose([Validators.required, Validators.maxLength(500)])],
       
     });
+
+    this.obtenerIDUser();
   }
 
   submit() {
@@ -42,7 +44,7 @@ export class ContactoComponent implements OnInit {
       this.myDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
       console.log(this.myDate);
 
-      this.obtenerIDUser();
+      this.postContacto();
 
   }
 
@@ -102,8 +104,8 @@ export class ContactoComponent implements OnInit {
         Swal.close()
         Swal.fire(        
           {
-            icon: 'error',
-            title: this.errorTranslateHandler(err.error[Object.keys(err.error)[0]][0]),
+            icon: 'warning',
+            title: "¡Por favor inicie sesión!",
           });
       
         console.log(err.error[Object.keys(err.error)[0]][0]);
@@ -112,8 +114,11 @@ export class ContactoComponent implements OnInit {
     .subscribe(
       (data) => {
         this.idUsuario = data['id'];
-        this.postContacto();
-        
+        this.form_contacto.patchValue({
+          nombre: data['first_name'] + " " + data['last_name'],
+          correo: data['email']
+        });
+        console.log(data)
       }, error =>{
         console.error('Error:' + error);
                     
