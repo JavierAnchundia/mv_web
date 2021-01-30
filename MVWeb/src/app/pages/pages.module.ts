@@ -45,6 +45,7 @@ import { NosotrosComponent } from './nosotros/nosotros.component'
 import { AgmCoreModule } from '@agm/core';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { YoutubePostComponent } from './muro-fallecido/youtube-post/youtube-post.component';
+import { environment } from 'src/environments/environment';
 
 export const MY_DATE_FORMATS = {
     parse: {
@@ -56,7 +57,7 @@ export const MY_DATE_FORMATS = {
       dateA11yLabel: 'LL',
       monthYearA11yLabel: 'MMMM YYYY'
     },
-  }; 
+  };
 
 @NgModule({
     declarations: [
@@ -121,13 +122,13 @@ export const MY_DATE_FORMATS = {
         MatNativeDateModule,
         YouTubePlayerModule,
         AgmCoreModule.forRoot({
-          apiKey: 'AIzaSyD4O-t27PSlyGg2_K6fHbPKlO9Tu_x5h-4',
+          apiKey: environment.api_key,
           libraries: ['places', 'drawing', 'geometry'],
         }),
     ],
     providers: [
         { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
-        
+
     ],
 })
 export class PagesModule { }
